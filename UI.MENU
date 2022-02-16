@@ -8270,13 +8270,13 @@ menu
 		area 0 0 1024 768
 		mosaic "START"
 	}
-	label
-	{
+	--label
+	--{
 		--area 644 202 382 384
-		bam "BIGLOGO"
-		sequence 0
-		frame lua "getBigLogo()"
-	}
+		--bam "BIGLOGO"
+		--sequence 0
+		--frame lua "getBigLogo()"
+	--}
 	label
 	{
 		enabled "startEngine:GetCampaign() == const.START_CAMPAIGN_BG"
