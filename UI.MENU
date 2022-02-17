@@ -11926,6 +11926,7 @@ function setChapterBackground(id)
 	chapterID = id
 end
 function moveChapterTextArea() --BGEE.lua for reference
+		isDreamSequence = false --misnomer, not about dreams but particular chapter graphics
 		Infinity_SetArea('chapterIntroduction', 145, 258, 735, 310) --prologue, chapter 1 and 8
 	if chapterID == 2 then Infinity_SetArea('chapterIntroduction', 661, 238, 332, 235) end
 	if chapterID == 3 then Infinity_SetArea('chapterIntroduction', 298, 443, 696, 162) end
@@ -11941,14 +11942,17 @@ function moveChapterTextArea() --BGEE.lua for reference
 	if chapterID == 12 then Infinity_SetArea('chapterIntroduction', 42, 256, 442, 191) end
 	if chapterID == 13 then Infinity_SetArea('chapterIntroduction', 145, 258, 735, 310) end
 	
-	if chapterID> 21 and chapterID <60  then Infinity_SetArea('chapterIntroduction', 130,452, 732, 232) end
+	if chapterID> 21 and chapterID <60 or chapterID == 62 and Infinity_GetMaxChapterPage() < 6  then --fix for improved Ulgoth's Beard from SCS
+		Infinity_SetArea('chapterIntroduction', 130,452, 732, 232) 
+		isDreamSequence = true
+	end
 	
 	local x,y,w,h = Infinity_GetArea('chapterIntroduction')	
 	Infinity_SetArea('text_CHAPTERSCROLL',x, y, w, h)
 	Infinity_SetArea('chapterSplit', nil, nil, w-40, -1)
 end
 function getChapterTitle()
-	if chapterID >21 and chapterID<60  then return nil
+	if chapterID >21 and chapterID<60 or chapterID == 62 and Infinity_GetMaxChapterPage() < 6  then return nil
 	elseif chapterID == 13 then return JFStrings.Chapter_Epilogue
 	else return chapterTitle end
 end
@@ -11991,7 +11995,6 @@ menu
     }
 	label
     {
-		enabled "chapterID< 21 and chapterID> 59"
         name "TT_CHAPTER"
 		area 180 58 655 43
 		--text "getChapterTitle()"
@@ -12067,7 +12070,7 @@ menu
 	button
 	{
 		on return
-		enabled "chapterID< 21 or chapterID> 59"
+		enabled "isDreamSequence == false"
 		area 542 672 200 47
 		bam 'BIGBUTT'
 		ScaleToClip		
@@ -12083,7 +12086,7 @@ menu
 	}
 	button
 	{
-		enabled "chapterID< 21 or chapterID> 59"
+		enabled "isDreamSequence == false"
 		area 284 672 200 47
 		bam 'BIGBUTT'
 		ScaleToClip
@@ -12101,7 +12104,7 @@ menu
 	button
 	{
 		on return
-		enabled "chapterID> 21 and chapterID< 60"
+		enabled "isDreamSequence == true"
 		area 692 715 170 29
 		bam 'GUIDRMC'
 		ScaleToClip		
@@ -12116,7 +12119,7 @@ menu
 	}
 	button
 	{
-		enabled "chapterID> 21 and chapterID< 60"
+		enabled "isDreamSequence == true"
 		area 484 715 170 29
 		bam 'GUIDRMC'
 		ScaleToClip
