@@ -354,7 +354,7 @@ menu
 			}
 		}
 		enabled "characterViewable"
-		area 98 136 238 188
+		area 96 136 238 188
 		rowheight dynamic
 		table "recordAbilities"
 		hidehighlight
@@ -5197,6 +5197,7 @@ function itemDescLeftButtonAction()
 		if(itemDesc.item.identified == 0) then
 			Infinity_OnSpellIdentify(itemDesc.id)
 			itemDesc.item = characters[id].equipment[selectedSlot].item --update itemDesc item
+			computeSplitPosition(itemDesc.item.description, 'itemDescriptionSplit')
 		else
 			Infinity_PushMenu('ITEM_ABILITIES',0,0)
 		end
@@ -5228,6 +5229,7 @@ function itemDescRightButtonAction()
 		if(itemDesc.item.identified == 0) then
 			Infinity_OnScrollIdentify(itemDesc.id)
 			itemDesc.item = characters[id].equipment[selectedSlot].item --update itemDesc item
+			computeSplitPosition(itemDesc.item.description, 'itemDescriptionSplit')
 		else
 			Infinity_PopMenu()
 			Infinity_OnUseButtonClick(itemDesc.id, itemDesc.useMode)
@@ -5852,8 +5854,8 @@ menu
 		Infinity_SetArea('lootContainerIcon', 4, 14, 100, 100)
 		Infinity_SetArea('lootBigContainerIcon', 4, 14, 100, 100)
 		for i=0, 5 do
-			Infinity_SetArea('portrait' ..i, 11, 16+i*101, 65, 91)
-			Infinity_SetArea('portrait' ..i.. '_bg' , 6, 12+i*101, 73, 101)
+			Infinity_SetArea('portrait' ..i, 9, 16+i*101, 65, 91)
+			Infinity_SetArea('portrait' ..i.. '_bg' , 4, 12+i*101, 73, 101)
 			Infinity_SetArea('portrait' ..i.. '_reform' , 21+i*79, 47, 61, 91)
 		end
 		movedPortrait = false
@@ -5896,7 +5898,7 @@ menu
 	label
 	{
 		name "portrait0_bg"
-		area 6 12 73 101
+		area 4 12 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 0"
@@ -5905,7 +5907,7 @@ menu
 	button
 	{
 		name "portrait0"
-		area 11 16 65 91
+		area 9 16 65 91
 		portrait 0
 		enabled "Infinity_GetNumCharacters() > 0"
 		glow lua "draggedPortrait and draggedPortrait ~= 0"
@@ -5923,7 +5925,7 @@ menu
 	label
 	{
 		name "portrait1_bg"
-		area 6 113 73 101
+		area 4 113 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 1"
@@ -5932,7 +5934,7 @@ menu
 	button
 	{
 		name "portrait1"
-		area 11 117 65 91
+		area 9 117 65 91
 		portrait 1
 		enabled "Infinity_GetNumCharacters() > 1"
 		glow lua "draggedPortrait and draggedPortrait ~= 1"
@@ -5950,7 +5952,7 @@ menu
 	label
 	{
 		name "portrait2_bg"
-		area 6 214 73 101
+		area 4 214 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 2"
@@ -5959,7 +5961,7 @@ menu
 	button
 	{
 		name "portrait2"
-		area 11 218 65 91
+		area 9 218 65 91
 		portrait 2
 		enabled "Infinity_GetNumCharacters() > 2"
 		glow lua "draggedPortrait and draggedPortrait ~= 2"
@@ -5977,7 +5979,7 @@ menu
 	label
 	{
 		name "portrait3_bg"
-		area 6 315 73 101
+		area 4 315 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 3"
@@ -5986,7 +5988,7 @@ menu
 	button
 	{
 		name "portrait3"
-		area 11 319 65 91
+		area 9 319 65 91
 		portrait 3
 		enabled "Infinity_GetNumCharacters() > 3"
 		glow lua "draggedPortrait and draggedPortrait ~= 3"
@@ -6004,7 +6006,7 @@ menu
 	label
 	{
 		name "portrait4_bg"
-		area 6 416 73 101
+		area 4 416 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 4"
@@ -6013,7 +6015,7 @@ menu
 	button
 	{
 		name "portrait4"
-		area 11 420 65 91
+		area 9 420 65 91
 		portrait 4
 		enabled "Infinity_GetNumCharacters() > 4"
 		glow lua "draggedPortrait and draggedPortrait ~= 4"
@@ -6031,7 +6033,7 @@ menu
 	label
 	{
 		name "portrait5_bg"
-		area 6 517 73 101
+		area 4 517 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 5"
@@ -6040,7 +6042,7 @@ menu
 	button
 	{
 		name "portrait5"
-		area 11 521 65 91
+		area 9 521 65 91
 		portrait 5
 		enabled "Infinity_GetNumCharacters() > 5"
 		glow lua "draggedPortrait and draggedPortrait ~= 5"
@@ -6074,6 +6076,7 @@ menu
 {
 	name 'RIGHT_SIDEBAR_BOTTOM'
 	align right bottom
+	offset -3 0
 	ignoreEsc
 	--Buttons form a menu aligned bottom right, with height = 197, y is offset from top of that menu.
 	button
@@ -6608,7 +6611,7 @@ menu
 			}
 		}
 		area 554 228 254 283
-		enabled "savedHeight >= 283"
+		enabled "savedHeight > 282"
 		rowheight	dynamic
 		hidehighlight
 		table		"buildInventoryStats()"
@@ -6748,6 +6751,7 @@ menu
 				area 0 0 212 106
 			}
 		}
+		enabled "not shouldGreyOutInventory()"
 		area 610 570 208 104
 		hidehighlight
 		rowheight	106
@@ -8215,6 +8219,16 @@ menu
 		local campaign = startEngine:GetCampaign()
 		return startCampaignData[campaign].sidebar
 	end
+	function checkIfBaseGame()
+		if startEngine:GetCampaign() ~= const.START_CAMPAIGN_BG and startEngine:GetCampaign() ~= const.START_CAMPAIGN_SOD and  startEngine:GetCampaign() ~= const.START_CAMPAIGN_BP then return true
+		else 
+			return false 
+		end
+	end
+	function getCampaignText()
+	 if startEngine:GetCampaign() == 2 then return t("BALDURS_GATE_BUTTON")
+	 else return  t("BLACK_PITS_BUTTON") end
+	end
 
 	usingSODStartMenu = 1
 `
@@ -8269,6 +8283,19 @@ menu
 	{
 		area 0 0 1024 768
 		mosaic "START"
+	}
+	label
+	{
+		enabled "checkIfBaseGame()"
+		area 0 0 1024 768
+		mosaic "START2"
+	}
+	label
+	{
+		area 844 600 147 35
+		text style "normal"
+		text align center center
+		text lua "startEngine:GetCampaign()"
 	}
 	--label
 	--{
@@ -8396,7 +8423,6 @@ menu
 		sequenceonce lua "Infinity_RandomNumber(0, 3)"
 		ScaleToClip
 		area 380 502 264 71
-		sequence lua "getCampaignButtonSequence()"
 		pad 10 8 10 8
 		text style "big_button"
 		text shadow 1
@@ -8406,6 +8432,25 @@ menu
 		action 
 		"
 			startEngine:OnQuitButtonClick()
+		"
+	}
+	--Black Pits/Baldur's Gate button for base game
+	button
+	{
+		enabled "not e:IsTouchUI() and checkIfBaseGame()"
+		bam GUISTDRC
+		sequenceonce lua "Infinity_RandomNumber(0, 3)"
+		ScaleToClip
+		area 380 590 264 71
+		pad 10 8 10 8
+		text style "big_button"
+		text shadow 1
+		text lua "getCampaignText()"
+		on escape
+		action 
+		"
+		 if startEngine:GetCampaign() == 2 then startEngine:OnSoAButtonClick(true)
+		else startEngine:OnTBPButtonClick(true) end
 		"
 	}
 	button
@@ -8427,7 +8472,7 @@ menu
 		area 380 573 116 116
 		align center center
 		tooltip lua "getCampaignTooltip(1)"
-		enabled "not e:IsTouchUI()"
+		enabled "not e:IsTouchUI() and not checkIfBaseGame()"
 		action 
 		"
 			onCampaignButton(1)
@@ -8449,7 +8494,7 @@ menu
 		area 528 573 116 116
 		align center center
 		tooltip lua "getCampaignTooltip(2)"
-		enabled "not e:IsTouchUI()"
+		enabled "not e:IsTouchUI() and not checkIfBaseGame()"
 		action 
 		"
 			onCampaignButton(2)
@@ -8492,6 +8537,12 @@ menu
 	{
 		area 0 0 1024 768
 		mosaic "START"
+	}
+	label
+	{
+		enabled "checkIfBaseGame()"
+		area 0 0 1024 768
+		mosaic "START2"
 	}
 	label
 	{
@@ -13058,7 +13109,7 @@ menu
 `
 function getDonationFrame()
 	if(store.hasDonated ~= nil and store.hasDonated == 1) then
-		return 1
+		return 17
 	else
 		return 0
 	end
@@ -13145,12 +13196,14 @@ menu
 		text style "label"
 		text point 27
 	}
-	--label
-	--{
-		--area 156 195 197 159
-		--bam "DONATE"
-		--frame lua "getDonationFrame()"
-	--}
+	label
+	{
+		enabled "checkIfBaseGame()"
+		area 108 178 284 187
+		bam "DONATE"
+		ScaleToClip
+		frame lua "getDonationFrame()"
+	}
 	label
 	{
 		area 82 418 310 36
@@ -13296,7 +13349,7 @@ menu
 		"
 			storeScreen:OnDonateButtonClick()
 			toggleRepCheatSheet = 0
-			Infinity_PlayMovie('donate', 'donatemovie' )
+			if not checkIfBaseGame() then Infinity_PlayMovie('donate', 'donatemovie' ) end
 		"
 	}
 	label
@@ -13318,7 +13371,7 @@ menu
 	movie
 	{
 		name "donatemovie"
-		area 110 177 282 189
+		area 108 178 284 187
 	}
 }
 `
