@@ -8290,13 +8290,6 @@ menu
 		area 0 0 1024 768
 		mosaic "START2"
 	}
-	label
-	{
-		area 844 600 147 35
-		text style "normal"
-		text align center center
-		text lua "startEngine:GetCampaign()"
-	}
 	--label
 	--{
 		--area 644 202 382 384
