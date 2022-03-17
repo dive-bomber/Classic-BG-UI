@@ -5854,8 +5854,8 @@ menu
 		Infinity_SetArea('lootContainerIcon', 4, 14, 100, 100)
 		Infinity_SetArea('lootBigContainerIcon', 4, 14, 100, 100)
 		for i=0, 5 do
-			Infinity_SetArea('portrait' ..i, 9, 16+i*101, 65, 91)
-			Infinity_SetArea('portrait' ..i.. '_bg' , 4, 12+i*101, 73, 101)
+			Infinity_SetArea('portrait' ..i, 11, 16+i*101, 65, 91)
+			Infinity_SetArea('portrait' ..i.. '_bg' , 6, 12+i*101, 73, 101)
 			Infinity_SetArea('portrait' ..i.. '_reform' , 21+i*79, 47, 61, 91)
 		end
 		movedPortrait = false
@@ -5887,7 +5887,7 @@ menu
 	label
 	{
 		name 'rightSidebarBackground'
-		area 0 0 80 1536
+		area 0 0 83 1536
 		mosaic GUIWRSP
 	}
 	label
@@ -5898,7 +5898,7 @@ menu
 	label
 	{
 		name "portrait0_bg"
-		area 4 12 73 101
+		area 6 12 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 0"
@@ -5907,7 +5907,7 @@ menu
 	button
 	{
 		name "portrait0"
-		area 9 16 65 91
+		area 11 16 65 91
 		portrait 0
 		enabled "Infinity_GetNumCharacters() > 0"
 		glow lua "draggedPortrait and draggedPortrait ~= 0"
@@ -5925,7 +5925,7 @@ menu
 	label
 	{
 		name "portrait1_bg"
-		area 4 113 73 101
+		area 6 113 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 1"
@@ -5934,7 +5934,7 @@ menu
 	button
 	{
 		name "portrait1"
-		area 9 117 65 91
+		area 11 117 65 91
 		portrait 1
 		enabled "Infinity_GetNumCharacters() > 1"
 		glow lua "draggedPortrait and draggedPortrait ~= 1"
@@ -5952,7 +5952,7 @@ menu
 	label
 	{
 		name "portrait2_bg"
-		area 4 214 73 101
+		area 6 214 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 2"
@@ -5961,7 +5961,7 @@ menu
 	button
 	{
 		name "portrait2"
-		area 9 218 65 91
+		area 11 218 65 91
 		portrait 2
 		enabled "Infinity_GetNumCharacters() > 2"
 		glow lua "draggedPortrait and draggedPortrait ~= 2"
@@ -5979,7 +5979,7 @@ menu
 	label
 	{
 		name "portrait3_bg"
-		area 4 315 73 101
+		area 6 315 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 3"
@@ -5988,7 +5988,7 @@ menu
 	button
 	{
 		name "portrait3"
-		area 9 319 65 91
+		area 11 319 65 91
 		portrait 3
 		enabled "Infinity_GetNumCharacters() > 3"
 		glow lua "draggedPortrait and draggedPortrait ~= 3"
@@ -6006,7 +6006,7 @@ menu
 	label
 	{
 		name "portrait4_bg"
-		area 4 416 73 101
+		area 6 416 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 4"
@@ -6015,7 +6015,7 @@ menu
 	button
 	{
 		name "portrait4"
-		area 9 420 65 91
+		area 11 420 65 91
 		portrait 4
 		enabled "Infinity_GetNumCharacters() > 4"
 		glow lua "draggedPortrait and draggedPortrait ~= 4"
@@ -6033,7 +6033,7 @@ menu
 	label
 	{
 		name "portrait5_bg"
-		area 4 517 73 101
+		area 6 517 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 5"
@@ -6042,7 +6042,7 @@ menu
 	button
 	{
 		name "portrait5"
-		area 9 521 65 91
+		area 11 521 65 91
 		portrait 5
 		enabled "Infinity_GetNumCharacters() > 5"
 		glow lua "draggedPortrait and draggedPortrait ~= 5"
@@ -11830,10 +11830,10 @@ menu
 `
 	function setWorldmapSize()
 		if isScaledUI() then
-			Infinity_SetArea('worldmap_space', 28, 96, 1006, 664)
+			Infinity_SetArea('worldmap_space', 0, 96, 1006, 664)
 		else 
 			local screenWidth, screenHeight = Infinity_GetScreenSize()
-			Infinity_SetArea('worldmap_space', 28, 96, 1006, screenHeight-96)
+			Infinity_SetArea('worldmap_space', 0, 96, 1006, screenHeight-96)
 		end
 	end
 `
@@ -11850,7 +11850,7 @@ menu
 	onClose "TT_DestroyTitleChars('WORLD_MAP_TITLE', 'TEMPLATE_titlechar_WORLD_MAP')"
 	label
 	{
-		area 0 0 1034 96
+		area 0 0 1006 96
 		mosaic GUIMAPWB
 	}
 	template
@@ -11906,7 +11906,7 @@ menu
 	map
 	{
 		name "worldmap_space"
-		area 28 96 1006 664
+		area 0 96 1006 664
 		worldmap
 		action
 		"
@@ -26838,7 +26838,7 @@ menu
 	label
 	{
 		name 'leftSidebarBackground'
-		area 0 0 80 1536
+		area 0 0 83 1536
 		mosaic GUIWLSP
 	}
 	label
