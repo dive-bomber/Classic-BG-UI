@@ -12128,7 +12128,7 @@ menu
 	button
 	{
 		name 'travelButton'
-		area 791 374 45 44
+		area 913 293 45 44
 		enabled "worldMapScreen:IsTravelButtonVisible()"
 		bam GMPCONNC
 		ScaleToClip
@@ -12530,7 +12530,7 @@ menu
     }
 	label
 	{
-		area 452 36 304 44 --shadow
+		area 452 24 316 68 --shadow
 		text lua "Infinity_FetchString(storeScreen:GetStoreName())"
 		text style "label"
 		text point 27
@@ -12538,7 +12538,7 @@ menu
 	}
 	label
 	{
-		area 454 38 304 44
+		area 454 26 316 68
 		text lua "Infinity_FetchString(storeScreen:GetStoreName())"
 		text style "label"
 		text point 27
@@ -13227,7 +13227,7 @@ menu
     }
 	label
 	{
-		area 452 36 304 44 --shadow
+		area 452 24 316 68 --shadow
 		text lua "Infinity_FetchString(storeScreen:GetStoreName())"
 		text style "label"
 		text point 27
@@ -13235,7 +13235,7 @@ menu
 	}
 	label
 	{
-		area 454 38 304 44
+		area 454 26 316 68
 		text lua "Infinity_FetchString(storeScreen:GetStoreName())"
 		text style "label"
 		text point 27
@@ -13449,7 +13449,7 @@ menu
     }
 	label
 	{
-		area 452 36 304 44 --shadow
+		area 452 24 316 68 --shadow
 		text lua "Infinity_FetchString(storeScreen:GetStoreName())"
 		text style "label"
 		text point 27
@@ -13457,7 +13457,7 @@ menu
 	}
 	label
 	{
-		area 454 38 304 44
+		area 454 26 316 68
 		text lua "Infinity_FetchString(storeScreen:GetStoreName())"
 		text style "label"
 		text point 27
@@ -13687,7 +13687,7 @@ menu
     }
 	label
 	{
-		area 452 36 304 44 --shadow
+		area 452 24 316 68 --shadow
 		text lua "Infinity_FetchString(storeScreen:GetStoreName())"
 		text style "label"
 		text point 27
@@ -13695,7 +13695,7 @@ menu
 	}
 	label
 	{
-		area 454 38 304 44
+		area 454 26 316 68
 		text lua "Infinity_FetchString(storeScreen:GetStoreName())"
 		text style "label"
 		text point 27
@@ -13924,7 +13924,7 @@ menu
     }
 	label
 	{
-		area 452 36 304 44 --shadow
+		area 452 24 316 68 --shadow
 		text lua "Infinity_FetchString(storeScreen:GetStoreName())"
 		text style "label"
 		text point 27
@@ -13932,7 +13932,7 @@ menu
 	}
 	label
 	{
-		area 454 38 304 44
+		area 454 26 316 68
 		text lua "Infinity_FetchString(storeScreen:GetStoreName())"
 		text style "label"
 		text point 27
@@ -14095,7 +14095,7 @@ menu
     }
 	label
 	{
-		area 452 36 304 44 --shadow
+		area 452 24 316 68 --shadow
 		text lua "Infinity_FetchString(storeScreen:GetStoreName())"
 		text style "label"
 		text point 27
@@ -14103,7 +14103,7 @@ menu
 	}
 	label
 	{
-		area 454 38 304 44
+		area 454 26 316 68
 		text lua "Infinity_FetchString(storeScreen:GetStoreName())"
 		text style "label"
 		text point 27
