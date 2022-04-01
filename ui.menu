@@ -572,6 +572,7 @@ menu
 		bam BIGBUTT
 		text 'LEVEL_UP_BUTTON'
 		text style "button"
+		text shadow 1
 		pulse lua "CurrentlyInGame() and characterScreen:IsLevelUpButtonClickable()"
 		action
 		"
@@ -585,6 +586,7 @@ menu
 		bam BIGBUTT
 		text 'DUAL_CLASS_BUTTON'
 		text style "button"
+		text shadow 1
 		action
 		"
 			characterScreen:OnDualClassButtonClick()
@@ -600,6 +602,7 @@ menu
 		sequenceonce lua "Infinity_RandomNumber(0, 3)"
 		text 'DONE_BUTTON'
 		text style "button"
+		text shadow 1
 		action
 		"
 			Infinity_PopMenu()
@@ -614,6 +617,7 @@ menu
 		sequenceonce lua "Infinity_RandomNumber(0, 3)"
 		text 'INFORMATION_BUTTON'
 		text style "button"
+		text shadow 1
 		action
 		"
 			Infinity_PushMenu('CHARACTER_INFORMATION')
@@ -628,6 +632,7 @@ menu
 		sequenceonce lua "Infinity_RandomNumber(0, 3)"
 		text 'REFORM_PARTY_BUTTON'
 		text style "button"
+		text shadow 1
 		action
 		"
 			characterScreen:OnReformPartyButtonClick()
@@ -642,6 +647,7 @@ menu
 		sequenceonce lua "Infinity_RandomNumber(0, 3)"
 		text 'CUSTOMIZE_BUTTON'
 		text style "button"
+		text shadow 1
 		action
 		"
 				characterScreen:OnCustomizeButtonClick()
@@ -657,6 +663,7 @@ menu
 		sequenceonce lua "Infinity_RandomNumber(0, 3)"
 		text 'EXPORT_BUTTON'
 		text style "button"
+		text shadow 1
 		action
 		"
 			characterScreen:OnExportButtonClick()
@@ -697,7 +704,7 @@ menu
 	}
 	button
 	{
-		area 22 62 336 40
+		area 22 62 336 32
 		bam GUIRECC
 		scaleToClip
 		text style "button"
@@ -715,7 +722,7 @@ menu
 	}
 	button
 	{
-		area 22 112 336 40
+		area 22 112 336 32
 		bam GUIRECC
 		scaleToClip
 		text style "button"
@@ -733,7 +740,7 @@ menu
 	}
 	button
 	{
-		area 22 162 336 40
+		area 22 162 336 32
 		bam GUIRECC
 		scaleToClip
 		text style "button"
@@ -751,7 +758,7 @@ menu
 	}
 	button
 	{
-		area 22 212 336 40
+		area 22 212 336 32
 		bam GUIRECC
 		scaleToClip
 		text style "button"
@@ -765,7 +772,7 @@ menu
 	}
 	button
 	{
-		area 22 262 336 40
+		area 22 262 336 32
 		bam GUIRECC
 		scaleToClip
 		text style "button"
@@ -789,6 +796,7 @@ menu
 		ScaleToClip
 		sequence 1
 		text style "button"
+		text shadow 1
 		text	"CANCEL_BUTTON"
 		action 
 		"
@@ -805,6 +813,7 @@ menu
 		ScaleToClip
 		sequence 1
 		text style "button"
+		text shadow 1
 		text "DONE_BUTTON"		
 		action 
 		"
@@ -1060,6 +1069,7 @@ menu
 		sequence 1
 		area		672 646 162 30
 		text style "button"
+		text shadow 1
 		text "DONE_BUTTON"
 		action
 		"
@@ -1073,6 +1083,7 @@ menu
 		sequenceonce lua "Infinity_RandomNumber(0, 1)"
 		area		30 638 250 44
 		text style "button"
+		text shadow 1
 		text "BIOGRAPHY_BUTTON"
 		action
 		"
@@ -1087,6 +1098,7 @@ menu
 		area		294 638 250 44
 		text 'KIT_DESC_LABEL'
 		text style "button"
+		text shadow 1
 		action
 		"
 			Infinity_PushMenu('CHARACTER_KIT')
@@ -1127,6 +1139,7 @@ menu
 		sequence 1
 		area 308 494 162 30
 		text style "button"
+		text shadow 1
 		text "DONE_BUTTON"
 		action
 		"
@@ -1170,6 +1183,7 @@ menu
 		sequence 1
 		area 308 494 162 30
 		text style "button"
+		text shadow 1
 		text "DONE_BUTTON"
 		action
 		"
@@ -1263,6 +1277,7 @@ menu
 		ScaleToClip
 		sequence 1
 		text style "button"
+		text shadow 1
 		text	"CANCEL_BUTTON"
 		action 
 		"
@@ -1279,6 +1294,7 @@ menu
 		ScaleToClip
 		sequence 1
 		text style "button"
+		text shadow 1
 		text "DONE_BUTTON"		
 		action 
 		"
@@ -1582,6 +1598,7 @@ menu
 		ScaleToClip
 		sequence 1
 		text style "button"
+		text shadow 1
 		text	"CANCEL_BUTTON"
 		action 
 		"
@@ -1598,6 +1615,7 @@ menu
 		ScaleToClip
 		sequence 1
 		text style "button"
+		text shadow 1
 		text "DONE_BUTTON"		
 		action 
 		"
@@ -1724,6 +1742,7 @@ menu
 		ScaleToClip
 		sequence 1
 		text style "button"
+		text shadow 1
 		text	"CANCEL_BUTTON"
 		action 
 		"
@@ -1741,6 +1760,7 @@ menu
 		ScaleToClip
 		sequence 1
 		text style "button"
+		text shadow 1
 		text "DONE_BUTTON"		
 		action 
 		"
@@ -1865,6 +1885,7 @@ menu
 		bam GUIRECC
 		ScaleToClip
 		text style "button"
+		text shadow 1
 		text	"PLAY_SOUND_BUTTON"
 		action 
 		"	
@@ -1879,6 +1900,7 @@ menu
 		ScaleToClip
 		sequence 1
 		text style "button"
+		text shadow 1
 		text	"CANCEL_BUTTON"
 		action 
 		"
@@ -1896,6 +1918,7 @@ menu
 		ScaleToClip
 		sequence 1
 		text style "button"
+		text shadow 1
 		text "DONE_BUTTON"		
 		action 
 		"
@@ -2374,6 +2397,7 @@ menu
 		sequence 1
 		text 		"CANCEL_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"			
 			Infinity_PopMenu()
@@ -2387,6 +2411,7 @@ menu
 		sequence 1
 		text 		"DONE_BUTTON" -- Done
 		text style	"button"
+		text shadow 1
 		action
 		"
 			panelID = 8
@@ -2647,6 +2672,7 @@ menu
 		sequence 1
 		text 		"CANCEL_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			panelID = 8
@@ -2662,6 +2688,7 @@ menu
 		sequence 1
 		text 		"DONE_BUTTON" --Done
 		text style	"button"
+		text shadow 1
 		action
 		"
 			panelID = 10
@@ -2783,9 +2810,9 @@ menu
 		area		200 76 204 50
 		text		"DISPLAY_OPTIONS_LABEL"
 		text style	"button"
+		text shadow 1
 		text align 	right center
 		text point 20
-		text shadow 1
 		--text highlight lua "getSelected(selectedSL, 1)"
 		action
 		"
@@ -2920,6 +2947,7 @@ menu
 		sequence 1
 		text 		"CANCEL_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			panelID = 6
@@ -2937,6 +2965,7 @@ menu
 		sequence 1
 		text 		"DONE_BUTTON" --Done
 		text style	"button"
+		text shadow 1
 		action
 		"
 			panelID = 6
@@ -3048,16 +3077,14 @@ menu
 		text point 25
 		text shadow 1
 	}
-	
 	text
 	{
 		area		24 402 394 44
 		text		"CHARACTER_SOUNDS_LABEL"
 		text style	"button"
-		text align 	right center		
 		text shadow 1
+		text align 	right center
 	}
-
 	list
 	{
 		
@@ -3127,8 +3154,8 @@ menu
 		area		448 82 344 44
 		text		"COMMAND_SOUNDS_BUTTON"
 		text style	"button"
-		text align 	right center
 		text shadow 1
+		text align 	right center
 		action 
 		"
 			helpString = 18016 
@@ -3195,8 +3222,8 @@ menu
 		area		448 254 344 40
 		text		"SELECTION_BUTTON"
 		text style	"button"
-		text align 	right center
 		text shadow 1
+		text align 	right center
 		action 
 		"
 			helpString = 11352 
@@ -3455,6 +3482,7 @@ menu
 		sequence 1
 		text 		"CANCEL_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			selectedSL = 0
@@ -3470,6 +3498,7 @@ menu
 		sequence 1
 		text 		"DONE_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			panelID = 7
@@ -3866,6 +3895,7 @@ menu
 		sequence 1
 		text 		"CANCEL_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			helpString = 'GAMEPLAY_DESCRIPTION'
@@ -3882,6 +3912,7 @@ menu
 		sequence 1
 		text 		"DONE_BUTTON" --Done
 		text style	"button"
+		text shadow 1
 		action
 		"
 			helpString = 'GAMEPLAY_DESCRIPTION'
@@ -3950,13 +3981,21 @@ function getHotkeyName(category,number)
 	end
 	return ret
 end
+
+function getKeybindFrame()
+	if cellNumber == cellNum and rowSelected == rowNumber or  key ~= 0 and rowSelected == rowNumber then
+			return 2
+		elseif rowSelected == rowNumber then return 1
+		else	return 0 
+	end
+	end
 `
 menu
 {
 	name	'OPTIONS_KEYBINDINGS'
 	modal
 	align center center
-	onopen "keyCategory = nil; ticksPassed = 0; ticksStarting = 0"
+	onopen "cellNumber = nil; ticksPassed = 0; ticksStarting = 0"
 	
 	button -- Background
 	{
@@ -4001,7 +4040,7 @@ menu
 				bam GUIRECC
 				ScaleToClip
 				sequenceonce lua "rowNumber % 4"
-				frame lua "getChargenFrame()"
+				frame lua "getKeybindFrame()"
 				text lua "t(keycategories[rowNumber][2])"
 				text style	"normal"
 				text font "STONESML"				
@@ -4101,6 +4140,7 @@ menu
 		sequence 1
 		text		"DONE_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			Infinity_StopKeybind()
@@ -4116,6 +4156,7 @@ menu
 		sequenceonce lua "Infinity_RandomNumber(0, 1)"
 		text		"REVERT_BUTTON"
 		text style	"button"
+		text shadow 1
 		action "popup2Button(engine_mode == 0 and 27882 or 63745, 'REVERT_BUTTON', function() revertKeymap(); Infinity_PopMenu('OPTIONS_KEYBINDINGS') end)"
 	}
 }
@@ -4199,6 +4240,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		on escape
 		clickable lua "chapterScreen:IsDoneButtonClickable()"
 		action
@@ -4215,6 +4257,7 @@ menu
 		sequence 1
 		text "REPLAY_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "chapterScreen:IsReplayButtonClickable()"
 		action
 		"
@@ -4278,6 +4321,7 @@ menu
 		sequence 1
 		text  "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		action
 		"
 			Infinity_PopMenu();
@@ -4421,6 +4465,7 @@ menu
 		sequence 1
 		text	"CANCEL_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			-- cancel
@@ -4439,6 +4484,7 @@ menu
 		sequence 1
 		text 		"DONE_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			-- done
@@ -4484,6 +4530,7 @@ menu
 		sequence	1
 		text  "QUIT_GAME_BUTTON"
 		text style	"button"
+		text shadow 1
 		on 			return
 		action
 		"
@@ -4499,6 +4546,7 @@ menu
 		sequence	1
 		text  "CANCEL_BUTTON"
 		text style	"button"
+		text shadow 1
 		on 			escape
 		action
 		"
@@ -4614,6 +4662,7 @@ menu
 		area		236 145 162 30
 		text  "CANCEL_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			Infinity_PopMenu()
@@ -4629,7 +4678,22 @@ menu
 		clickable	lua "itemRequestAmt ~= '' and itemRequestAmt ~= 0"
 		text  "DONE_BUTTON"
 		text style	"button"
+		text shadow 1
 		on E
+		action
+		"
+			local cnt = tonumber(itemRequestAmt)
+			Infinity_PopMenu('POPUP_REQUESTER')
+			if cnt and cnt > 0 then
+				requester.requesterFunc(math.min(cnt, requester.requesterMax))
+			end
+			requestAmt = 0
+			itemRequestAmt = 1
+		"
+	}
+	label
+	{
+		on return
 		action
 		"
 			local cnt = tonumber(itemRequestAmt)
@@ -4825,6 +4889,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		action
 		"
 			local itemNum = characters[id].equipment[selectedSlot].abilities[selectedAbility].itemNum
@@ -4842,6 +4907,7 @@ menu
 		sequence 1
 		text "CANCEL_BUTTON"
 		text style "button"
+		text shadow 1
 		action
 		"
 			Infinity_PopMenu()
@@ -4878,6 +4944,7 @@ menu
 		sequence	1
 		text "DONE_BUTTON"
 		text style	"button"
+		text shadow 1
 		action 
 		"
 			Infinity_PopMenu()
@@ -4911,6 +4978,7 @@ menu
 		sequence	1
 		text lua "t(Popup2Button.cancelText or 'CANCEL_BUTTON')"
 		text style	"button"
+		text shadow 1
 		action 
 		"
 			Infinity_PopMenu('POPUP_TWOBUTTON')
@@ -4927,12 +4995,74 @@ menu
 		ScaleToClip
 		sequence	1
 		text style	"button"
+		text shadow 1
 		text lua "t(Popup2Button.okText or 'DONE_BUTTON')"
 		action 
 		"
 			Infinity_PopMenu('POPUP_TWOBUTTON')
 			if (Popup2Button.okFunc) then
 				Popup2Button.okFunc()
+			end
+		"
+	}
+}
+
+menu
+{
+	name 'POPUP_REFORMPARTY'
+	align center bottom
+	modal
+	label
+	{
+		area 0 0 765 160
+		mosaic GUWPKPC0
+	}
+	label
+	{
+		area 22 12 719 67
+		text lua "getStringFromAmbiguousSource(Popup2ButtonReformParty.info)"
+		text style	"label"
+		text shadow 1
+		text align center center
+	}
+	button
+	{
+		on escape
+		area 592 96 149 32
+		bam			GUIWPKPC
+		ScaleToClip
+		sequence	1
+		text lua "t(Popup2ButtonReformParty.cancelText or 'CANCEL_BUTTON')"
+		text style	"button"
+		text shadow 1
+		action 
+		"
+			Infinity_PopMenu('POPUP_REFORMPARTY')
+			if (Popup2ButtonReformParty.cancelFunc) then
+				Popup2ButtonReformParty.cancelFunc()
+			end
+		"
+	}
+	label --under button thingy
+	{
+		area 384 79 194 69
+		bam 'BG_UND'
+	}
+	button
+	{
+		on			return
+		area		400 96 149 32
+		bam			GUIWPKPC
+		ScaleToClip
+		sequence	1
+		text style	"button"
+		text shadow 1
+		text lua "t(Popup2ButtonReformParty.okText or 'DONE_BUTTON')"
+		action 
+		"
+			Infinity_PopMenu('POPUP_REFORMPARTY')
+			if (Popup2ButtonReformParty.okFunc) then
+				Popup2ButtonReformParty.okFunc()
 			end
 		"
 	}
@@ -4963,6 +5093,7 @@ menu
 		sequence	1
 		text lua "t(Popup3Button.rightText)"
 		text style	"button"
+		text shadow 1
 		action 
 		"
 			Infinity_PopMenu()
@@ -4978,6 +5109,7 @@ menu
 		ScaleToClip
 		sequence	1
 		text style	"button"
+		text shadow 1
 		text lua "t(Popup3Button.midText)"
 		action 
 		"
@@ -4994,6 +5126,7 @@ menu
 		ScaleToClip
 		sequence	1
 		text style	"button"
+		text shadow 1
 		text lua "t(Popup3Button.leftText)"
 		action 
 		"
@@ -5030,6 +5163,7 @@ menu
 		sequence	1
 		text lua "t(Popup4Button.farRightText)"
 		text style	"button"
+		text shadow 1
 		action 
 		"
 			Infinity_PopMenu()
@@ -5045,6 +5179,7 @@ menu
 		ScaleToClip
 		sequence	1
 		text style	"button"
+		text shadow 1
 		text lua "t(Popup4Button.rightText)"
 		action 
 		"
@@ -5061,6 +5196,7 @@ menu
 		ScaleToClip
 		sequence	1
 		text style	"button"
+		text shadow 1
 		text lua "t(Popup4Button.leftText)"
 		action 
 		"
@@ -5077,6 +5213,7 @@ menu
 		ScaleToClip
 		sequence	1
 		text style	"button"
+		text shadow 1
 		text lua "t(Popup4Button.farLeftText)"
 		action 
 		"
@@ -5111,6 +5248,7 @@ menu
 		ScaleToClip
 		sequence	1
 		text style "button"
+		text shadow 1
 		text "SPELL_BUTTON"
 		
 		clickable lua "Infinity_GetSpellIdentifyEnabled(characters[id].equipment[selectedSlot].id)"
@@ -5129,6 +5267,7 @@ menu
 		ScaleToClip
 		sequence	1
 		text style "button"
+		text shadow 1
 		text "CANCEL_BUTTON"
 		action
 		"
@@ -5142,6 +5281,7 @@ menu
 		ScaleToClip
 		sequence	1
 		text style "button"
+		text shadow 1
 		text "SCROLL_BUTTON"
 		
 		clickable lua "Infinity_GetScrollIdentifyEnabled(characters[id].equipment[selectedSlot].id)"
@@ -5405,6 +5545,7 @@ menu
 		clickable lua "itemDesc.item.identified == 1 or Infinity_GetSpellIdentifyEnabled(itemDesc.id)"
 		text lua "itemDescLeftButtonText()"
 		text style "button"
+		text shadow 1
 		action
 		"
 			itemDescLeftButtonAction()
@@ -5418,6 +5559,7 @@ menu
 		area		566 646 162 30
 		text  "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		action
 		"
 			Infinity_PopMenu()
@@ -5433,6 +5575,7 @@ menu
 		clickable lua "itemDesc.item.identified == 1 or Infinity_GetScrollIdentifyEnabled(itemDesc.id)"
 		text lua "itemDescRightButtonText()"
 		text style "button"
+		text shadow 1
 		action
 		"
 			itemDescRightButtonAction()
@@ -7110,6 +7253,7 @@ menu
 		sequence 1
 		text "CANCEL_BUTTON"
 		text style "button"
+		text shadow 1
 		action
 		"
 			Infinity_PopMenu('CHARACTER_COLOR',0,0)
@@ -7124,6 +7268,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		action
 		"
 			--save settings
@@ -7426,6 +7571,7 @@ menu
 		sequence	1
 		text		"TRAVEL_BUTTON"
 		text style	"button"
+		text shadow 1
 		action 		"C:MoveToArea(cheatAreaDisplayList[cheatTeleportArea][1])"
 	}
 	button
@@ -7436,6 +7582,7 @@ menu
 		sequence	1
 		text			"GODBOW_LABEL"
 		text style	"button"
+		text shadow 1
 		action		"C:CreateItem('godbow')"
 	}
 	button
@@ -7446,6 +7593,7 @@ menu
 		sequence	1
 		text			"GIVE_GOLD_LABEL"
 		text style	"button"
+		text shadow 1
 		action		"C:AddGold(cheatGoldAmt)"
 	}
 	edit
@@ -7465,6 +7613,7 @@ menu
 		sequence	1
 		text			"GIVE_XP_LABEL"
 		text style	"button"
+		text shadow 1
 		action		"C:SetCurrentXP(cheatXpAmt)"
 	}
 	edit
@@ -7484,6 +7633,7 @@ menu
 		sequence	1
 		text			"EXPLORE_LABEL"
 		text style	"button"
+		text shadow 1
 		action		"C:ExploreArea()"
 	}
 
@@ -7663,6 +7813,7 @@ menu
 		sequence	1
 		text		"SKIP_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			Infinity_PopMenu()
@@ -7721,6 +7872,7 @@ menu
 		sequence	1
 		text "DONE_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			messageBoxMessages[messageBoxCurMessage] = nil
@@ -7900,7 +8052,8 @@ menu
 		ScaleToClip
 		sequenceonce lua "Infinity_RandomNumber(0, 1)"
 		text "BACK_BUTTON" -- Back
-		text style 'button'
+		text style "button"
+		text shadow 1
 		action 
 		"
 			createPartyScreen:OnBackButtonClick()
@@ -7915,6 +8068,7 @@ menu
 		sequence 0
 		text lua "partyImport.character[1].createdelete"
 		text style "button"
+		text shadow 1
 		action
 		"
 			createPartyScreen:OnCreateDeleteButtonClick(0)
@@ -7927,6 +8081,7 @@ menu
 		sequence 0
 		text lua "partyImport.character[2].createdelete"
 		text style "button"
+		text shadow 1
 		action
 		"
 			createPartyScreen:OnCreateDeleteButtonClick(1)
@@ -7939,6 +8094,7 @@ menu
 		sequence 0
 		text lua "partyImport.character[3].createdelete"
 		text style "button"
+		text shadow 1
 		action
 		"
 			createPartyScreen:OnCreateDeleteButtonClick(2)
@@ -7951,6 +8107,7 @@ menu
 		sequence 0
 		text lua "partyImport.character[4].createdelete"
 		text style "button"
+		text shadow 1
 		action
 		"
 			createPartyScreen:OnCreateDeleteButtonClick(3)
@@ -7963,6 +8120,7 @@ menu
 		sequence 0
 		text lua "partyImport.character[5].createdelete"
 		text style "button"
+		text shadow 1
 		action
 		"
 			createPartyScreen:OnCreateDeleteButtonClick(4)
@@ -7975,6 +8133,7 @@ menu
 		sequence 0
 		text lua "partyImport.character[6].createdelete"
 		text style "button"
+		text shadow 1
 		action
 		"
 			createPartyScreen:OnCreateDeleteButtonClick(5)
@@ -8118,6 +8277,7 @@ menu
 		area 198 408 300 40
 		bam GUIBUTWT
 		text style "button"
+		text shadow 1
 		text "SIEGE_OF_DRAGONSPEAR_BUTTON"
 		enabled "not e:IsTouchUI()"
 		action
@@ -8131,6 +8291,7 @@ menu
 		area 198 458 300 40
 		bam GUIBUTWT
 		text style "button"
+		text shadow 1
 		text "BALDURS_GATE_BUTTON"
 		enabled "not e:IsTouchUI()"
 		action
@@ -8144,6 +8305,7 @@ menu
 		area 198 508 300 40
 		bam GUIBUTWT
 		text style "button"
+		text shadow 1
 		text "BLACK_PITS_BUTTON"
 		enabled "not e:IsTouchUI()"
 		action
@@ -8790,6 +8952,7 @@ menu
 		ScaleToClip
 		pad 10 8 10 8
 		text style "button"
+		text shadow 1
 		text "BACK_BUTTON"
 		align center center
 		action
@@ -9129,8 +9292,20 @@ menu
 		area		248 52 366 42
 		--text lua	"mageBookTitle()"
 		--text style "title"
-		action "if characters[id].hasClericBook then Infinity_PlaySound('GAM_09'); e:GetActiveEngine():OnLeftPanelButtonClick(6) end"
     }
+	button -- change book for clerics/mages
+	{
+		enabled "characters[id].hasClericBook"
+		area		136 128 62 59
+		bam 		'GUMPBUTX'
+		sequence 	2
+		action 
+		"
+		if characters[id].hasClericBook then
+			e:GetActiveEngine():OnLeftPanelButtonClick(6) 
+		end
+		"
+	}
 	label
 	{
 		area 		211 122 446 34
@@ -10095,6 +10270,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		action
 		"
 			Infinity_PopMenu()
@@ -10110,6 +10286,7 @@ menu
 		sequence 1
 		area 130 640 162 30
 		text style "button"
+		text shadow 1
 		text "CANCEL_BUTTON"
 		action
 		"
@@ -10271,6 +10448,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		action "Infinity_PopMenu('SPELL_DESCRIPTION')"
 	}
 	label --under button thingy
@@ -10285,6 +10463,7 @@ menu
 		area 48 510 162 30
 		text "REMOVE_BUTTON"
 		text style "button"
+		text shadow 1
 		bam GUIWPKPC
 		ScaleToClip
 		sequence 1
@@ -10475,6 +10654,7 @@ menu
 		area 272 620 186 38
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		action "Infinity_PopMenu('MAGE_CONTINGENCY')"
 	}
 }
@@ -10529,6 +10709,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		action "Infinity_PopMenu('POPUP_DETAILS')"
 	}
 }
@@ -10665,8 +10846,20 @@ menu
 		area		248 52 366 42
 		--text lua	"PRIEST_SCROLL_TITLE"
 		--text style "title"
-		action "if characters[id].hasMageBook then Infinity_PlaySound('GAM_09'); e:GetActiveEngine():OnLeftPanelButtonClick(5) end"
     }
+	button -- change book for clerics/mages
+	{
+		enabled "characters[id].hasMageBook"
+		area		136 128 62 59
+		bam 		'GUMPBUTX'
+		sequence 	2
+		action 
+		"
+		if characters[id].hasMageBook then
+			e:GetActiveEngine():OnLeftPanelButtonClick(5) 
+		end
+		"
+	}
 	label
 	{
 		area 		211 122 446 34
@@ -11578,6 +11771,7 @@ menu
 		sequence 0
 		ScaleToClip
 		text style "button"
+		text shadow 1
 		action
 		"
 			worldMapScreen:StartWorldMap(0)
@@ -11592,6 +11786,7 @@ menu
 		sequence 0
 		ScaleToClip
 		text style "button"
+		text shadow 1
 		action
 		"
 			worldMapScreen:StartWorldMap(0)
@@ -11685,6 +11880,7 @@ menu
 		ScaleToClip
 		sequence 1
 		text style "button"
+		text shadow 1
 		text "DONE_BUTTON"
 		on return
 		action
@@ -11701,6 +11897,7 @@ menu
 		ScaleToClip
 		sequence 1
 		text style "button"
+		text shadow 1
 		text "CANCEL_BUTTON"
 		action
 		"
@@ -11714,6 +11911,7 @@ menu
 		ScaleToClip
 		sequence 1
 		text style "button"
+		text shadow 1
 		text "DELETE_BUTTON"
 		action
 		"
@@ -11880,6 +12078,7 @@ menu
 		sequence 0
 		ScaleToClip
 		text style "button"
+		text shadow 1
 		action
 		"
 			worldMapScreen:OnCancelButtonClick()
@@ -11887,7 +12086,7 @@ menu
 	}
 	button
 	{
-		enabled false
+		--enabled false
 		area 951 6 22 38
 		bam GUIMAPWC
 		sequence 1
@@ -11896,7 +12095,7 @@ menu
 	}
 	button
 	{
-		enabled false
+		--enabled false
 		area 951 52 22 38
 		bam GUIMAPWC
 		sequence 2
@@ -11929,12 +12128,13 @@ menu
 	button
 	{
 		name 'travelButton'
-		area 909 200 45 44
+		area 791 374 45 44
 		enabled "worldMapScreen:IsTravelButtonVisible()"
 		bam GMPCONNC
 		ScaleToClip
 		--text "TRAVEL_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "worldMapScreen:IsTravelButtonClickable()"
 		action "
 			worldMapScreen:TravelToSelected()
@@ -12051,6 +12251,7 @@ menu
 		area 0 0 298 54
 		text lua "text_CHAPTERSCROLL:sub(startPos, curPos)"
 		text style normal
+		text shadow 1
 		scrollbar 'GUISCRC'
 	}
 	list
@@ -12103,6 +12304,7 @@ menu
 		area 142 258 738 310
 		text lua "text_CHAPTERSCROLL"
 		text style gamelog
+		text shadow 1
 		scrollbar 'GUISCRC'
 		scrollbar func 'UpdateChapterScroll'
 		scrollbar hide lua 'text_CHAPTERSCROLL_auto == 1'
@@ -12155,6 +12357,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "chapterScreen:IsDoneButtonClickable()"
 		action
 		"
@@ -12170,6 +12373,7 @@ menu
 		sequence 0
 		text "REPLAY_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "chapterScreen:IsReplayButtonClickable()"
 		on R
 		action
@@ -12210,8 +12414,9 @@ function getStoreSlotHighlight(highlight, valid)
 	end
 end
 function storeSplitStack(count)
-	storeScreen:SelectStoreItem(storeItemsVar-1, true);
-	storeScreen:SetStoreItemCount(storeItemsVar-1, count);
+	local idx = getIdx(store.storeItems, storeItemsVar)
+	storeScreen:SelectStoreItem(idx-1, true);
+	storeScreen:SetStoreItemCount(idx-1, count);
 end
 function groupSplitStack(count)
 	storeScreen:SelectGroupItem(storeGroupItemsVar-1, true);
@@ -12226,7 +12431,7 @@ function checkContainerText(normalStr, containerStr)
 end
 function canSteal()
 	local nb = 0
-	for _, v in pairs(store.storeItems) do
+	for _, v in pairs(filter(store.storeItems)) do
 		if v.highlight == 1 then
 			nb = nb + 1
 		end
@@ -12234,7 +12439,7 @@ function canSteal()
 	return nb > 0 and nb + #store.groupItems <= 16
 end
 function getStoreItemCount(row)
-	local count = store.storeItems[rowNumber].item.count
+	local count = filter(store.storeItems)[rowNumber].item.count
 	if(count ~= 0xFFFF)  then 
 		return count
 	else
@@ -12258,6 +12463,28 @@ function getValue(value) --make bags have no value as nobody buys them
 		return value
 	end
 end
+StoreSearchString = ""
+function filter(t)
+	if(StoreSearchString == nil or StoreSearchString == "") then return t end --no search string, do nothing
+	local out = {}
+	for k, v in pairs(t) do
+		local text = v.label
+		if(string.find(string.lower(text),string.lower(StoreSearchString)) ~= nil) then
+			table.insert(out, v)
+		end
+	end
+	return out
+end
+function getIdx(t, i)
+	local o = 0
+	for k, v in pairs(t) do
+		o = o + 1
+		local text = v.label
+		if(string.find(string.lower(text),string.lower(StoreSearchString)) ~= nil) then i = i - 1 end
+		if i == 0 then break end
+	end
+	return o
+end
 `
 menu
 {
@@ -12271,6 +12498,7 @@ menu
 	 storeTitle = storeScreen:IsContainer() and 'CONTAINER_TITLE' or 'BUY_SELL_TITLE'
 	TT_BuildTitleData(storeTitle, 309, true)
 	TT_CreateTitleChars(storeTitle, 'TT_BUYSELL', 35, 'TEMPLATE_titlechar_BUYSELL')
+	StoreSearchString = ''
 	"
 	onclose	"
 	TT_DestroyTitleChars(storeTitle, 'TEMPLATE_titlechar_BUYSELL')
@@ -12378,17 +12606,54 @@ menu
 		align right center
 		text shadow 1
 	}
+	label
+	{
+		area	40 155 210 23
+		fill 0 0 0 160
+	}
+	label
+	{
+		area	45 155 205 25
+		enabled "StoreSearchString == nil or StoreSearchString == ''"
+		text lua "t(JFStrings.Search) .. '...'"
+		text style "normal_parchment"
+		text color 'B'
+		maxlines 1
+		align left center
+	}
+	edit
+	{
+		area	45 155 205 25
+		var StoreSearchString
+		--placeholder '...'
+		text style "normal_parchment"
+		text color 'B'
+		maxlines 1
+		align left center
+	}
+	button
+	{
+		area 255 158 18 25
+		enabled "StoreSearchString ~= ''"
+		text "X"
+		text style "normal_parchment"
+		text color "R"
+		action
+		"
+			StoreSearchString = ''
+		"
+	}
 	button --select everything, left side
 	{
 		area 396 152 30 30
 		enabled "storeScreen:IsContainer()"
-		clickable lua "areThereValidItems(store.storeItems) and storeScreen:IsContainer()"
+		clickable lua "areThereValidItems(filter(store.storeItems)) and storeScreen:IsContainer()"
 		bam "4CHECK"
 		sequence 1
 		scaleToClip
 		action
 		"
-			for k,v in ipairs(store.storeItems) do
+			for k,v in ipairs(filter(store.storeItems)) do
 				if v.valid == 1 and v.highlight == 0 then
 					storeScreen:SelectStoreItem(k - 1, true)
 					local maxCount = v.maxCount
@@ -12404,7 +12669,7 @@ menu
 		"
 		actionalt
 		"
-			for k,v in ipairs(store.storeItems) do
+			for k,v in ipairs(filter(store.storeItems)) do
 				if v.valid == 1 and v.highlight == 1 then
 					storeScreen:SelectStoreItem(k - 1, false)
 					local maxCount = v.maxCount
@@ -12420,7 +12685,7 @@ menu
 		"
 		actionDbl
 		"
-			for k,v in ipairs(store.storeItems) do
+			for k,v in ipairs(filter(store.storeItems)) do
 				if v.valid == 1 and v.highlight == 0 then
 					storeScreen:SelectStoreItem(k - 1, true)
 					local maxCount = v.maxCount
@@ -12513,18 +12778,18 @@ menu
 			{
 				area 0 0 52 52
 				bam GUISTMSC
-				sequenceonce lua "getRandomSequence(string.byte(store.storeItems[rowNumber].label), 9)"
-				frame lua "getStoreSlotHighlight(store.storeItems[rowNumber].highlight, store.storeItems[rowNumber].valid)"
-				icon lua "store.storeItems[rowNumber].item.icon"
-				tint lua "store.storeItems[rowNumber].item.tint"
-				usages lua "store.storeItems[rowNumber].amountSelected" --how many selected
-				count lua "store.storeItems[rowNumber].item.stackSize" --How many to a stack
+				sequenceonce lua "getRandomSequence(string.byte(filter(store.storeItems)[rowNumber].label), 9)"
+				frame lua "getStoreSlotHighlight(filter(store.storeItems)[rowNumber].highlight, filter(store.storeItems)[rowNumber].valid)"
+				icon lua "filter(store.storeItems)[rowNumber].item.icon"
+				tint lua "filter(store.storeItems)[rowNumber].item.tint"
+				usages lua "filter(store.storeItems)[rowNumber].amountSelected" --how many selected
+				count lua "filter(store.storeItems)[rowNumber].item.stackSize" --How many to a stack
 				align center center
 			}
 			label
 			{
 				area 70 0 204 54
-				text lua "store.storeItems[rowNumber].label"
+				text lua "filter(store.storeItems)[rowNumber].label"
 				text style "normal_parchment"
 				text color 'B'
 				text align left center
@@ -12533,14 +12798,14 @@ menu
 			{
 				area 300 0 91 54
 				enabled "not storeScreen:IsContainer()"
-				text lua "store.storeItems[rowNumber].value"
+				text lua "filter(store.storeItems)[rowNumber].value"
 				text style "gold"
 				text font 'POSTANTI'
 				text color 'B'
 			}
 			label
 			{
-				enabled "store.storeItems[rowNumber].valid == 0 and store.storeItems[rowNumber].highlight == 0"
+				enabled "filter(store.storeItems)[rowNumber].valid == 0 and filter(store.storeItems)[rowNumber].highlight == 0"
 				area -2 0 375 54
 				fill 0 0 0 200
 			}
@@ -12548,45 +12813,48 @@ menu
 		area 26 182 398 256
 		hidehighlight
 		rowheight	54
-		table		"store.storeItems"
+		table		"filter(store.storeItems)"
 		var			"storeItemsVar"
 		rowbackground	 GUISTBK3
 		scrollbar 'GUISTSCR'
 		action
 		"
-			if store.storeItems[storeItemsVar].clickable == 1 then
+			local idx = getIdx(store.storeItems, storeItemsVar)
+			if store.storeItems[idx].clickable == 1 then
 				if not storeScreen:IsContainer() then
-					if not storeScreen:IsCloseBagButtonClickable() or store.storeItems[storeItemsVar].valid == 1 then
+					if not storeScreen:IsCloseBagButtonClickable() or store.storeItems[idx].valid == 1 then
 						local highlight = true
-						if(store.storeItems[storeItemsVar].highlight == 1) then highlight = false end
-						storeScreen:SelectStoreItem(storeItemsVar - 1,  highlight)
+						if(store.storeItems[idx].highlight == 1) then highlight = false end
+						storeScreen:SelectStoreItem(idx - 1,  highlight)
 					end
-				elseif (store.storeItems[storeItemsVar].highlight == 1) then
-					storeScreen:SelectStoreItem(storeItemsVar - 1,  false)
+				elseif (store.storeItems[idx].highlight == 1) then
+					storeScreen:SelectStoreItem(idx - 1,  false)
 				else
-					storeScreen:SelectStoreItem(storeItemsVar - 1,  true)
-					local count = store.storeItems[storeItemsVar].item.count or 0
-					local stock = store.storeItems[storeItemsVar].numInStock or 0
+					storeScreen:SelectStoreItem(idx - 1,  true)
+					local count = store.storeItems[idx].item.count or 0
+					local stock = store.storeItems[idx].numInStock or 0
 					if (count > 1) then
-						storeScreen:SetStoreItemCount(storeItemsVar - 1, count)
+						storeScreen:SetStoreItemCount(idx - 1, count)
 					elseif (stock > 1) then
-						storeScreen:SetStoreItemCount(storeItemsVar - 1, stock)
+						storeScreen:SetStoreItemCount(idx - 1, stock)
 					end
 				end
 			end
 		"
 		actionalt
 		"
-			showItemDescription(store.storeItems[storeItemsVar].item, 1)
+			local idx = getIdx(store.storeItems, storeItemsVar)
+			showItemDescription(store.storeItems[idx].item, 1)
 		"
 		actionDbl
 		"
-			if store.storeItems[storeItemsVar].clickable == 1 then
-				if not storeScreen:IsCloseBagButtonClickable() or store.storeItems[storeItemsVar].valid == 1 then
-					local maxCount = store.storeItems[storeItemsVar].maxCount
+		local idx = getIdx(store.storeItems, storeItemsVar)
+			if store.storeItems[idx].clickable == 1 then
+				if not storeScreen:IsCloseBagButtonClickable() or store.storeItems[idx].valid == 1 then
+					local maxCount = store.storeItems[idx].maxCount
 					if(maxCount > 1) then
-						popupRequester(maxCount, storeSplitStack, false, store.storeItems[storeItemsVar].item.icon)
-						storeScreen:SelectStoreItem(storeItemsVar - 1, false)
+						popupRequester(maxCount, storeSplitStack, false, store.storeItems[idx].item.icon)
+						storeScreen:SelectStoreItem(idx - 1, false)
 					end
 				end
 			end
@@ -12610,7 +12878,7 @@ menu
 			{
 				area 0 0 52 52
 				bam GUISTMSC
-				sequenceonce lua "getRandomSequence(string.byte(store.storeItems[rowNumber].label), 9)"
+				sequenceonce lua "getRandomSequence(string.byte(store.groupItems[rowNumber].label), 9)"
 				frame lua "getStoreSlotHighlight(store.groupItems[rowNumber].highlight, store.groupItems[rowNumber].valid)"
 				tint lua "store.groupItems[rowNumber].item.tint"
 				icon lua "store.groupItems[rowNumber].item.icon"
@@ -12701,7 +12969,7 @@ menu
 			{
 				area 0 0 52 52
 				bam GUISTMSC
-				sequenceonce lua "getRandomSequence(string.byte(store.storeItems[rowNumber].label), 9)"
+				sequenceonce lua "getRandomSequence(string.byte(store.groupItems[rowNumber].label), 9)"
 				frame lua "getStoreSlotHighlight(store.groupItems[rowNumber].highlight, store.groupItems[rowNumber].valid )"
 				tint lua "store.groupItems[rowNumber].item.tint"
 				icon lua "store.groupItems[rowNumber].item.icon"
@@ -12786,6 +13054,7 @@ menu
 		sequence	1
 		text lua "checkContainerText('BUY_BUTTON', 'TO_BACKPACK_BUTTON')"
 		text style "button"
+		text shadow 1
 		clickable lua "storeScreen:IsBuyItemButtonClickable() and storeScreen:GetStoreCost() <= game:GetPartyGold()"
 		action
 		"
@@ -12800,6 +13069,7 @@ menu
 		sequence	1
 		text lua "checkContainerText('SELL_BUTTON','TO_CONTAINER_BUTTON')"
 		text style "button"
+		text shadow 1
 		clickable lua "storeScreen:IsSellItemButtonClickable()"
 		action
 		"
@@ -12821,6 +13091,7 @@ menu
 		sequence	1
 		text "STEAL_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "canSteal()"
 		action
 		"
@@ -12868,6 +13139,7 @@ menu
 		sequence	1
 		text "CLOSE_CONTAINER_BUTTON"
 		text style "button"
+		text shadow 1
 		action
 		"
 			storeScreen:OnCloseBagButtonClick()
@@ -13073,6 +13345,7 @@ menu
 		sequence	1
 		text "IDENTIFY_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "storeScreen:IsIdentifyItemButtonClickable() and storeScreen:GetIdentifyCost() <= game:GetPartyGold()"
 		action
 		"
@@ -13337,6 +13610,7 @@ menu
 		sequence	1
 		text "DONATE_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "storeScreen:IsDonateButtonClickable()"
 		action
 		"
@@ -13460,6 +13734,7 @@ menu
 		sequenceonce lua "Infinity_RandomNumber(0, 3)"
 		text "PEASANT_BUTTON"
 		text style "button"
+		text shadow 1
 		frame lua "storeScreen:GetRoomType() == 1 and 2 or 0"
 		clickable lua "storeScreen:IsRoomTypeClickable(1)"
 		action
@@ -13494,6 +13769,7 @@ menu
 		sequenceonce lua "Infinity_RandomNumber(0, 3)"
 		text "MERCHANT_BUTTON"
 		text style "button"
+		text shadow 1
 		frame lua "storeScreen:GetRoomType() == 2 and 2 or 0"
 		clickable lua "storeScreen:IsRoomTypeClickable(2)"
 		action
@@ -13529,6 +13805,7 @@ menu
 		sequenceonce lua "Infinity_RandomNumber(0, 3)"
 		text "NOBLE_BUTTON"
 		text style "button"
+		text shadow 1
 		frame lua "storeScreen:GetRoomType() == 3 and 2 or 0"
 		clickable lua "storeScreen:IsRoomTypeClickable(3)"
 		action
@@ -13563,6 +13840,7 @@ menu
 		sequenceonce lua "Infinity_RandomNumber(0, 3)"
 		text "ROYAL_BUTTON"
 		text style "button"
+		text shadow 1
 		frame lua "storeScreen:GetRoomType() == 4 and 2 or 0"
 		clickable lua "storeScreen:IsRoomTypeClickable(4)"
 		action
@@ -13598,6 +13876,7 @@ menu
 		sequence	1
 		text "RENT_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "storeScreen:GetRoomCost() <= game:GetPartyGold()"
 		action
 		"
@@ -13748,6 +14027,7 @@ menu
 		sequence	1
 		text "BUY_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "storeScreen:GetSpellCost() > 0 and storeScreen:GetSpellCost() <= game:GetPartyGold()"
 		action
 		"
@@ -14024,6 +14304,7 @@ menu
 		sequence	1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		on escape
 		action
 		"
@@ -14156,6 +14437,7 @@ menu
 		sequence 1
 		text "LOAD_BUTTON"
 		text style	"button"
+		text shadow 1
 		clickable lua "worldDeathLoadClickable()"
 		action 
 		"
@@ -14170,6 +14452,7 @@ menu
 		ScaleToClip
 		sequence 1
 		text style	"button"
+		text shadow 1
 		text lua "worldDeathQuitText()"
 		clickable lua "worldDeathQuitClickable()"
 		action 
@@ -15740,6 +16023,9 @@ menu
 	{
 		area 716 10 37 30
 		text lua "game:GetCharacterOverflowCount()"
+		bam 'BG_UND'
+		sequence 1
+		ScaleToClip
 		text style "normal"
 		align center center
 	}
@@ -15751,10 +16037,11 @@ menu
 		ScaleToClip
 		text "REMOVE_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "worldScreen:IsPickPartyRemoveButtonClickable()"
 		action
 		"
-			popup2Button(17518, 'REMOVE_BUTTON', function() worldScreen:RemoveCharacterFromParty() end)
+			popup2ButtonReformParty(17518, 'REMOVE_BUTTON', function() worldScreen:RemoveCharacterFromParty() end)
 		"
 		actionHold
 		"
@@ -15776,6 +16063,7 @@ menu
 		ScaleToClip
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "worldScreen:IsPickPartyDoneButtonClickable()"
 		on esc
 		action
@@ -15968,6 +16256,7 @@ menu
 		clickable	lua	"currentSave"		
 		text		"LOAD_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			loadScreen:LoadGame(gameSaves.files[currentSave].fileName)
@@ -15983,6 +16272,7 @@ menu
 		clickable	lua	"currentSave"		
 		text		"DELETE_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			popup2Button(15305, 'DELETE_BUTTON',
@@ -15997,6 +16287,7 @@ menu
 		sequence 1
 		text		"BACK_BUTTON"
 		text style	"button"
+		text shadow 1
 		on escape
 		action
 		"
@@ -16169,6 +16460,7 @@ menu
 				frame lua 	"currentCellCheck(2)"
 				text		"SAVE_BUTTON"
 				text style	"button"
+				text shadow 1
 				align	center center
 			}
 		}
@@ -16217,6 +16509,7 @@ menu
 		ScaleToClip
 		text		"SAVE_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			--saveScreen:SaveGame(#saveFiles, 'Test Save ' .. #saveFiles)
@@ -16234,6 +16527,7 @@ menu
 		sequence 1
 		text		"BACK_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			saveScreen:OnMainCancelButtonClick()
@@ -16248,6 +16542,7 @@ menu
 		clickable	lua	"currentSave"		
 		text		"DELETE_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			popup2Button(15305, 'DELETE_BUTTON',
@@ -16405,6 +16700,7 @@ menu
 		sequence 1
 		text	"SAVE_BUTTON"
 		text style "button"
+		text shadow 1
 		action
 		"
 			completeSave()
@@ -16420,6 +16716,7 @@ menu
 		sequence 1
 		text	"OVERWRITE_BUTTON"
 		text style "button"
+		text shadow 1
 		action
 		"
 			completeOverwrite()
@@ -16434,6 +16731,7 @@ menu
 		sequence 1
 		text	"CANCEL_BUTTON"
 		text style "button"
+		text shadow 1
 		action
 		"
 			Infinity_PopMenu('SAVE_NEWSAVE')			
@@ -16497,7 +16795,7 @@ menu
 	label
 	{
 		name 'messagesRect'
-		area 0 76 794 64
+		area 0 74 794 66
 		mosaic box5
 	}
 	label
@@ -16519,7 +16817,7 @@ menu
 			}	
 		}
 		name "worldMessageBox"
-		area 20 90 735 51
+		area 20 88 735 53
 		rowheight dynamic
 		table "combatLog"
 		hideHighlight
@@ -16531,7 +16829,7 @@ menu
 	handle
 	{
 		name 'messagesHandleY'
-		area 0 74 794 22
+		area 0 72 794 22
 		pulse lua "worldMessageBoxClickedOnce == 0"
 		actionDrag
 		"
@@ -16854,6 +17152,7 @@ menu
 		enabled "getDialogButtonEnabled()"
 		clickable lua "getDialogButtonClickable()"
 		text style "button"
+		text shadow 1
 		action
 		"
 			if(gameOptions.m_bConfirmDialog == true and (#worldPlayerDialogChoices > 0)) then
@@ -16973,6 +17272,7 @@ menu
 		area 560 698 160 28
 		text "DONE_BUTTON" 
 		text style "button"
+		text shadow 1
 		bam GUIWPKPC
 		ScaleToClip
 		sequence 1
@@ -16993,6 +17293,7 @@ menu
 		area 294 698 160 28
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		action 
 		"
 			createCharScreen:OnCancelButtonClick()
@@ -17078,6 +17379,7 @@ menu
 		--glow lua "createCharScreen:GetCurrentStep() == 0"
 		text "GENDER_BUTTON"
 		text style "button"
+		text shadow 1
 		pad 8 2 8 2
 		action "createCharScreen:OnMenuButtonClick()"
 	}
@@ -17091,6 +17393,7 @@ menu
 		--glow lua "createCharScreen:GetCurrentStep() == 3"
 		text "RACE_BUTTON"
 		text style "button"
+		text shadow 1
 		pad 8 2 8 2
 		action "createCharScreen:OnMenuButtonClick()"
 	}
@@ -17104,6 +17407,7 @@ menu
 		--glow lua "createCharScreen:GetCurrentStep() == 4"
 		text "CLASS_BUTTON"
 		text style "button"
+		text shadow 1
 		pad 8 2 8 2
 		action "createCharScreen:OnMenuButtonClick()"
 	}
@@ -17117,6 +17421,7 @@ menu
 		--glow lua "createCharScreen:GetCurrentStep() == 7"
 		text "ALIGNMENT_BUTTON"
 		text style "button"
+		text shadow 1
 		pad 8 2 8 2
 		action "createCharScreen:OnMenuButtonClick()"
 	}
@@ -17131,6 +17436,7 @@ menu
 		--glow lua "createCharScreen:GetCurrentStep() == 8"
 		text "ABILITIES_BUTTON"
 		text style "button"
+		text shadow 1
 		pad 8 2 8 2
 		action "createCharScreen:OnMenuButtonClick()"
 	}
@@ -17144,6 +17450,7 @@ menu
 		--glow lua "createCharScreen:GetCurrentStep() == 9"
 		text "SKILLS_BUTTON"
 		text style "button"
+		text shadow 1
 		pad 8 2 8 2
 		action "createCharScreen:OnMenuButtonClick()"
 	}
@@ -17157,6 +17464,7 @@ menu
 		--glow lua "createCharScreen:GetCurrentStep() == 15"
 		text "APPEARANCE_BUTTON"
 		text style "button"
+		text shadow 1
 		pad 8 2 8 2
 		action "createCharScreen:OnMenuButtonClick()"
 	}
@@ -17170,6 +17478,7 @@ menu
 		--glow lua "createCharScreen:GetCurrentStep() == 17"
 		text "NAME_BUTTON"
 		text style "button"
+		text shadow 1
 		pad 8 2 8 2
 		action "createCharScreen:OnMenuButtonClick()"
 	}
@@ -17179,6 +17488,7 @@ menu
 		area 766 532 229 38
 		text "IMPORT_BUTTON"
 		text style "button"
+		text shadow 1
 		bam GUICGC
 		ScaleToClip
 		sequence 9
@@ -17189,6 +17499,7 @@ menu
 		area 766 570 229 38
 		text "BIOGRAPHY_BUTTON"
 		text style "button"
+		text shadow 1
 		bam GUICGC
 		ScaleToClip
 		sequence 10
@@ -17201,6 +17512,7 @@ menu
 		area 70 680 144 51
 		--text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		bam GUICGC
 		ScaleToClip
 		sequence 8
@@ -17212,6 +17524,7 @@ menu
 		area 778 651 203 48
 		text lua "chargenAcceptOrExport()"
 		text style "button"
+		text shadow 1
 		bam GUICGC
 		ScaleToClip
 		sequence 7
@@ -17224,6 +17537,7 @@ menu
 		area 778 651 203 48
 		text "CANCEL_BUTTON"
 		text style "button"
+		text shadow 1
 		bam GUICGC
 		ScaleToClip
 		sequence 7
@@ -17235,6 +17549,7 @@ menu
 		area 766 168 229 38
 		text "CREATE_PARTY_BUTTON"
 		text style "button"
+		text shadow 1
 		bam GUICGC
 		ScaleToClip
 		sequence 10
@@ -17304,6 +17619,7 @@ menu
 		sequence 1
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		action "Infinity_PopMenu(); createCharScreen:OnCancelButtonClick()"
 	}
 	button
@@ -17315,6 +17631,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "createCharScreen:IsDoneButtonClickable()"
 		action "Infinity_PopMenu(); createCharScreen:OnDoneButtonClick()"
 	}
@@ -17369,6 +17686,7 @@ menu
 		sequenceonce lua "Infinity_RandomNumber(0, 3)"
 		text "CUSTOM_BUTTON"
 		text style "button"
+		text shadow 1
 		enabled "not e:IsTouchUI()"
 		action "
 			TEXT_popup_big = 17188
@@ -17385,6 +17703,7 @@ menu
 		sequence 1
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		action "Infinity_PopMenu(); createCharScreen:OnCancelButtonClick()"
 	}
 	button
@@ -17396,6 +17715,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "createCharScreen:IsDoneButtonClickable()"
 		action "Infinity_PopMenu(); createCharScreen:OnDoneButtonClick()"
 	}
@@ -17417,7 +17737,7 @@ function getChargenFrame()
 	elseif rowSelected == rowNumber then return 1
 	else	return 0
 	end
-	end
+end
 `
 menu
 {
@@ -17505,6 +17825,7 @@ menu
 		sequence 1
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		action "Infinity_PopMenu(); createCharScreen:OnCancelButtonClick()"
 	}
 	button
@@ -17516,6 +17837,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "createCharScreen:IsDoneButtonClickable()"
 		action "Infinity_PopMenu(); createCharScreen:OnDoneButtonClick()"
 	}
@@ -17619,6 +17941,7 @@ menu
 		sequence 1
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "createCharScreen:GetCurrentStep() ~= const.STEP_DUALCLASS_CLASS"
 		action "createCharScreen:OnCancelButtonClick(); Infinity_PopMenu('CHARGEN_CLASS');"
 	}
@@ -17631,6 +17954,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "createCharScreen:IsDoneButtonClickable()"
 		action "createCharScreen:OnDoneButtonClick(); Infinity_PopMenu('CHARGEN_CLASS'); "
 	}
@@ -17732,6 +18056,7 @@ menu
 		sequence 1
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		action "Infinity_PopMenu(); createCharScreen:OnCancelButtonClick()"
 	}
 	button
@@ -17743,6 +18068,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "createCharScreen:IsDoneButtonClickable()"
 		action "Infinity_PopMenu(); createCharScreen:OnDoneButtonClick()"
 	}
@@ -17844,6 +18170,7 @@ menu
 		sequence 1
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		action "Infinity_PopMenu(); createCharScreen:OnCancelButtonClick()"
 	}
 	button
@@ -17855,6 +18182,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "createCharScreen:IsDoneButtonClickable()"
 		action "Infinity_PopMenu(); createCharScreen:OnDoneButtonClick()"
 	}
@@ -18113,6 +18441,7 @@ menu
 		sequence 1
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		action "Infinity_PopMenu(); createCharScreen:OnCancelButtonClick()"
 	}
 	button
@@ -18124,6 +18453,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "createCharScreen:IsDoneButtonClickable()"
 		action "Infinity_PopMenu(); createCharScreen:OnDoneButtonClick()"
 	}
@@ -18544,6 +18874,7 @@ menu
 		ScaleToClip
 		text "INFORMATION_BUTTON"
 		text style "button"
+		text shadow 1
 		toggle "levelUpInfoToggle"
 		action
 		"
@@ -18558,6 +18889,7 @@ menu
 		ScaleToClip
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "isChargenProficienciesBackButtonClickable()"
 		action "createCharScreen:OnCancelButtonClick();"
 	}
@@ -18569,6 +18901,7 @@ menu
 		ScaleToClip
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "createCharScreen:IsDoneButtonClickable()"
 		action "createCharScreen:OnDoneButtonClick();"
 	}
@@ -18850,6 +19183,7 @@ menu
 		--bam GUIOSTUM
 		--text lua "spellLearnOrUnlearnText()"
 		--text style "button"
+		text shadow 1
 		--clickable lua "spellLearnOrUnlearnClickable()"
 		--action "createCharScreen:OnLearnMageSpellButtonClick(currentChargenChooseMageSpell)"
 	--}
@@ -18872,6 +19206,7 @@ menu
 		sequence 1
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "not chargen.levelingUp"
 		action "Infinity_PopMenu(); createCharScreen:OnCancelButtonClick()"
 	}
@@ -18884,6 +19219,7 @@ menu
 		sequence 1
 		text lua "nextOrDone()"
 		text style "button"
+		text shadow 1
 		clickable lua "createCharScreen:IsDoneButtonClickable()"
 		action "createCharScreen:OnDoneButtonClick()"
 	}
@@ -19110,6 +19446,7 @@ menu
 		sequence 1
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		action "Infinity_PopMenu(); createCharScreen:OnCancelButtonClick()"
 	}
 	button
@@ -19121,6 +19458,7 @@ menu
 		sequence 1
 		text lua "nextOrDone()"
 		text style "button"
+		text shadow 1
 		clickable lua "createCharScreen:IsDoneButtonClickable()"
 		action "createCharScreen:OnDoneButtonClick()"
 	}
@@ -19335,6 +19673,7 @@ menu
 		sequence 1
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		action "Infinity_PopMenu(); createCharScreen:OnCancelButtonClick()"
 	}
 	button
@@ -19346,6 +19685,7 @@ menu
 		sequence 1
 		text lua "nextOrDone()"
 		text style "button"
+		text shadow 1
 		clickable lua "createCharScreen:IsDoneButtonClickable()"
 		action "createCharScreen:OnDoneButtonClick()"
 	}
@@ -19426,6 +19766,7 @@ menu
 		ScaleToClip
 		text "PLAY_SOUND_BUTTON"
 		text style "button"
+		text shadow 1
 		action "createCharScreen:OnPlayButtonClick()"
 	}
 	button
@@ -19437,6 +19778,7 @@ menu
 		sequence 1
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		action "Infinity_PopMenu(); createCharScreen:OnCancelButtonClick()"
 	}
 	button
@@ -19448,6 +19790,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "createCharScreen:IsDoneButtonClickable()"
 		action "Infinity_PopMenu(); createCharScreen:OnDoneButtonClick()"
 	}
@@ -19550,6 +19893,7 @@ menu
 		sequence 1
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		action "Infinity_PopMenu(); createCharScreen:OnCancelButtonClick()"
 	}
 	button
@@ -19561,6 +19905,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "createCharScreen:IsDoneButtonClickable()"
 		action "Infinity_PopMenu(); createCharScreen:OnDoneButtonClick()"
 	}
@@ -19618,6 +19963,7 @@ menu
 		sequence 1
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		action "Infinity_PopMenu(); createCharScreen:OnCancelButtonClick()"
 	}
 	button
@@ -19629,6 +19975,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "createCharScreen:IsDoneButtonClickable()"
 		action "Infinity_PopMenu(); createCharScreen:OnDoneButtonClick()"
 	}
@@ -19702,6 +20049,7 @@ menu
 		sequence 1
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		action "createCharScreen:OnCancelButtonClick()"
 	}
 	button
@@ -19724,6 +20072,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		action "createCharScreen:OnDoneButtonClick()"
 	}
 
@@ -19813,6 +20162,7 @@ menu
 		sequence 1
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		action "Infinity_PopMenu('CHARGEN_IMPORT'); createCharScreen:OnCancelButtonClick()"
 	}
 	button
@@ -19824,6 +20174,7 @@ menu
 		sequence 1
 		text lua "NextOrDone()"
 		text style "button"
+		text shadow 1
 		clickable lua "list_GUICG_20_2_idx ~= 0"
 		action "Infinity_PopMenu('CHARGEN_IMPORT'); createCharScreen:OnDoneButtonClick()"
 	}
@@ -19931,6 +20282,7 @@ menu
 		sequence 1
 		text "BACK_BUTTON"
 		text style "button"
+		text shadow 1
 		action "Infinity_PopMenu('CHARGEN_EXPORT'); createCharScreen:OnCancelButtonClick()"
 	}
 	button
@@ -19942,6 +20294,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		action "Infinity_PopMenu('CHARGEN_EXPORT'); createCharScreen:OnDoneButtonClick()"
 	}
 	
@@ -20032,6 +20385,7 @@ menu
 		ScaleToClip
 		text "CLASS_BUTTON"
 		text style "button"
+		text shadow 1
 		action
 		"
 			createCharScreen:OnMenuButtonClick()
@@ -20046,6 +20400,7 @@ menu
 		sequenceonce lua "Infinity_RandomNumber(0, 6)"
 		text "SKILLS_BUTTON"
 		text style "button"
+		text shadow 1
 		action
 		"
 			createCharScreen:OnMenuButtonClick()
@@ -20059,6 +20414,7 @@ menu
 		ScaleToClip
 		sequence 8
 		text style "button"
+		text shadow 1
 		action
 		"
 			createCharScreen:OnCancelButtonClick()
@@ -20073,6 +20429,7 @@ menu
 		clickable lua "createCharScreen:GetCurrentStep() == const.STEP_DUALCLASS_DONE"
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		action
 		"
 			createCharScreen:OnDoneButtonClick()
@@ -20088,6 +20445,7 @@ menu
 		sequence 1
 		text "CANCEL_BUTTON"
 		text style "button"
+		text shadow 1
 		action
 		"
 			createCharScreen:OnCancelButtonClick()
@@ -20271,6 +20629,7 @@ menu
 		sequence 1
 		text 15416
 		text style "button"
+		text shadow 1
 		action 
 		"
 			Infinity_PopMenu()
@@ -20294,6 +20653,7 @@ menu
 		sequence 1
 		text lua "t('VENTURE_FORTH')"
 		text style "button"
+		text shadow 1
 		enabled "fromSinglePlayer"
 		action 
 		"
@@ -20315,6 +20675,7 @@ menu
 		sequence 1
 		text 11973
 		text style "button"
+		text shadow 1
 		enabled "fromMultiPlayer"
 		action 
 		"
@@ -20363,6 +20724,7 @@ menu
 		sequence 1
 		area 308 494 162 30
 		text style "button"
+		text shadow 1
 		text "DONE_BUTTON"
 		action
 		"
@@ -20461,6 +20823,7 @@ menu
 		ScaleToClip
 		text "PLAY_MOVIE_BUTTON"
 		text style "button"
+		text shadow 1
 		action "moviesScreen:OnPlayButtonClick()"
 	}
 	button
@@ -20470,6 +20833,7 @@ menu
 		ScaleToClip
 		text "CREDITS_MOVIE_BUTTON"
 		text style "button"
+		text shadow 1
 		action "moviesScreen:OnCreditsButtonClick()"
 	}
 	button
@@ -20480,6 +20844,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		action "moviesScreen:OnDoneButtonClick()"
 	}
 
@@ -20858,6 +21223,7 @@ menu
 		sequenceonce lua "Infinity_RandomNumber(0, 1)"
 		text  		"CONNECTION_CREATE_NEW_GAME_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			Infinity_PushMenu('CONNECTION_CREATE')
@@ -20871,6 +21237,7 @@ menu
 		sequenceonce lua "Infinity_RandomNumber(0, 1)"
 		text  		"CONNECTION_DIRECT_CONNECTION_BUTTON"
 		text style	"button"
+		text shadow 1
 		tooltip lua "t('CONNECTION_DIRECT_CONNECT_TOOLTIP')"
 		action
 		"
@@ -20902,6 +21269,7 @@ menu
 		sequence	1
 		text  "JOIN_BUTTON"
 		text style	"button"
+		text shadow 1
 		clickable lua	"joinGameEnabled()"
 		action
 		"
@@ -20926,6 +21294,7 @@ menu
 		sequence	1
 		text  "BACK_BUTTON"
 		text style	"button"
+		text shadow 1
 		on 			escape
 		action
 		"
@@ -20967,6 +21336,7 @@ menu
 		sequence 1
 		text  "DONE_BUTTON"
 		text style	"button"
+		text shadow 1
 		clickable lua "connectionScreen:IsValidAddress(connectionTCPIPEdit)"
 		action
 		"
@@ -20983,6 +21353,7 @@ menu
 		sequence 1
 		text  "CANCEL_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			Infinity_PopMenu();
@@ -21117,6 +21488,7 @@ menu
 		frame lua	"connectionPasswordProtected ~=1 and 0 or 2"
 		text  		"CONNECTION_PASSWORD_PROTECTED"
 		text style	"button"
+		text shadow 1
 		tooltip lua "t('CONNECTION_PASSWORD_PROTECTED_TOOLTIP')"
 		action
 		"
@@ -21135,6 +21507,7 @@ menu
 		frame lua	"connectionLocalNetworkGame ~=1 and 0 or 2"		
 		text  		"CONNECTION_LOCAL_NETWORK_GAME"
 		text style	"button"
+		text shadow 1
 		tooltip lua "t('CONNECTION_LOCAL_NETWORK_GAME_TOOLTIP')"
 		action
 		"
@@ -21198,6 +21571,7 @@ menu
 		ScaleToClip
 		sequence	1
 		text style	"button"
+		text shadow 1
 		text		"BACK_BUTTON"
 		action		
 		"
@@ -21229,6 +21603,7 @@ menu
 		ScaleToClip
 		sequence	1
 		text style	"button"
+		text shadow 1
 		text		"NEW_GAME_BUTTON"
 		tooltip lua "t('CONNECTION_NEW_GAME_TOOLTIP')"
 		action		
@@ -21244,6 +21619,7 @@ menu
 		ScaleToClip
 		sequence	1
 		text style	"button"
+		text shadow 1
 		text		"LOAD_BUTTON"
 		tooltip lua "t('CONNECTION_LOAD_GAME_TOOLTIP')"
 		action		
@@ -21269,6 +21645,7 @@ menu
 		ScaleToClip
 		sequence	1
 		text style	"button"
+		text shadow 1
 		text		"BACK_BUTTON"
 		action		
 		"
@@ -21355,6 +21732,7 @@ menu
 		area 		343 170 230 40
 		bam			'GUIBUTMT'	
 		text style	"button"
+		text shadow 1
 		text		"DONE_BUTTON"
 		clickable lua "connectionPasswordPasswordEdit ~='' and string.find(connectionPasswordPasswordEdit, '%S') ~= nil"
 		action		
@@ -21372,6 +21750,7 @@ menu
 		area 79 170 230 40
 		bam			'GUIBUTMT'	
 		text style	"button"
+		text shadow 1
 		text		"BACK_BUTTON"
 		action		
 		"
@@ -21456,6 +21835,7 @@ menu
 		area 		343 170 230 40
 		bam			'GUIBUTMT'	
 		text style	"button"
+		text shadow 1
 		text		"DONE_BUTTON"
 		clickable lua "connectionNameNameEdit ~='' and string.find(connectionNameNameEdit, '%S') ~= nil"
 		action		
@@ -21482,6 +21862,7 @@ menu
 		area 79 170 230 40
 		bam			'GUIBUTMT'	
 		text style	"button"
+		text shadow 1
 		text		"BACK_BUTTON"
 		action		
 		"
@@ -21562,6 +21943,7 @@ menu
 		sequence	0
 		text  		"DONE_BUTTON"
 		text style	"button"
+		text shadow 1
 		on			return
 		action
 		"
@@ -21597,6 +21979,7 @@ menu
 		sequence	0
 		text  		"CANCEL_BUTTON"
 		text style	"button"
+		text shadow 1
 		on		escape
 		action
 		"
@@ -21630,6 +22013,7 @@ menu
 		sequence	1
 		text  		"CANCEL_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			Infinity_PopMenu();
@@ -21666,6 +22050,7 @@ menu
 		sequence	1
 		text  		"CANCEL_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			Infinity_PopMenu('CONNECTION_WAITING_FOR_PROVIDER')
@@ -21682,6 +22067,7 @@ menu
 		sequenceonce lua "Infinity_RandomNumber(0, 3)"
 		text  		"CONNECTION_LOCAL_NETWORK_GAME"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			Infinity_PopMenu('CONNECTION_WAITING_FOR_PROVIDER')
@@ -21717,6 +22103,7 @@ menu
 		sequence	1
 		text  		"CANCEL_BUTTON"
 		text style	"button"
+		text shadow 1
 		action
 		"
 			Infinity_PopMenu('CONNECTION_WAITING_FOR_SERVER')
@@ -23497,7 +23884,8 @@ menu
 		ScaleToClip
 		sequence	1
 		text "START_GAME_BUTTON" -- Done
-		text style 'button'
+		text style "button"
+		text shadow 1
 		clickable lua "multiplayer.donebuttonclickable"
 		enabled "not multiplayerFromInGame"
 		tooltip lua "getStartGameButtonTooltip()"
@@ -23514,7 +23902,8 @@ menu
 		ScaleToClip
 		sequence	1
 		text "DONE_BUTTON" -- Done
-		text style 'button'
+		text style "button"
+		text shadow 1
 		clickable lua "multiplayer.donebuttonclickable"
 		enabled "multiplayerFromInGame"
 		tooltip lua "getStartGameButtonTooltip()"
@@ -23530,7 +23919,8 @@ menu
 		ScaleToClip
 		sequence	1
 		text "LOGOUT_BUTTON" -- Logout
-		text style 'button'
+		text style "button"
+		text shadow 1
 		action 
 		"
 			multiplayerScreen:OnLogoutButtonClick()
@@ -23543,7 +23933,8 @@ menu
 		ScaleToClip
 		sequence	1
 		text "MULTIPLAYER_GAME_OPTIONS_BUTTON"
-		text style 'button'
+		text style "button"
+		text shadow 1
 		enabled "multiplayerLocalPlayerID == 1"
 		action 
 		"
@@ -23666,7 +24057,8 @@ menu
 		ScaleToClip
 		sequence	1
 		text "CANCEL_BUTTON" -- Back
-		text style 'button'
+		text style "button"
+		text shadow 1
 		action 
 		"
 			multiplayerScreen:OnCancelButtonClick()
@@ -23681,7 +24073,8 @@ menu
 		ScaleToClip		
 		sequence 1
 		text "DONE_BUTTON" -- Done
-		text style 'button'
+		text style "button"
+		text shadow 1
 		enabled "multiplayerLocalPlayerID == 1"
 		action 
 		"
@@ -24034,7 +24427,8 @@ menu
 		ScaleToClip		
 		sequence 1
 		text "DONE_BUTTON" -- Done
-		text style 'button'
+		text style "button"
+		text shadow 1
 		action 
 		"
 			if multiplayerImportOption ~= multiplayer.importsetting + 1 then
@@ -24063,7 +24457,8 @@ menu
 		ScaleToClip
 		sequence	1
 		text "CANCEL_BUTTON" -- Cancel
-		text style 'button'
+		text style "button"
+		text shadow 1
 		action 
 		"
 			multiplayerScreen:OnCancelButtonClick()
@@ -24146,6 +24541,7 @@ menu
 		area 26 406 146 30
 		text "CANCEL_BUTTON"
 		text style "button"
+		text shadow 1
 		align center center
 		bam GUIWPKPC
 		ScaleToClip
@@ -24161,6 +24557,7 @@ menu
 		area 204 406 146 30
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		align center center
 		bam GUIWPKPC
 		ScaleToClip
@@ -24216,6 +24613,7 @@ menu
 		sequence	1
 		text "CANCEL_BUTTON" -- cancel
 		text style "button"
+		text shadow 1
 		action
 		"	
 			Infinity_PopMenu()
@@ -24230,6 +24628,7 @@ menu
 		sequence	1
 		text lua "multiplayerIsDelete()"
 		text style "button"
+		text shadow 1
 		action
 		"	
 			Infinity_PopMenu()
@@ -24269,6 +24668,7 @@ menu
 		sequence	1
 		text "DONE_BUTTON" -- done
 		text style "button"
+		text shadow 1
 		align center center
 		action
 		"	
@@ -24305,6 +24705,7 @@ menu
 		sequence	1
 		text "MODIFY_BUTTON" -- modify
 		text style "button"
+		text shadow 1
 		align center center
 		action
 		"	
@@ -24322,6 +24723,7 @@ menu
 		sequence	1
 		text "KICK_BUTTON" -- kick player
 		text style "button"
+		text shadow 1
 		align center center
 		action
 		"	
@@ -24339,6 +24741,7 @@ menu
 		sequence	1
 		text "LOGOUT_BUTTON" -- log out
 		text style "button"
+		text shadow 1
 		align center center
 		action
 		"	
@@ -24356,6 +24759,7 @@ menu
 		sequence	1
 		text "CANCEL_BUTTON" -- cancel
 		text style "button"
+		text shadow 1
 		align center center
 		action
 		"	
@@ -25121,6 +25525,13 @@ function getJournalEditedColours(text)
 	end
 	return text
 end
+
+function getJournalMosaic(text)
+	str = string.find(text, "\n")
+	if str == nil then return 'JOURSEP'
+	else return 'JOURSEP2'
+	end
+end
 `
 menu
 {
@@ -25357,13 +25768,14 @@ menu
 				align				top center
 			}
 		}
-		column { 
+		column
+		{ 
 			width 90 
 			label
 			{
 				enabled 			"questEnabled(rowNumber)"
 				area				0 0 -1 -1
-				mosaic JOURSEP
+				mosaic lua "getJournalMosaic(getQuestText(rowNumber))"
 				--fill 0 0 0 255
 			}
 			label
@@ -25753,6 +26165,7 @@ menu
 		sequence 1
 		text "DONE_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "chapterScreen:IsDoneButtonClickable()"
 		action
 		"
@@ -25768,6 +26181,7 @@ menu
 		sequence 1
 		text "REPLAY_BUTTON"
 		text style "button"
+		text shadow 1
 		clickable lua "chapterScreen:IsReplayButtonClickable()"
 		action
 		"
@@ -25875,6 +26289,7 @@ menu
 		area 316 713 200 40
 		align center center
 		text style "button"
+		text shadow 1
 		text "BACK_BUTTON"
 		action 
 		"
@@ -25889,6 +26304,7 @@ menu
 		area 526 713 200 40
 		align center center
 		text style "button"
+		text shadow 1
 		text "STRREF_GUI_DLC_INSTALLED"
 		text color '5'
 		enabled "not isDLCBuyButtonClickable()"
@@ -25905,6 +26321,7 @@ menu
 		area 526 713 200 40
 		align center center
 		text style "button"
+		text shadow 1
 		text "BUY_BUTTON"
 		enabled "isDLCBuyButtonClickable()"
 		action 
@@ -25920,6 +26337,7 @@ menu
 		area 600 648 298 40
 		align center center
 		text style "button"
+		text shadow 1
 		text "STRREF_GUI_DLC_RESTORE_PURCHASES"
 		action 
 		"
@@ -26004,6 +26422,7 @@ menu
 		sequence	1
 		align center center
 		text style "button"
+		text shadow 1
 		text lua "dlcStatusButtonText"
 		enabled "dlcStatusState ~= DLC_STATE_DOWNLOADING"
 		action 
@@ -26271,6 +26690,7 @@ menu
 		scaleToClip
 		text lua "'...'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "not showDialogButtonChoices()"
 		clickable lua "not dialogEntryGreyed()"
@@ -26287,6 +26707,7 @@ menu
 		scaleToClip
 		text lua "'1'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(1)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26302,6 +26723,7 @@ menu
 		scaleToClip
 		text lua "'2'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(2)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26317,6 +26739,7 @@ menu
 		scaleToClip
 		text lua "'3'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(3)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26332,6 +26755,7 @@ menu
 		scaleToClip
 		text lua "'4'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(4)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26347,6 +26771,7 @@ menu
 		scaleToClip
 		text lua "'5'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(5)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26362,6 +26787,7 @@ menu
 		scaleToClip
 		text lua "'6'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(6)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26377,6 +26803,7 @@ menu
 		scaleToClip
 		text lua "'7'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(7)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26393,6 +26820,7 @@ menu
 		scaleToClip
 		text lua "'8'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(8)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26409,6 +26837,7 @@ menu
 		scaleToClip
 		text lua "'9'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(9)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26424,6 +26853,7 @@ menu
 		scaleToClip
 		text lua "'10'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(10)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26473,6 +26903,7 @@ menu
 		scaleToClip
 		text lua "'11'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(11)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26488,6 +26919,7 @@ menu
 		scaleToClip
 		text lua "'12'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(12)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26503,6 +26935,7 @@ menu
 		scaleToClip
 		text lua "'13'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(13)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26518,6 +26951,7 @@ menu
 		scaleToClip
 		text lua "'14'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(14)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26533,6 +26967,7 @@ menu
 		scaleToClip
 		text lua "'15'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(15)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26548,6 +26983,7 @@ menu
 		scaleToClip
 		text lua "'16'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(16)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26563,6 +26999,7 @@ menu
 		scaleToClip
 		text lua "'17'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(17)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26579,6 +27016,7 @@ menu
 		scaleToClip
 		text lua "'18'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(18)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26595,6 +27033,7 @@ menu
 		scaleToClip
 		text lua "'19'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(19)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26610,6 +27049,7 @@ menu
 		scaleToClip
 		text lua "'20'"
 		text style "button"
+		text shadow 1
 		pad -3 -6 0 0
 		enabled "canShowDialogButton(20)"
 		clickable lua "not dialogEntryGreyed()"
@@ -26815,6 +27255,7 @@ menu
 		bam GUIBUTWT
 		text "DONE_BUTTON"
 		text style	"button"
+		text shadow 1
 		action 
 		"
 			Infinity_PopMenu('HELP')
