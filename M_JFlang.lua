@@ -12,7 +12,8 @@ function findLanguage()
 			takeAll = "Prendi tutto [E]",
 			Level_String = "Livello", 
 			Spells_String = "Incantesimi",			
-			Chapter_Epilogue = "Epilogo"
+			Chapter_Epilogue = "Epilogo",
+			Search = "Cercare"
 		}
 	elseif currentlanguage == "pl_PL" then			-- Polish
 			JFStrings = {
@@ -26,7 +27,8 @@ function findLanguage()
 			takeAll = "Wez wszystko [E]",
 			Level_String = "Czary", 
 			Spells_String = "Poziomu",
-			Chapter_Epilogue = "Epilog"
+			Chapter_Epilogue = "Epilog",
+			Search = "Szukaj"
 		}
 	elseif currentlanguage == "de_DE" then			-- German
 			JFStrings = {
@@ -40,7 +42,8 @@ function findLanguage()
 			takeAll = "Nimm alles [E]",
 			Level_String = "Eben", 
 			Spells_String = "Zauber",			
-			Chapter_Epilogue = "Epilog"
+			Chapter_Epilogue = "Epilog",
+			Search = "Suche"
 		}
 	elseif currentlanguage == "pt_BR" then			-- Brazilian Portuguese 
 			JFStrings = {
@@ -54,7 +57,8 @@ function findLanguage()
 			takeAll = "Leve tudo [E]",
 			Level_String = "Nível", 
 			Spells_String = "Feitiços",
-			Chapter_Epilogue = "Epílogo" 
+			Chapter_Epilogue = "Epílogo",
+			Search = "Procurar"
 		}
 	elseif currentlanguage == "fr_FR" then			-- French
 			JFStrings = {
@@ -68,7 +72,8 @@ function findLanguage()
 			takeAll = "Prendre toutes [E]", 
 			Level_String = "Niveau", 
 			Spells_String = "Sorts",			
-			Chapter_Epilogue = "Épilogue" 
+			Chapter_Epilogue = "Épilogue",
+			Search = "Rechercher"
 		}
 	elseif currentlanguage == "cs_CZ" then			-- Czech
 			JFStrings = {
@@ -82,7 +87,8 @@ function findLanguage()
 			takeAll = "Vzít vše [E]", 
 			Level_String = "Kouzla", 
 			Spells_String = "Úrove",
-			Chapter_Epilogue = "Epilogue"
+			Chapter_Epilogue = "Epilogue",
+			Search = "Hledat"
 		}
 	else											-- no matching language or language strings not set, so default to en_US for the extra strings
 		JFStrings = {
@@ -96,7 +102,8 @@ function findLanguage()
 			takeAll = "Take all [E]",
 			Level_String = "Level", --I realize there are in-game strings for that but it is a possibility that in certain languages these words have different order and/or need conjugated form
 			Spells_String = "Spells",
-			Chapter_Epilogue = "Epilogue"
+			Chapter_Epilogue = "Epilogue",
+			Search = "Search"
 		}
 	end
 end
@@ -107,4 +114,15 @@ function popupRequester (maxCount, func, selling, icon)
 	requester.selling = selling
 	requester.icon = icon
 	Infinity_PushMenu('POPUP_REQUESTER',0,0)
+end
+
+function popup2ButtonReformParty(info, okText, okFunc, cancelText, cancelFunc)
+	Popup2ButtonReformParty = {
+		info = info,
+		okFunc = okFunc,
+		okText = okText,
+		cancelFunc = cancelFunc,
+		cancelText = cancelText,
+	}
+	Infinity_PushMenu("POPUP_REFORMPARTY")
 end

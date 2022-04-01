@@ -20,7 +20,7 @@ updateTable(styles, {
 		halign = 'center',
 		upper = 1,
 		pad = {8,8,8,8},
-    useFontZoom = 0,
+		useFontZoom = 0,
 	},
 	bold_parchment =
 	{
