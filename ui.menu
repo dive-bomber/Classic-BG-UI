@@ -12028,10 +12028,10 @@ menu
 `
 	function setWorldmapSize()
 		if isScaledUI() then
-			Infinity_SetArea('worldmap_space', 0, 96, 1006, 664)
+			Infinity_SetArea('worldmap_space', -3, 96, 1006, 664)
 		else 
 			local screenWidth, screenHeight = Infinity_GetScreenSize()
-			Infinity_SetArea('worldmap_space', 0, 96, 1006, screenHeight-96)
+			Infinity_SetArea('worldmap_space', -3, 96, 1006, screenHeight-96)
 		end
 	end
 `
@@ -12048,7 +12048,7 @@ menu
 	onClose "TT_DestroyTitleChars('WORLD_MAP_TITLE', 'TEMPLATE_titlechar_WORLD_MAP')"
 	label
 	{
-		area 0 0 1006 96
+		area 0 0 988 96
 		mosaic GUIMAPWB
 	}
 	template
@@ -12105,7 +12105,7 @@ menu
 	map
 	{
 		name "worldmap_space"
-		area 0 96 1006 664
+		area -3 96 1006 664
 		worldmap
 		action
 		"
@@ -12655,13 +12655,14 @@ menu
 		"
 			for k,v in ipairs(filter(store.storeItems)) do
 				if v.valid == 1 and v.highlight == 0 then
-					storeScreen:SelectStoreItem(k - 1, true)
+					local idx = getIdx(store.storeItems, k)
+					storeScreen:SelectStoreItem(idx - 1, true)
 					local maxCount = v.maxCount
 					if maxCount > 1 then
-						storeScreen:SetStoreItemCount(k - 1, maxCount)
+						storeScreen:SetStoreItemCount(idx - 1, maxCount)
 					end
 					if not storeScreen:IsBuyItemButtonClickable() then
-						storeScreen:SelectStoreItem(k - 1, false)
+						storeScreen:SelectStoreItem(idx - 1, false)
 						break
 					end
 				end
@@ -12671,13 +12672,14 @@ menu
 		"
 			for k,v in ipairs(filter(store.storeItems)) do
 				if v.valid == 1 and v.highlight == 1 then
-					storeScreen:SelectStoreItem(k - 1, false)
+				local idx = getIdx(store.storeItems, k)
+					storeScreen:SelectStoreItem(idx - 1, false)
 					local maxCount = v.maxCount
 					if maxCount > 1 then
-						storeScreen:SetStoreItemCount(k - 1, maxCount)
+						storeScreen:SetStoreItemCount(idx - 1, maxCount)
 					end
 					if not storeScreen:IsBuyItemButtonClickable() then
-						storeScreen:SelectStoreItem(k - 1, false)
+						storeScreen:SelectStoreItem(idx - 1, false)
 						break
 					end
 				end
@@ -12687,13 +12689,14 @@ menu
 		"
 			for k,v in ipairs(filter(store.storeItems)) do
 				if v.valid == 1 and v.highlight == 0 then
-					storeScreen:SelectStoreItem(k - 1, true)
+					local idx = getIdx(store.storeItems, k)
+					storeScreen:SelectStoreItem(idx - 1, true)
 					local maxCount = v.maxCount
 					if maxCount > 1 then
-						storeScreen:SetStoreItemCount(k - 1, maxCount)
+						storeScreen:SetStoreItemCount(idx - 1, maxCount)
 					end
 					if not storeScreen:IsBuyItemButtonClickable() then
-						storeScreen:SelectStoreItem(k - 1, false)
+						storeScreen:SelectStoreItem(idx - 1, false)
 						break
 					end
 				end
@@ -22089,7 +22092,7 @@ menu
 	}
 	label --Title
 	{
-		area 30 20 600 122
+		area 20 20 340 80
 		text "CONNECTION_WAITING_FOR_SERVER"
 		text style	"normal"
 		text align center center
