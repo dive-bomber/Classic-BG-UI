@@ -19186,7 +19186,7 @@ menu
 		--bam GUIOSTUM
 		--text lua "spellLearnOrUnlearnText()"
 		--text style "button"
-		text shadow 1
+		--text shadow 1
 		--clickable lua "spellLearnOrUnlearnClickable()"
 		--action "createCharScreen:OnLearnMageSpellButtonClick(currentChargenChooseMageSpell)"
 	--}
