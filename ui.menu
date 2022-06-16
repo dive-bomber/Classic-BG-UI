@@ -9,6 +9,7 @@ end
 iHaveSCS = false --set to 'true' if you do have SCS
 
 characters = {}
+statusEffects = { }
 currentID = 16974083
 currentPanelID = 0
 listMetaInfo = {}
@@ -39,6 +40,10 @@ function updateAttrTable()
 			{ characters[currentID].attr.wis, 9586 },
 			{ characters[currentID].attr.cha, 9587 }
 		}
+		statusEffects = { }
+		for k, v in pairs(characters[currentID].statusEffects) do
+			table.insert(statusEffects, v)
+		end
 		buildRecordAbilities()
 		buildRecordStats()
 		buildRecordInfos()
@@ -150,7 +155,9 @@ function buildRecordInfos()
 	
 	if not empty(characters[currentID].statusEffects) then
 		table.insert(recordInfos, {1,""})
-		for k, v in pairs(characters[currentID].statusEffects) do
+		table.sort (statusEffects, function (k1, k2) 
+		return string.lower(Infinity_FetchString(k1.strRef)) < string.lower(Infinity_FetchString(k2.strRef)) end )
+		for k, v in pairs(statusEffects) do
 			table.insert(recordInfos, {2,v})
 		end
 	end
@@ -1109,6 +1116,7 @@ menu
 {
 	name 'CHARACTER_BIO'
 	align center center
+	modal
 	ignoreesc
 	label
 	{
@@ -3983,10 +3991,10 @@ function getHotkeyName(category,number)
 end
 
 function getKeybindFrame()
-	if cellNumber == cellNum and rowSelected == rowNumber or  key ~= 0 and rowSelected == rowNumber then
+	if ticksStarting == 0 and rowSelected == rowNumber then
 			return 2
-		elseif rowSelected == rowNumber then return 1
-		else	return 0 
+		elseif ticksStarting ~= 0 and rowSelected == rowNumber then return 1
+		else return 0 
 	end
 	end
 `
@@ -4036,21 +4044,34 @@ menu
 			width 100 
 			button
 			{
-				area 0 0 328 30
+				area 0 0 328 35
 				bam GUIRECC
 				ScaleToClip
 				sequenceonce lua "rowNumber % 4"
 				frame lua "getKeybindFrame()"
+			}
+			button
+			{
+				enabled "ticksStarting == 0 or rowSelected ~= rowNumber"
+				area 0 0 328 35
 				text lua "t(keycategories[rowNumber][2])"
-				text style	"normal"
-				text font "STONESML"				
+				text style	"button"		
+				text shadow 1
+				text align	center center 
+			}
+			button
+			{
+				enabled "ticksStarting ~= 0 and rowSelected == rowNumber"
+				area 2 2 328 35
+				text lua "t(keycategories[rowNumber][2])"
+				text style	"button"		
 				text shadow 1
 				text align	center center 
 			}
 		}
 		area 42 86 328 434
 		
-		rowheight	40
+		rowheight	50
 		table		"keycategories"
 		var			keyCategory
 		hidehighlight
@@ -6534,6 +6555,7 @@ menu
 	name 'INVENTORY'
 	align center center
 	ignoreEsc
+	greyscale lua "shouldGreyOutInventory()"
 	onOpen
 	"
 		Infinity_ActivateInventory()
@@ -6960,7 +6982,7 @@ menu
 	{
 		area 0 0 864 710
 		enabled "shouldGreyOutInventory()"
-		fill 0 0 0 200
+		fill 0 0 0 0
 	}
 }
 `
@@ -8916,13 +8938,29 @@ menu
 			button
 			{
 				area 0 0 264 71
+				bam GUISTDRC
+				sequenceonce lua "rowNumber %4"
+				frame lua "selectedMenuOpt == rowNumber and 1 or 0"
+				align center center
+			}
+			button
+			{
+				enabled "selectedMenuOpt ~= rowNumber"
+				area 0 0 264 71
 				pad 10 8 10 8
 				text lua "t( OptionsButtons[rowNumber].text )"
 				text style "big_button"
 				text shadow 1
-				bam GUISTDRC
-				sequenceonce lua "rowNumber %4"
-				frame lua "selectedMenuOpt == rowNumber and 1 or 0"
+				align center center
+			}
+			button
+			{
+				enabled "selectedMenuOpt == rowNumber"
+				area 2 2 264 71
+				pad 10 8 10 8
+				text lua "t( OptionsButtons[rowNumber].text )"
+				text style "big_button"
+				text shadow 1
 				align center center
 			}
 		}
@@ -9142,10 +9180,10 @@ end
 
 function setMageBookLevel(num, noSound)
 	currentBookSpell = 0
-	currentSpellLevel = num
-	if noSound ~= true then
+	if noSound ~= true and num ~= currentSpellLevel then
 		Infinity_PlaySound('GAM_05')
 	end
+	currentSpellLevel = num
 	mageScreen:SetSpellLevel(num - 1)
 	refreshMageBook()
 end
@@ -10764,10 +10802,10 @@ end
 
 function setPriestBookLevel(num, noSound)
 	currentBookSpell = 0
-	currentSpellLevel = num
-	if noSound ~= true then
-		Infinity_PlaySound('GAM_06')
+	if noSound ~= true and num ~= currentSpellLevel then
+		Infinity_PlaySound('GAM_05')
 	end
+	currentSpellLevel = num
 	refreshPriestBook()
 end
 
@@ -11536,13 +11574,13 @@ menu
 		text style "normal"
 		text align center center
 	}
-	label
-	{
+	--label
+	--{
 		--area 244 174 378 454
-		bam BIGLOGO
-		align center center
-		frame lua 'getBigLogo()'
-	}
+		--bam BIGLOGO
+		--align center center
+		--frame lua 'getBigLogo()'
+	--}
 	button
 	{
 		bam GUIOPTC
@@ -14141,12 +14179,27 @@ menu
 			width 100
 			button
 			{
-				enabled "store.drinks[rowNumber].valid == 1"
 				area 5 0 263 71
 				bam GUISTDRC
 				ScaleToClip
 				sequenceonce lua "rowNumber % 4"
 				frame lua "storeDrinksVar == rowNumber and 1 or 0"
+				clickable lua "store.drinks[rowNumber].value <= game:GetPartyGold()"
+			}
+			button
+			{
+				enabled "store.drinks[rowNumber].valid == 1 and storeDrinksVar ~= rowNumber"
+				area 5 0 263 71
+				clickable lua "store.drinks[rowNumber].value <= game:GetPartyGold()"
+				text lua "store.drinks[rowNumber].name"
+				text style "label"
+				text align center center
+				text shadow 1
+			}
+			button
+			{
+				enabled "store.drinks[rowNumber].valid == 1 and storeDrinksVar == rowNumber"
+				area 7 2 263 71
 				clickable lua "store.drinks[rowNumber].value <= game:GetPartyGold()"
 				text lua "store.drinks[rowNumber].name"
 				text style "label"
@@ -16508,7 +16561,7 @@ menu
 	{
 		area	684 182 206 47
 		bam GUISTDRC
-			sequenceonce lua "Infinity_RandomNumber(0, 3)"
+		sequenceonce lua "Infinity_RandomNumber(0, 3)"
 		ScaleToClip
 		text		"SAVE_BUTTON"
 		text style	"button"
@@ -16776,6 +16829,16 @@ end
 		chatboxScrollToBottom = 1
 		worldMessageBoxTop = y + newY
  end
+ 
+   function markBackstab(str)
+		local x = string.find(str, "Backstab")
+		if x == nil then return str
+		else
+			local a = string.sub(str, 1, x-1)
+			local y = string.sub(str, x, string.len(str))
+			return a .. '^0xFFFF00FF' .. y .. '^-'
+		end
+ end
 `
 menu
 {
@@ -16814,7 +16877,7 @@ menu
 			label
 			{
 				area 0 0 -1 -1
-				text lua "combatLog[rowNumber]"
+				text lua "markBackstab(combatLog[rowNumber])"
 				text style "gamelog"
 				text shadow 1
 			}	
@@ -17612,7 +17675,6 @@ menu
 		action "toggleMale = 0; createCharScreen:OnGenderSelectButtonClick(2)"
 		actionDbl "Infinity_PopMenu(); createCharScreen:OnDoneButtonClick()"
 	}
-
 	button
 	{
 		on escape
@@ -17771,13 +17833,27 @@ menu
 			label
 			{
 				area 0 0 336 35
-				text lua "Infinity_FetchString(chargen.races[rowNumber].name)"
-				text style "button"
-				text shadow 1
 				bam GUIRECC
 				ScaleToClip
 				frame lua "getChargenFrame()"
 				sequenceonce lua "rowNumber % 4"
+			}
+			label
+			{
+				enabled "ticksStarting == 0 or rowSelected ~= rowNumber"
+				area 0 0 336 35
+				text lua "Infinity_FetchString(chargen.races[rowNumber].name)"
+				text style "button"
+				text shadow 1
+				text align	center center				
+			}
+			label
+			{
+				enabled "ticksStarting ~= 0 and rowSelected == rowNumber"
+				area 2 2 336 35
+				text lua "Infinity_FetchString(chargen.races[rowNumber].name)"
+				text style "button"
+				text shadow 1
 				text align	center center				
 			}
 		}
@@ -17806,6 +17882,22 @@ menu
 		table "chargen.races"
 		var currentChargenRace
 		hidehighlight
+	}
+	label --random option
+	{
+		on R
+		action 
+		"
+			while (true) do
+				local rand = Infinity_RandomNumber(1, length(chargen.races)) 	
+				if currentChargenRace ~= rand then currentChargenRace = rand; break end --no doubles allowed
+			end
+		cellNumber = cellNum --needed for proper frame
+		if chargen.races[currentChargenRace] then
+				createCharScreen:OnRaceSelectButtonClick(chargen.races[currentChargenRace].id)
+			end
+			Infinity_PlaySound('GAM_03')
+		"
 	}
 	text
 	{
@@ -17886,13 +17978,27 @@ menu
 			label
 			{
 				area 0 0 330 30
-				text lua "Infinity_FetchString(chargen.class[rowNumber].name)"
-				text style "button"
-				text shadow 1
 				bam GUIRECC
 				ScaleToClip
 				frame lua "getChargenFrame()"
 				sequenceonce lua "rowNumber % 4"
+			}
+			label
+			{
+				enabled "ticksStarting == 0 or rowSelected ~= rowNumber"
+				area 0 0 330 30
+				text lua "Infinity_FetchString(chargen.class[rowNumber].name)"
+				text style "button"
+				text shadow 1
+				text align	center center				
+			}
+			label
+			{
+				enabled "ticksStarting ~= 0 and rowSelected == rowNumber"
+				area 2 2 330 30
+				text lua "Infinity_FetchString(chargen.class[rowNumber].name)"
+				text style "button"
+				text shadow 1
 				text align	center center				
 			}
 		}
@@ -17922,6 +18028,22 @@ menu
 		var currentChargenClass
 		scrollbar 'GUISTSCR'
 		actionDbl "createCharScreen:OnDoneButtonClick(); Infinity_PopMenu('CHARGEN_CLASS'); "
+	}
+	label --random option
+	{
+		on R
+		action 
+		"
+			while (true) do
+				local rand = Infinity_RandomNumber(1, length(chargen.class)) 	
+				if currentChargenClass ~= rand then currentChargenClass = rand; break end --no doubles allowed
+			end
+		cellNumber = cellNum --needed for proper frame
+		if chargen.class[currentChargenClass] then
+				createCharScreen:OnClassSelectButtonClick(chargen.class[currentChargenClass].id)
+			end
+			Infinity_PlaySound('GAM_03')
+		"
 	}
 	text
 	{
@@ -18002,13 +18124,27 @@ menu
 			label
 			{
 				area 0 0 330 30
-				text lua "Infinity_FetchString(chargen.kit[rowNumber].name)"
-				text style "label"
-				text shadow 1
 				bam GUIRECC
 				ScaleToClip
 				frame lua "getChargenFrame()"
 				sequenceonce lua "rowNumber % 4"
+			}
+			label
+			{
+				enabled "ticksStarting == 0 or rowSelected ~= rowNumber"
+				area 0 0 330 30
+				text lua "Infinity_FetchString(chargen.kit[rowNumber].name)"
+				text style "label"
+				text shadow 1
+				text align	center center				
+			}
+			label
+			{
+				enabled "ticksStarting ~= 0 and rowSelected == rowNumber"
+				area 2 2 330 30
+				text lua "Infinity_FetchString(chargen.kit[rowNumber].name)"
+				text style "label"
+				text shadow 1
 				text align	center center				
 			}
 		}
@@ -18037,6 +18173,22 @@ menu
 		table "chargen.kit"
 		var currentChargenKit	
 		scrollbar 'GUISTSCR'
+	}
+	label --random option
+	{
+		on R
+		action 
+		"
+			while (true) do
+				local rand = Infinity_RandomNumber(1, length(chargen.kit)) 	
+				if currentChargenKit ~= rand then currentChargenKit = rand; break end --no doubles allowed
+			end
+		cellNumber = cellNum --needed for proper frame
+		if chargen.kit[currentChargenKit] then
+				createCharScreen:OnKitSelectButtonClick(chargen.kit[currentChargenKit].id)
+			end
+			Infinity_PlaySound('GAM_03')
+		"
 	}
 	text
 	{
@@ -18116,13 +18268,27 @@ menu
 			label
 			{
 				area 0 0 336 35
-				text lua "Infinity_FetchString(chargen.alignment[rowNumber].name)"
-				text style "label"
-				text shadow 1
 				bam GUIRECC
 				ScaleToClip
 				frame lua "getChargenFrame()"
 				sequenceonce lua "rowNumber % 4"
+			}
+			label
+			{
+				enabled "ticksStarting == 0 or rowSelected ~= rowNumber"
+				area 0 0 336 35
+				text lua "Infinity_FetchString(chargen.alignment[rowNumber].name)"
+				text style "label"
+				text shadow 1
+				text align	center center				
+			}
+			label
+			{
+				enabled "ticksStarting ~= 0 and rowSelected == rowNumber"
+				area 2 2 336 35
+				text lua "Infinity_FetchString(chargen.alignment[rowNumber].name)"
+				text style "label"
+				text shadow 1
 				text align	center center				
 			}
 		}
@@ -18151,6 +18317,22 @@ menu
 		table "chargen.alignment"
 		var currentChargenAlignment
 		scrollbar	'GUISCRC'
+	}
+	label --random option
+	{
+		on R
+		action 
+		"
+			while (true) do
+				local rand = Infinity_RandomNumber(1, length(chargen.alignment)) 	
+				if currentChargenAlignment ~= rand then currentChargenAlignment = rand; break end --no doubles allowed
+			end
+		cellNumber = cellNum --needed for proper frame
+		if chargen.alignment[currentChargenAlignment] then
+				createCharScreen:OnAlignmentSelectButtonClick(chargen.alignment[currentChargenAlignment].id)
+			end
+			Infinity_PlaySound('GAM_03')
+		"
 	}
 	text
 	{
@@ -19041,13 +19223,23 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 1 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
 				bam GUIBTBUT
 				icon lua "spellBook[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 5].key].groundicon"
 				frame lua "specialistFrame(6 * rowNumber - 5, 1)"
 				sequenceonce lua "getRandomSequence(6 * rowNumber - 5,3)"
 				align center center
-				
+			}
+			button
+			{
+				enabled "cellNumber == 1 and rowSelected == rowNumber"
+				area 2 2 -1 -1
+				bam GUIBTBUT
+				icon lua "spellBook[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 5].key].groundicon"
+				frame lua "specialistFrame(6 * rowNumber - 5, 1)"
+				sequenceonce lua "getRandomSequence(6 * rowNumber - 5,3)"
+				align center center
 			}
 		}
 		column
@@ -19055,7 +19247,18 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 2 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
+				bam GUIBTBUT
+				icon lua "spellBook[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 4].key].groundicon"
+				frame lua "specialistFrame(6 * rowNumber - 4, 2)"
+				sequenceonce lua "getRandomSequence(6 * rowNumber - 4,3)"
+				align center center
+			}
+			button
+			{
+				enabled "cellNumber == 2 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam GUIBTBUT
 				icon lua "spellBook[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 4].key].groundicon"
 				frame lua "specialistFrame(6 * rowNumber - 4, 2)"
@@ -19068,7 +19271,18 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 3 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
+				bam GUIBTBUT
+				icon lua "spellBook[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 3].key].groundicon"
+				frame lua "specialistFrame(6 * rowNumber - 3, 3)"
+				sequenceonce lua "getRandomSequence(6 * rowNumber - 3,3)"
+				align center center
+			}
+			button
+			{
+				enabled "cellNumber == 3 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam GUIBTBUT
 				icon lua "spellBook[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 3].key].groundicon"
 				frame lua "specialistFrame(6 * rowNumber - 3, 3)"
@@ -19081,7 +19295,18 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 4 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
+				bam GUIBTBUT
+				icon lua "spellBook[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber -2].key].groundicon"
+				frame lua "specialistFrame(6 * rowNumber - 2, 4)"
+				sequenceonce lua "getRandomSequence(6 * rowNumber - 2,3)"
+				align center center
+			}
+			button
+			{
+				enabled "cellNumber == 4 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam GUIBTBUT
 				icon lua "spellBook[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber -2].key].groundicon"
 				frame lua "specialistFrame(6 * rowNumber - 2, 4)"
@@ -19094,7 +19319,18 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 5 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
+				bam GUIBTBUT
+				icon lua "spellBook[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 1].key].groundicon"
+				frame lua "specialistFrame(6 * rowNumber - 1, 5)"
+				sequenceonce lua "getRandomSequence(6 * rowNumber - 1,3)"
+				align center center
+			}
+			button
+			{
+				enabled "cellNumber == 5 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam GUIBTBUT
 				icon lua "spellBook[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 1].key].groundicon"
 				frame lua "specialistFrame(6 * rowNumber - 1, 5)"
@@ -19107,7 +19343,18 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 6 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
+				bam GUIBTBUT
+				icon lua "spellBook[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber].key].groundicon"
+				frame lua "specialistFrame(6 * rowNumber, 6)"
+				sequenceonce lua "getRandomSequence(6 * rowNumber,3)"
+				align center center
+			}
+			button
+			{
+				enabled "cellNumber == 6 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam GUIBTBUT
 				icon lua "spellBook[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber].key].groundicon"
 				frame lua "specialistFrame(6 * rowNumber, 6)"
@@ -19292,7 +19539,19 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 1 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
+				bam GUIBTBUT
+				icon lua "mageSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 5].key].groundicon"
+				frame lua "getSpecialistFrame(6 * rowNumber - 5, 1)"
+				sequenceonce lua "getRandomSequence(6 * rowNumber - 5,3)"
+				align center center
+				count lua "chargen.choose_spell[6 * rowNumber - 5].count"
+			}
+			button
+			{
+				enabled "cellNumber == 1 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam GUIBTBUT
 				icon lua "mageSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 5].key].groundicon"
 				frame lua "getSpecialistFrame(6 * rowNumber - 5, 1)"
@@ -19306,7 +19565,19 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 2 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
+				bam GUIBTBUT
+				icon lua "mageSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 4].key].groundicon"
+				frame lua "getSpecialistFrame(6 * rowNumber - 4, 2)"
+				sequenceonce lua "getRandomSequence(6 * rowNumber - 4,3)"
+				align center center
+				count lua "chargen.choose_spell[6 * rowNumber - 4].count"
+			}
+			button
+			{
+				enabled "cellNumber == 2 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam GUIBTBUT
 				icon lua "mageSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 4].key].groundicon"
 				frame lua "getSpecialistFrame(6 * rowNumber - 4, 2)"
@@ -19320,7 +19591,19 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 3 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
+				bam GUIBTBUT
+				icon lua "mageSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 3].key].groundicon"
+				frame lua "getSpecialistFrame(6 * rowNumber - 3, 3)"
+				sequenceonce lua "getRandomSequence(6 * rowNumber - 3,3)"
+				align center center
+				count lua "chargen.choose_spell[6 * rowNumber - 3].count"
+			}
+			button
+			{
+				enabled "cellNumber == 3 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam GUIBTBUT
 				icon lua "mageSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 3].key].groundicon"
 				frame lua "getSpecialistFrame(6 * rowNumber - 3, 3)"
@@ -19334,7 +19617,19 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 4 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
+				bam GUIBTBUT
+				icon lua "mageSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber -2].key].groundicon"
+				frame lua "getSpecialistFrame(6 * rowNumber - 2, 4)"
+				sequenceonce lua "getRandomSequence(6 * rowNumber - 2,3)"
+				align center center
+				count lua "chargen.choose_spell[6 * rowNumber - 2].count"
+			}
+			button
+			{
+				enabled "cellNumber == 4 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam GUIBTBUT
 				icon lua "mageSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber -2].key].groundicon"
 				frame lua "getSpecialistFrame(6 * rowNumber - 2, 4)"
@@ -19348,7 +19643,19 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 5 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
+				bam GUIBTBUT
+				icon lua "mageSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 1].key].groundicon"
+				frame lua "getSpecialistFrame(6 * rowNumber - 1, 5)"
+				sequenceonce lua "getRandomSequence(6 * rowNumber - 1,3)"
+				align center center
+				count lua "chargen.choose_spell[6 * rowNumber - 1].count"
+			}
+			button
+			{
+				enabled "cellNumber == 5 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam GUIBTBUT
 				icon lua "mageSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 1].key].groundicon"
 				frame lua "getSpecialistFrame(6 * rowNumber - 1, 5)"
@@ -19362,7 +19669,19 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 6 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
+				bam GUIBTBUT
+				frame lua "getSpecialistFrame(6 * rowNumber, 6)"
+				icon lua "mageSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber].key].groundicon"
+				sequenceonce lua "getRandomSequence(6 * rowNumber,3)"
+				align center center
+				count lua "chargen.choose_spell[6 * rowNumber].count"
+			}
+			button
+			{
+				enabled "cellNumber == 6 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam GUIBTBUT
 				frame lua "getSpecialistFrame(6 * rowNumber, 6)"
 				icon lua "mageSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber].key].groundicon"
@@ -19527,7 +19846,19 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 1 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
+				bam GUIBTBUT
+				icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 5].key].groundicon"
+				frame lua "getFrame(6 * rowNumber - 5, 1)"
+				sequenceonce lua "getRandomSequence(6 * rowNumber - 5,3)"
+				align center center
+				count lua "chargen.choose_spell[6 * rowNumber - 5].count"
+			}
+			button
+			{
+				enabled "cellNumber == 1 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam GUIBTBUT
 				icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 5].key].groundicon"
 				frame lua "getFrame(6 * rowNumber - 5, 1)"
@@ -19541,7 +19872,19 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 2 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
+				bam GUIBTBUT
+				icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 4].key].groundicon"
+				frame lua "getFrame(6 * rowNumber - 4, 2)"
+				sequenceonce lua "getRandomSequence(6 * rowNumber - 4,3)"
+				align center center
+				count lua "chargen.choose_spell[6 * rowNumber - 4].count"
+			}
+			button
+			{
+				enabled "cellNumber == 2 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam GUIBTBUT
 				icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 4].key].groundicon"
 				frame lua "getFrame(6 * rowNumber - 4, 2)"
@@ -19555,7 +19898,19 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 3 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
+				bam GUIBTBUT
+				icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 3].key].groundicon"
+				frame lua "getFrame(6 * rowNumber - 3, 3)"
+				sequenceonce lua "getRandomSequence(6 * rowNumber - 3,3)"
+				align center center
+				count lua "chargen.choose_spell[6 * rowNumber - 3].count"
+			}
+			button
+			{
+				enabled "cellNumber == 3 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam GUIBTBUT
 				icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 3].key].groundicon"
 				frame lua "getFrame(6 * rowNumber - 3, 3)"
@@ -19569,7 +19924,19 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 4 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
+				bam GUIBTBUT
+				icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber -2].key].groundicon"
+				frame lua "getFrame(6 * rowNumber - 2, 4)"
+				sequenceonce lua "getRandomSequence(6 * rowNumber - 2,3)"
+				align center center
+				count lua "chargen.choose_spell[6 * rowNumber - 2].count"
+			}
+			button
+			{
+				enabled "cellNumber == 4 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam GUIBTBUT
 				icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber -2].key].groundicon"
 				frame lua "getFrame(6 * rowNumber - 2, 4)"
@@ -19583,7 +19950,19 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 5 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
+				bam GUIBTBUT
+				icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 1].key].groundicon"
+				frame lua "getFrame(6 * rowNumber - 1, 5)"
+				sequenceonce lua "getRandomSequence(6 * rowNumber - 1,3)"
+				align center center
+				count lua "chargen.choose_spell[6 * rowNumber - 1].count"
+			}
+			button
+			{
+				enabled "cellNumber == 5 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam GUIBTBUT
 				icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber - 1].key].groundicon"
 				frame lua "getFrame(6 * rowNumber - 1, 5)"
@@ -19597,7 +19976,19 @@ menu
 			width 16
 			button
 			{
+				enabled "cellNumber ~= 6 or rowSelected ~= rowNumber"
 				area 0 0 -1 -1
+				bam GUIBTBUT
+				frame lua "getFrame(6 * rowNumber, 6)"
+				icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber].key].groundicon"
+				sequenceonce lua "getRandomSequence(6 * rowNumber,3)"
+				align center center
+				count lua "chargen.choose_spell[6 * rowNumber].count"
+			}
+			button
+			{
+				enabled "cellNumber == 6 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam GUIBTBUT
 				frame lua "getFrame(6 * rowNumber, 6)"
 				icon lua "priestSpells[chargen.currentSpellLevelChoice][chargen.choose_spell[6 * rowNumber].key].groundicon"
@@ -19839,13 +20230,27 @@ menu
 			label
 			{
 				area 0 0 330 30
-				text lua "Infinity_FetchString(chargen.hatedRace[rowNumber].name)"
-				text style "button"
-				text shadow 1
 				bam GUIRECC
 				ScaleToClip
 				frame lua "getChargenFrame()"
 				sequenceonce lua "rowNumber % 4"
+			}
+			label
+			{
+				enabled "ticksStarting == 0 or rowSelected ~= rowNumber"
+				area 0 0 330 30
+				text lua "Infinity_FetchString(chargen.hatedRace[rowNumber].name)"
+				text style "button"
+				text shadow 1
+				text align	center center				
+			}
+			label
+			{
+				enabled "ticksStarting ~= 0 and rowSelected == rowNumber"
+				area 2 2 330 30
+				text lua "Infinity_FetchString(chargen.hatedRace[rowNumber].name)"
+				text style "button"
+				text shadow 1
 				text align	center center				
 			}
 		}
@@ -19874,6 +20279,22 @@ menu
 		table "chargen.hatedRace"
 		var currentChargenHatedRace
 		scrollbar 'GUISTSCR'
+	}
+	label --random option
+	{
+		on R
+		action 
+		"
+			while (true) do
+				local rand = Infinity_RandomNumber(1, length(chargen.hatedRace)) 	
+				if currentChargenHatedRace ~= rand then currentChargenHatedRace = rand; break end --no doubles allowed
+			end
+		cellNumber = cellNum --needed for proper frame
+		if chargen.hatedRace[currentChargenHatedRace] then
+				createCharScreen:OnRacialEnemySelectButtonClick(chargen.hatedRace[currentChargenHatedRace].id)
+			end
+			Infinity_PlaySound('GAM_03')
+		"
 	}
 	text
 	{
@@ -27365,7 +27786,7 @@ menu
 	}
 	button
 	{
-		area 3 344 73 55
+		area 2 244 73 55
 		bam GUILS10
 		sequence 6
 		tooltip lua "getTooltipWithHotkey(6,24357)"
@@ -27377,7 +27798,7 @@ menu
 	}
 	button
 	{
-		area 3 399 73 55
+		area 2 299 73 55
 		bam GUILS10
 		sequence 7
 		tooltip lua "getTooltipWithHotkey(7,24362)"
