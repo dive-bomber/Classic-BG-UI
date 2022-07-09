@@ -1505,6 +1505,16 @@ menu
 			label
 			{
 				area 0 0 -1 -1
+				enabled "rowNumber == mouseoverRow"
+				text lua "formatScriptName(scriptList[rowNumber])"
+				text style	"normal"
+				text shadow 1
+				text color 255 150 0 255
+				pad 8 0 0 0
+			}
+			label
+			{
+				area 0 0 -1 -1
 				enabled "scriptList[rowNumber] ~= '' and scriptList_idx == rowNumber "
 				text lua "formatScriptName(scriptList[rowNumber])"
 				text style	"normal"
@@ -1537,6 +1547,8 @@ menu
 				doneEnabled = false
 			end
 		"
+		actionEnter	""
+		actionExit	"mouseoverRow = 0"
 	}
 
 	list
@@ -1684,6 +1696,16 @@ menu
 			}
 			label
 			{
+				enabled "rowNumber == mouseoverRow"
+				area 0 0 -1 -1
+				text lua "list_GUIREC_13_0[rowNumber]"
+				text style "list"
+				text shadow 1
+				text color 255 150 0 255
+				pad 8 0 0 0
+			}
+			label
+			{
 				enabled "list_GUIREC_13_0_idx == rowNumber"
 				area 0 0 -1 -1
 				text lua "list_GUIREC_13_0[rowNumber]"
@@ -1703,6 +1725,8 @@ menu
 		"
 			Infinity_OnCharacterItemSelect(list_GUIREC_13_0_idx - 1)
 		"
+		actionEnter	""
+		actionExit	"mouseoverRow = 0"
 	}
 	label
 	{
@@ -1858,6 +1882,15 @@ menu
 			}
 			label
 			{
+				enabled "rowNumber == mouseoverRow"
+				area 0 0 -1 -1
+				text lua "getSoundStringRef(rowNumber, list_GUIREC_20_5)"
+				text style	"normal"					
+				text shadow 1
+				text color 255 150 0 255
+			}
+			label
+			{
 				enabled "list_GUIREC_20_5_idx == rowNumber"
 				area 0 0 -1 -1
 				text lua "getSoundStringRef(rowNumber, list_GUIREC_20_5)"
@@ -1878,6 +1911,8 @@ menu
 			doneEnabled = characterScreen:IsDoneButtonClickable(currentID)
 		"
 		actionDbl "characterScreen:OnPlayButtonClick()"
+		actionEnter	""
+		actionExit	"mouseoverRow = 0"
 	}
 	text
 	{
@@ -4113,6 +4148,17 @@ menu
 			}
 			label
 			{
+				enabled "rowNumber == mouseoverRow"
+				area 0 0 -1 -1
+				text lua "getHotkeyName(keyCategory,rowNumber)"
+				text style	"normal"
+				text font "STONESML"
+				text shadow 1
+				text color 255 150 0 255
+				align left center
+			}
+			label
+			{
 				enabled "rowNumber == key"
 				area 0 0 -1 -1
 				text lua "getHotkeyName(keyCategory,rowNumber)"
@@ -4151,6 +4197,8 @@ menu
 			keybindings[keyCategory][key][6] = 0
 		end
 		"
+		actionEnter	""
+		actionExit	"mouseoverRow = 0"
 	}
 	
 	button
@@ -4414,6 +4462,16 @@ menu
 			}
 			label
 			{
+					enabled "rowNumber == mouseoverRow"
+				area 0 0 -1 -1
+				text lua "displayLanguages[rowNumber][4]"
+				text style	"label"
+				text shadow 1
+				text color 255 150 0 255
+				text align center center 
+			}
+			label
+			{
 				enabled "rowNumber == language"
 				area 0 0 -1 -1
 				text lua "displayLanguages[rowNumber][4]"
@@ -4429,7 +4487,9 @@ menu
 		table		"displayLanguages"
 		var			language
 		scrollbar	'GUISTSCR'
-		hidehighlight
+		hidehighlight		
+		actionEnter	""
+		actionExit	"mouseoverRow = 0"
 	}
 	text
 	{
@@ -5906,7 +5966,7 @@ menu
 		ScaleToClip
 		--frame lua "timer:GetCurrentTime() % 24"
 		--frame lua "worldScreen:CheckIfPaused()"
-		frame lua "clockFrame"
+		frame lua "getMovingFrame('clock')"
 		clickable lua "sidebarsGreyed ~= 1"
 		action
 		"
@@ -5915,25 +5975,44 @@ menu
 	}
 	label
 	{
-		enabled "worldScreen == e:GetActiveEngine()"
-		name 'clock_bg'
+		enabled "worldScreen == e:GetActiveEngine() and getMovingFrame('clock')==0"
 		area -1 187 78 78
 		bam "CGEAR"
 		ScaleToClip
 		frame lua "timer:GetCurrentTime() % 24"
 		useOverlayTint "worldScreen:CheckIfPaused()"
-		overlayTint 130 130 130
+		overlayTint 150 150 150
+	}
+	
+	label
+	{
+		enabled "worldScreen == e:GetActiveEngine() and getMovingFrame('clock')==1"
+		area 2 190 78 78
+		bam "CGEAR"
+		ScaleToClip
+		frame lua "timer:GetCurrentTime() % 24"
+		useOverlayTint "worldScreen:CheckIfPaused()"
+		overlayTint 150 150 150
 	}
 	label
 	{
-		enabled "worldScreen == e:GetActiveEngine()"
-		name 'clock'
+		enabled "worldScreen == e:GetActiveEngine() and getMovingFrame('clock')==0"
 		area -1 187 78 78
 		bam "CDIAL"
 		ScaleToClip
 		frame lua "timer:GetCurrentHour() % timer.TIMESCALE_HOUR_PER_DAY"
 		useOverlayTint "worldScreen:CheckIfPaused()"
-		overlayTint 130 130 130
+		overlayTint 150 150 150
+	}
+	label
+	{
+		enabled "worldScreen == e:GetActiveEngine() and getMovingFrame('clock')==1"
+		area 2 190 78 78
+		bam "CDIAL"
+		ScaleToClip
+		frame lua "timer:GetCurrentHour() % timer.TIMESCALE_HOUR_PER_DAY"
+		useOverlayTint "worldScreen:CheckIfPaused()"
+		overlayTint 150 150 150
 	}
 	button
 	{
@@ -5946,11 +6025,8 @@ menu
 		action
 		"
 			worldScreen:TogglePauseGame(true)
-			FakeClick('clock')
-			clockFrame = 1
+			getClick(Infinity_GetFrameCounter(), 'clock')
 		"
-		actionEnter ""
-		actionExit "ResetFakeClick(); clockFrame=0"
 	}
 	--end clock
 	label
@@ -5980,7 +6056,8 @@ menu
 `
 	mouseOverPortrait = -1
 	draggedPortrait = nil
-	movedPortrait = false
+	clickedFrame = 0
+	clickedObject = nil
 	function swapPortraits(dest)
 		worldScreen:SwapPortraits(dest,draggedPortrait)
 		draggedPortrait = nil
@@ -5993,36 +6070,20 @@ menu
 			return Infinity_FetchString(15917)
 		end
 	end
-	
-	function FakeClick(object, moveback)
-		local x,y,w,h = Infinity_GetArea(object)
-		local x1,y1,w1,h1 = Infinity_GetArea(object .. '_bg')
-		
-		if not moveback then
-			if not movedPortrait then
-				Infinity_SetArea(object,x+2,y+2,nil, nil)
-				Infinity_SetArea(object .. '_bg',x1+2,y1+2,w1-2, h1-2)
-				movedPortrait = true
-				return
-			end		
-		elseif movedPortrait then 
-			Infinity_SetArea(object,x-2,y-2,nil, nil)
-			Infinity_SetArea(object .. '_bg',x1-2,y1-2,w1+2, h1+2)
-			movedPortrait = false
-		else return end
-	end
-	
-	function ResetFakeClick()
-		Infinity_SetArea('clock',-1, 187, 78, 78)
-		Infinity_SetArea('clock_bg',-1, 187, 78, 78)
-		Infinity_SetArea('lootContainerIcon', 4, 14, 100, 100)
-		Infinity_SetArea('lootBigContainerIcon', 4, 14, 100, 100)
-		for i=0, 5 do
-			Infinity_SetArea('portrait' ..i, 11, 16+i*101, 65, 91)
-			Infinity_SetArea('portrait' ..i.. '_bg' , 6, 12+i*101, 73, 101)
-			Infinity_SetArea('portrait' ..i.. '_reform' , 21+i*79, 47, 61, 91)
+
+	function getMovingFrame(object)
+		if clickedObject ~= object then return 0 end --default if not clicked
+		local val = Infinity_GetINIValue('Program Options','Maximum Frame Rate','30')/60
+		if clickedFrame +10*val > Infinity_GetFrameCounter() then --(5-10 range)
+			return 1
+		else
+			clickedObject = nil --click done, reset
+			return 0 --5-10 frames have passed, go back to normal
 		end
-		movedPortrait = false
+	end
+	function getClick(num, object) --passing at what frame click happened and on what button, assigning to globals
+			clickedFrame = num
+			clickedObject = object
 	end
 	sidebarHidingIconOpacity = 0
 `
@@ -6061,26 +6122,42 @@ menu
 	}
 	label
 	{
-		name "portrait0_bg"
 		area 6 12 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 0"
+		frame lua "Infinity_GetNumCharacters() > 0 and getMovingFrame('portrait0')"
 		glow lua "draggedPortrait and draggedPortrait ~= 0"
 	}
 	button
 	{
-		name "portrait0"
 		area 11 16 65 91
 		portrait 0
-		enabled "Infinity_GetNumCharacters() > 0"
+		enabled "Infinity_GetNumCharacters() > 0 and getMovingFrame('portrait0')==0"
 		glow lua "draggedPortrait and draggedPortrait ~= 0"
-		action "Infinity_OnPortraitLClick(0); FakeClick('portrait0')"
-		actionAlt "Infinity_OnPortraitRClick(0)"
-		actionDbl "Infinity_OnPortraitDblClick(0)"
+		action "Infinity_OnPortraitLClick(0); getClick(Infinity_GetFrameCounter(), 'portrait0')"
+		actionAlt "Infinity_OnPortraitRClick(0); getClick(Infinity_GetFrameCounter(), 'portrait0')"
+		actionDbl "Infinity_OnPortraitDblClick(0); getClick(Infinity_GetFrameCounter(), 'portrait0')"
 		actiondrag "Infinity_SwapWithPortrait(0)"
 		actionEnter "mouseOverPortrait = 0"
-		actionExit "mouseOverPortrait = -1; ResetFakeClick()"
+		actionExit "mouseOverPortrait = -1"
+		actionSimpleDrag "draggedPortrait = 0"
+		actionSimpleDrop "swapPortraits(0)"
+		tooltip lua "Infinity_GetPortraitTooltip(0)"
+		clickable lua "sidebarsGreyed ~= 1"
+	}
+	button
+	{
+		area 13 18 65 91
+		portrait 0
+		enabled "Infinity_GetNumCharacters() > 0 and getMovingFrame('portrait0')==1"
+		glow lua "draggedPortrait and draggedPortrait ~= 0"
+		action "Infinity_OnPortraitLClick(0); getClick(Infinity_GetFrameCounter(), 'portrait0')"
+		actionAlt "Infinity_OnPortraitRClick(0); getClick(Infinity_GetFrameCounter(), 'portrait0')"
+		actionDbl "Infinity_OnPortraitDblClick(0); getClick(Infinity_GetFrameCounter(), 'portrait0')"
+		actiondrag "Infinity_SwapWithPortrait(0)"
+		actionEnter "mouseOverPortrait = 0"
+		actionExit "mouseOverPortrait = -1"
 		actionSimpleDrag "draggedPortrait = 0"
 		actionSimpleDrop "swapPortraits(0)"
 		tooltip lua "Infinity_GetPortraitTooltip(0)"
@@ -6088,26 +6165,42 @@ menu
 	}
 	label
 	{
-		name "portrait1_bg"
 		area 6 113 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 1"
+		frame lua "Infinity_GetNumCharacters() > 1 and getMovingFrame('portrait1')"
 		glow lua "draggedPortrait and draggedPortrait ~= 1"
 	}
 	button
 	{
-		name "portrait1"
 		area 11 117 65 91
 		portrait 1
-		enabled "Infinity_GetNumCharacters() > 1"
+		enabled "Infinity_GetNumCharacters() > 1 and getMovingFrame('portrait1')==0"
 		glow lua "draggedPortrait and draggedPortrait ~= 1"
-		action "Infinity_OnPortraitLClick(1); FakeClick('portrait1')"
-		actionAlt "Infinity_OnPortraitRClick(1)"
-		actionDbl "Infinity_OnPortraitDblClick(1)"
+		action "Infinity_OnPortraitLClick(1); getClick(Infinity_GetFrameCounter(), 'portrait1')"
+		actionAlt "Infinity_OnPortraitRClick(1); getClick(Infinity_GetFrameCounter(), 'portrait1')"
+		actionDbl "Infinity_OnPortraitDblClick(1); getClick(Infinity_GetFrameCounter(), 'portrait1')"
 		actiondrag "Infinity_SwapWithPortrait(1)"
 		actionEnter "mouseOverPortrait = 1"
-		actionExit "mouseOverPortrait = -1; ResetFakeClick()"
+		actionExit "mouseOverPortrait = -1"
+		actionSimpleDrag "draggedPortrait = 1"
+		actionSimpleDrop "swapPortraits(1)"
+		tooltip lua "Infinity_GetPortraitTooltip(1)"
+		clickable lua "sidebarsGreyed ~= 1"
+	}
+	button
+	{
+		area 13 119 65 91
+		portrait 1
+		enabled "Infinity_GetNumCharacters() > 1 and getMovingFrame('portrait1')==1"
+		glow lua "draggedPortrait and draggedPortrait ~= 1"
+		action "Infinity_OnPortraitLClick(1); getClick(Infinity_GetFrameCounter(), 'portrait1')"
+		actionAlt "Infinity_OnPortraitRClick(1); getClick(Infinity_GetFrameCounter(), 'portrait1')"
+		actionDbl "Infinity_OnPortraitDblClick(1); getClick(Infinity_GetFrameCounter(), 'portrait1')"
+		actiondrag "Infinity_SwapWithPortrait(1)"
+		actionEnter "mouseOverPortrait = 1"
+		actionExit "mouseOverPortrait = -1"
 		actionSimpleDrag "draggedPortrait = 1"
 		actionSimpleDrop "swapPortraits(1)"
 		tooltip lua "Infinity_GetPortraitTooltip(1)"
@@ -6115,26 +6208,42 @@ menu
 	}
 	label
 	{
-		name "portrait2_bg"
 		area 6 214 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 2"
+		frame lua "Infinity_GetNumCharacters() > 2 and getMovingFrame('portrait2')"
 		glow lua "draggedPortrait and draggedPortrait ~= 2"
 	}
 	button
 	{
-		name "portrait2"
 		area 11 218 65 91
 		portrait 2
-		enabled "Infinity_GetNumCharacters() > 2"
+		enabled "Infinity_GetNumCharacters() > 2 and getMovingFrame('portrait2')==0"
 		glow lua "draggedPortrait and draggedPortrait ~= 2"
-		action "Infinity_OnPortraitLClick(2); FakeClick('portrait2')"
-		actionAlt "Infinity_OnPortraitRClick(2)"
-		actionDbl "Infinity_OnPortraitDblClick(2)"
+		action "Infinity_OnPortraitLClick(2); getClick(Infinity_GetFrameCounter(), 'portrait2')"
+		actionAlt "Infinity_OnPortraitRClick(2); getClick(Infinity_GetFrameCounter(), 'portrait2')"
+		actionDbl "Infinity_OnPortraitDblClick(2); getClick(Infinity_GetFrameCounter(), 'portrait2')"
 		actiondrag "Infinity_SwapWithPortrait(2)"
 		actionEnter "mouseOverPortrait = 2"
-		actionExit "mouseOverPortrait = -1; ResetFakeClick()"
+		actionExit "mouseOverPortrait = -1"
+		actionSimpleDrag "draggedPortrait = 2"
+		actionSimpleDrop "swapPortraits(2)"
+		tooltip lua "Infinity_GetPortraitTooltip(2)"
+		clickable lua "sidebarsGreyed ~= 1"
+	}
+	button
+	{
+		area 13 220 65 91
+		portrait 2
+		enabled "Infinity_GetNumCharacters() > 2 and getMovingFrame('portrait2')==1"
+		glow lua "draggedPortrait and draggedPortrait ~= 2"
+		action "Infinity_OnPortraitLClick(2); getClick(Infinity_GetFrameCounter(), 'portrait2')"
+		actionAlt "Infinity_OnPortraitRClick(2); getClick(Infinity_GetFrameCounter(), 'portrait2')"
+		actionDbl "Infinity_OnPortraitDblClick(2); getClick(Infinity_GetFrameCounter(), 'portrait2')"
+		actiondrag "Infinity_SwapWithPortrait(2)"
+		actionEnter "mouseOverPortrait = 2"
+		actionExit "mouseOverPortrait = -1"
 		actionSimpleDrag "draggedPortrait = 2"
 		actionSimpleDrop "swapPortraits(2)"
 		tooltip lua "Infinity_GetPortraitTooltip(2)"
@@ -6142,26 +6251,42 @@ menu
 	}
 	label
 	{
-		name "portrait3_bg"
 		area 6 315 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 3"
+		frame lua "Infinity_GetNumCharacters() > 3 and getMovingFrame('portrait3')"
 		glow lua "draggedPortrait and draggedPortrait ~= 3"
 	}
 	button
 	{
-		name "portrait3"
 		area 11 319 65 91
 		portrait 3
-		enabled "Infinity_GetNumCharacters() > 3"
+		enabled "Infinity_GetNumCharacters() > 3 and getMovingFrame('portrait3')==0"
 		glow lua "draggedPortrait and draggedPortrait ~= 3"
-		action "Infinity_OnPortraitLClick(3); FakeClick('portrait3')"
-		actionAlt "Infinity_OnPortraitRClick(3)"
-		actionDbl "Infinity_OnPortraitDblClick(3)"
+		action "Infinity_OnPortraitLClick(3); getClick(Infinity_GetFrameCounter(), 'portrait3')"
+		actionAlt "Infinity_OnPortraitRClick(3); getClick(Infinity_GetFrameCounter(), 'portrait3')"
+		actionDbl "Infinity_OnPortraitDblClick(3); getClick(Infinity_GetFrameCounter(), 'portrait3')"
 		actiondrag "Infinity_SwapWithPortrait(3)"
 		actionEnter "mouseOverPortrait = 3"
-		actionExit "mouseOverPortrait = -1; ResetFakeClick()"
+		actionExit "mouseOverPortrait = -1"
+		actionSimpleDrag "draggedPortrait = 3"
+		actionSimpleDrop "swapPortraits(3)"
+		tooltip lua "Infinity_GetPortraitTooltip(3)"
+		clickable lua "sidebarsGreyed ~= 1"
+	}
+	button
+	{
+		area 13 321 65 91
+		portrait 3
+		enabled "Infinity_GetNumCharacters() > 3 and getMovingFrame('portrait3')==1"
+		glow lua "draggedPortrait and draggedPortrait ~= 3"
+		action "Infinity_OnPortraitLClick(3); getClick(Infinity_GetFrameCounter(), 'portrait3')"
+		actionAlt "Infinity_OnPortraitRClick(3); getClick(Infinity_GetFrameCounter(), 'portrait3')"
+		actionDbl "Infinity_OnPortraitDblClick(3); getClick(Infinity_GetFrameCounter(), 'portrait3')"
+		actiondrag "Infinity_SwapWithPortrait(3)"
+		actionEnter "mouseOverPortrait = 3"
+		actionExit "mouseOverPortrait = -1"
 		actionSimpleDrag "draggedPortrait = 3"
 		actionSimpleDrop "swapPortraits(3)"
 		tooltip lua "Infinity_GetPortraitTooltip(3)"
@@ -6169,26 +6294,42 @@ menu
 	}
 	label
 	{
-		name "portrait4_bg"
 		area 6 416 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 4"
+		frame lua "Infinity_GetNumCharacters() > 4 and getMovingFrame('portrait4')"
 		glow lua "draggedPortrait and draggedPortrait ~= 4"
 	}
 	button
 	{
-		name "portrait4"
 		area 11 420 65 91
 		portrait 4
-		enabled "Infinity_GetNumCharacters() > 4"
+		enabled "Infinity_GetNumCharacters() > 4 and getMovingFrame('portrait4')==0"
 		glow lua "draggedPortrait and draggedPortrait ~= 4"
-		action "Infinity_OnPortraitLClick(4); FakeClick('portrait4')"
-		actionAlt "Infinity_OnPortraitRClick(4)"
-		actionDbl "Infinity_OnPortraitDblClick(4)"
+		action "Infinity_OnPortraitLClick(4); getClick(Infinity_GetFrameCounter(), 'portrait4')"
+		actionAlt "Infinity_OnPortraitRClick(4); getClick(Infinity_GetFrameCounter(), 'portrait4')"
+		actionDbl "Infinity_OnPortraitDblClick(4); getClick(Infinity_GetFrameCounter(), 'portrait4')"
 		actiondrag "Infinity_SwapWithPortrait(4)"
 		actionEnter "mouseOverPortrait = 4"
-		actionExit "mouseOverPortrait = -1; ResetFakeClick()"
+		actionExit "mouseOverPortrait = -1"
+		actionSimpleDrag "draggedPortrait = 4"
+		actionSimpleDrop "swapPortraits(4)"
+		tooltip lua "Infinity_GetPortraitTooltip(4)"
+		clickable lua "sidebarsGreyed ~= 1"
+	}
+	button
+	{
+		area 13 422 65 91
+		portrait 4
+		enabled "Infinity_GetNumCharacters() > 4 and getMovingFrame('portrait4')==1"
+		glow lua "draggedPortrait and draggedPortrait ~= 4"
+		action "Infinity_OnPortraitLClick(4); getClick(Infinity_GetFrameCounter(), 'portrait4')"
+		actionAlt "Infinity_OnPortraitRClick(4); getClick(Infinity_GetFrameCounter(), 'portrait4')"
+		actionDbl "Infinity_OnPortraitDblClick(4); getClick(Infinity_GetFrameCounter(), 'portrait4')"
+		actiondrag "Infinity_SwapWithPortrait(4)"
+		actionEnter "mouseOverPortrait = 4"
+		actionExit "mouseOverPortrait = -1"
 		actionSimpleDrag "draggedPortrait = 4"
 		actionSimpleDrop "swapPortraits(4)"
 		tooltip lua "Infinity_GetPortraitTooltip(4)"
@@ -6196,26 +6337,42 @@ menu
 	}
 	label
 	{
-		name "portrait5_bg"
 		area 6 517 73 101
 		bam GUIRSP10
 		ScaleToClip
 		enabled "Infinity_GetNumCharacters() > 5"
+		frame lua "Infinity_GetNumCharacters() > 5 and getMovingFrame('portrait5')"
 		glow lua "draggedPortrait and draggedPortrait ~= 5"
 	}
 	button
 	{
-		name "portrait5"
 		area 11 521 65 91
 		portrait 5
-		enabled "Infinity_GetNumCharacters() > 5"
+		enabled "Infinity_GetNumCharacters() > 5 and getMovingFrame('portrait5')==0"
 		glow lua "draggedPortrait and draggedPortrait ~= 5"
-		action "Infinity_OnPortraitLClick(5); FakeClick('portrait5')"
-		actionAlt "Infinity_OnPortraitRClick(5)"
-		actionDbl "Infinity_OnPortraitDblClick(5)"
+		action "Infinity_OnPortraitLClick(5); getClick(Infinity_GetFrameCounter(), 'portrait5')"
+		actionAlt "Infinity_OnPortraitRClick(5); getClick(Infinity_GetFrameCounter(), 'portrait5')"
+		actionDbl "Infinity_OnPortraitDblClick(5); getClick(Infinity_GetFrameCounter(), 'portrait5')"
 		actiondrag "Infinity_SwapWithPortrait(5)"
 		actionEnter "mouseOverPortrait = 5"
-		actionExit "mouseOverPortrait = -1; ResetFakeClick()"
+		actionExit "mouseOverPortrait = -1"
+		actionSimpleDrag "draggedPortrait = 5"
+		actionSimpleDrop "swapPortraits(5)"
+		tooltip lua "Infinity_GetPortraitTooltip(5)"
+		clickable lua "sidebarsGreyed ~= 1"
+	}
+	button
+	{
+		area 13 523 65 91
+		portrait 5
+		enabled "Infinity_GetNumCharacters() > 5 and getMovingFrame('portrait5')==1"
+		glow lua "draggedPortrait and draggedPortrait ~= 5"
+		action "Infinity_OnPortraitLClick(5); getClick(Infinity_GetFrameCounter(), 'portrait5')"
+		actionAlt "Infinity_OnPortraitRClick(5); getClick(Infinity_GetFrameCounter(), 'portrait5')"
+		actionDbl "Infinity_OnPortraitDblClick(5); getClick(Infinity_GetFrameCounter(), 'portrait5')"
+		actiondrag "Infinity_SwapWithPortrait(5)"
+		actionEnter "mouseOverPortrait = 5"
+		actionExit "mouseOverPortrait = -1"
 		actionSimpleDrag "draggedPortrait = 5"
 		actionSimpleDrop "swapPortraits(5)"
 		tooltip lua "Infinity_GetPortraitTooltip(5)"
@@ -6694,7 +6851,7 @@ menu
 	--stat details begin
 	text
 	{
-		area		525 144 43 42
+		area		526 144 43 42
 		text lua	"characters[id].AC.current"
 		text style	"title"
 		align center center
@@ -6710,7 +6867,7 @@ menu
 	}
 	text
 	{
-		area		660 146 42 42
+		area		659 146 42 42
 		text lua	"getInventoryTHAC0()"
 		text style	"title"
 		tooltip lua "t('THAC0_LABEL')"
@@ -6741,47 +6898,75 @@ menu
 			width 100
 			label
 			{
-				area		0 0 250 30
-				--mosaic		INVSEP1
+				area		0 0 280 30
+				mosaic		INVSEP1
 				respectClipping
-				enabled		"inventoryStats[rowNumber][1] == 1"
+				enabled		"inventoryStats[rowNumber][1] == 1 and ticksStarting == 0 or inventoryStats[rowNumber][1] == 1 and rowSelected ~= rowNumber"
 				text		lua "inventoryStats[rowNumber][2]"
-				text style  'bold_parchment'
-				text point 14
-				text color 'L'
-				text useFontZoom  1
-				text align	center center
-				text useFontZoom 0
-				
-			}
-			label
-			{
-				area		200 3 30 27
-				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0"
-				text		lua "'v'"
-				text style  'bold_parchment'
-				text point 14
-				text color 'L'
-				text useFontZoom  1
+				text style  'label'
 				text align	center center
 				text useFontZoom 0
 			}
 			label
 			{
-				area		8 0 262 -1
+				area		2 2 278 28
+				mosaic		INVSEP1
+				respectClipping
+				enabled		"inventoryStats[rowNumber][1] == 1 and ticksStarting ~= 0 and rowSelected == rowNumber"
+				text		lua "inventoryStats[rowNumber][2]"
+				text style  'label'
+				text align	center center
+				text useFontZoom 0
+			}
+			label
+			{
+				area		20 5 20 20
+				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and ticksStarting == 0 or inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and rowSelected ~= rowNumber"
+				bam					"PCHEV"
+				frame 2
+				ScaleToClip
+			}
+			label
+			{
+				area		22 7 18 18
+				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and ticksStarting ~= 0 and rowSelected == rowNumber"
+				bam					"PCHEV"
+				frame 2
+				ScaleToClip
+			}
+			label
+			{
+				area		240 5 20 20
+				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and ticksStarting == 0 or inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and rowSelected ~= rowNumber"
+				bam					"PCHEV"
+				frame 2
+				ScaleToClip
+			}
+			label
+			{
+				area		242 7 18 18
+				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and ticksStarting ~= 0 and rowSelected == rowNumber"
+				bam					"PCHEV"
+				frame 2
+				ScaleToClip
+			}
+			label
+			{
+				area		28 0 -1 -1
 				enabled		"inventoryStats[rowNumber][1] == 2 or inventoryStats[rowNumber][1] == 3"
 				text		lua "inventoryStats[rowNumber][2]"
-				text style  'normal_parchment'
+				text style  'normal'
+				pad 0 0 40 0
 				text align	left center
 			}
 		}
-		area 554 228 254 283
-		enabled "savedHeight > 282"
+		area 531 216 305 306
+		enabled "savedHeight >=306"
 		rowheight	dynamic
 		hidehighlight
 		table		"buildInventoryStats()"
 		var			inventoryVar
-		scrollbar	'GUIKNSBR'
+		scrollbar	'GUISCRC'
 		scrollbar func "inventoryScroll"
 		action
 		"
@@ -6793,6 +6978,35 @@ menu
 					inventoryShow[idx] = value
 				end
 			end
+			cellNumber = nil
+			rowNumber = nil
+			ticksPassed = 0
+			ticksStarting = 0
+			"
+		actionAlt
+		"
+			if inventoryStats[inventoryVar] ~= nil and inventoryStats[inventoryVar][1] == 1 then
+				local idx = inventoryStats[inventoryVar][3]
+				if idx ~= nil then
+					local value = 1
+					if inventoryShow[idx] == 1 then value = 0 end
+					inventoryShow = {value,value,value,value,value,value}
+				end
+			end
+			cellNumber = nil
+			rowNumber = nil
+			ticksPassed = 0
+			ticksStarting = 0
+			"
+		actionUpdate 
+		"	
+			ticksStarting = ticksStarting + 1
+			if ticksStarting > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
 		"
 	}
 	list
@@ -6802,47 +7016,77 @@ menu
 			width 100
 			label
 			{
-				area		0 0 298 30
-				--mosaic		INVSEP2
+				area		0 0 305 30
+				mosaic		INVSEP2
 				respectClipping
-				enabled		"inventoryStats[rowNumber][1] == 1"
+				enabled		"inventoryStats[rowNumber][1] == 1 and ticksStarting == 0 or inventoryStats[rowNumber][1] == 1 and rowSelected ~= rowNumber"
 				text		lua "inventoryStats[rowNumber][2]"
-				text style  'bold_parchment'
-				text point 14
-				text color 'L'
-				text align	left center
-				text useFontZoom 0
-			}
-			label
-			{
-				area		200 3 30 27
-				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0"
-				text		lua "'v'"
-				text style  'bold_parchment'
-				text point 14
-				text color 'L'
+				text style  'label'
 				text align	center center
 				text useFontZoom 0
 			}
 			label
 			{
-				area		8 0 220 -1
+				area		2 2 303 28
+				mosaic		INVSEP2
+				respectClipping
+				enabled		"inventoryStats[rowNumber][1] == 1 and ticksStarting ~= 0 and rowSelected == rowNumber"
+				text		lua "inventoryStats[rowNumber][2]"
+				text style  'label'
+				text align	center center
+				text useFontZoom 0
+			}
+			label
+			{
+				area		20 5 20 20
+				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and ticksStarting == 0 or inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and rowSelected ~= rowNumber"
+				bam					"PCHEV"
+				frame 2
+				ScaleToClip
+			}
+			label
+			{
+				area		22 7 20 20
+				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and ticksStarting ~= 0 and rowSelected == rowNumber"
+				bam					"PCHEV"
+				frame 2
+				ScaleToClip
+			}
+			label
+			{
+				area		265 5 20 20
+				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and ticksStarting == 0 or inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and rowSelected ~= rowNumber"
+				bam					"PCHEV"
+				frame 2
+				ScaleToClip
+			}
+			label
+			{
+				area		267 7 20 20
+				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and ticksStarting ~= 0 and rowSelected == rowNumber"
+				bam					"PCHEV"
+				frame 2
+				ScaleToClip
+			}
+			label
+			{
+				area		28 0 220 -1
 				enabled		"inventoryStats[rowNumber][1] == 2 or inventoryStats[rowNumber][1] == 3"
 				text		lua "inventoryStats[rowNumber][2]"
-				text style  'normal_parchment'
+				text style  'normal'
 				text align	left center
 			}
 			label
 			{
-				area		8 0 220 -1
+				area		200 0 220 -1
 				enabled		"inventoryStats[rowNumber][1] == 3"
 				text		lua "inventoryStats[rowNumber][3]"
 				text style  'normal'
-				text align	right center
+				text align	left center
 			}
 		}
-		area 554 228 254 283
-		enabled "savedHeight < 283"
+		area 531 216 305 306
+		enabled "savedHeight < 306"
 		rowheight	dynamic
 		hidehighlight
 		table		"buildInventoryStats()"
@@ -6856,6 +7100,35 @@ menu
 					local value = 1
 					if inventoryShow[idx] == 1 then value = 0 end
 					inventoryShow[idx] = value
+				end
+			end
+			cellNumber = nil
+			rowNumber = nil
+			ticksPassed = 0
+			ticksStarting = 0
+		"
+		actionAlt
+		"
+			if inventoryStats[inventoryVar] ~= nil and inventoryStats[inventoryVar][1] == 1 then
+				local idx = inventoryStats[inventoryVar][3]
+				if idx ~= nil then
+					local value = 1
+					if inventoryShow[idx] == 1 then value = 0 end
+					inventoryShow = {value,value,value,value,value,value}
+				end
+			end
+			cellNumber = nil
+			rowNumber = nil
+			ticksPassed = 0
+			ticksStarting = 0
+		"
+		actionUpdate 
+		"	
+			ticksStarting = ticksStarting + 1
+			if ticksStarting > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
 				end
 			end
 		"
@@ -8965,8 +9238,7 @@ menu
 			}
 		}
 
-		area 380 124 276 448
-		
+		area 380 124 276 448		
 		rowheight	71
 		table		"OptionsButtons"
 		var			selectedMenuOpt
@@ -9446,7 +9718,7 @@ menu
 		area 152 208 56 54
 		bam GUIMGC
 		sequence 0
-		on A
+		frame lua "getMovingFrame('mageTurnLeft')==1 and 1 or 0"
 		action
 		"
 			if currentSpellLevel > 1 then
@@ -9456,18 +9728,39 @@ menu
 	}
 	button
 	{
+		on A
+		action
+		"
+			if currentSpellLevel > 1 then
+				getClick(Infinity_GetFrameCounter(), 'mageTurnLeft')
+				setMageBookLevel(currentSpellLevel - 1)
+			end
+		"
+	}
+	button
+	{
 		area 657 208 56 54
 		bam GUIMGC
 		sequence 1
-		on D
+		frame lua "getMovingFrame('mageTurnRight')==1 and 1 or 0"
 		action
 		"
 			if currentSpellLevel < maxMagePage then
 				setMageBookLevel(currentSpellLevel + 1)
+			end	
+		"
+	}
+	button
+	{
+		on D
+		action
+		"
+			if currentSpellLevel < maxMagePage then						
+				getClick(Infinity_GetFrameCounter(), 'mageTurnRight')
+				setMageBookLevel(currentSpellLevel + 1)
 			end
 		"
 	}
-
 	template
 	{
 		label
@@ -10803,7 +11096,7 @@ end
 function setPriestBookLevel(num, noSound)
 	currentBookSpell = 0
 	if noSound ~= true and num ~= currentSpellLevel then
-		Infinity_PlaySound('GAM_05')
+		Infinity_PlaySound('GAM_06')
 	end
 	currentSpellLevel = num
 	refreshPriestBook()
@@ -10980,7 +11273,7 @@ menu
 		area 363 212 71 51
 		bam GUIPRC
 		sequence 0
-		on A
+		frame lua "getMovingFrame('clericTurnLeft') ==1 and 1 or 0"
 		action
 		"
 			if currentSpellLevel > 1 then
@@ -10990,10 +11283,21 @@ menu
 	}
 	button
 	{
+		on A
+		action
+		"
+			if currentSpellLevel > 1 then
+				getClick(Infinity_GetFrameCounter(), 'clericTurnLeft')
+				setPriestBookLevel(currentSpellLevel - 1)
+			end
+		"
+	}
+	button
+	{
 		area 434 212 71 52
 		bam GUIPRC
 		sequence 1
-		on D
+		frame lua "getMovingFrame('clericTurnRight') ==1 and 1 or 0"
 		action
 		"
 			if currentSpellLevel < maxPriestPage then
@@ -11001,7 +11305,17 @@ menu
 			end
 		"
 	}
-
+	button
+	{
+		on D
+		action
+		"
+			if currentSpellLevel < maxPriestPage then				
+				getClick(Infinity_GetFrameCounter(), 'clericTurnRight')
+				setPriestBookLevel(currentSpellLevel + 1)
+			end
+		"
+	}
 	template
 	{
 		label
@@ -11908,6 +12222,7 @@ menu
 		name 		"mapNoteEditArea"
 		area		52 20 542 36
 		var			mapNoteEdit
+		maxlines 1
 		scrollbar	'GUISCRC'
 		text style	"edit"
 	}
@@ -12167,7 +12482,7 @@ menu
 	{
 		name 'travelButton'
 		area 913 293 45 44
-		enabled "worldMapScreen:IsTravelButtonVisible()"
+		enabled "worldMapScreen:IsTravelButtonClickable()"
 		bam GMPCONNC
 		ScaleToClip
 		--text "TRAVEL_BUTTON"
@@ -12191,7 +12506,8 @@ function UpdateChapterScroll(top, height, contentHeight)
 		return nil
 	end
 	local dT = Infinity_GetClockTicks() - text_CHAPTERSCROLL_timeStart
-	local timerCrawl = dT * -0.006
+	local x,y,w,h = Infinity_GetArea("chapterIntroduction") --need only width
+	local timerCrawl = dT * -0.006*(500/w) --arbitrary multiplier, seems to produce best pace for narration
 	if megacredits ~= '' then
 		timerCrawl = dT * -0.06
 	end
@@ -14762,29 +15078,38 @@ menu
 		area 0 0 653 130
 		mosaic gmpwmsg0
 	}
-	text
+	button
 	{
-		enabled "containerBigMode == 0"
-		name "lootContainerIcon"
+		enabled "containerBigMode == 0 and getMovingFrame('containerIcon')==0"
 		area 4 14 100 100
 		bam lua "loot.containerIcon"
 		ScaleToClip
 		clickable lua "getContainerItemProperty(0,'icon') ~=nil or worldScreen:ContainerScrollEnabled(-1)"
 		tooltip lua 'JFStrings.takeAll or "[E]"'
 		tooltip force top
+		useOverlayTint "getContainerItemProperty(0,'icon') ==nil"
+		overlayTint 180 180 180
 		action
 		"
-			FakeClick('lootContainerIcon')
+			getClick(Infinity_GetFrameCounter(), 'containerIcon')
 			worldScreen:TakeAllFromContainer()
 		"
-		actionEnter ""
-		actionExit "ResetFakeClick()"
+	}
+	button
+	{
+		enabled "containerBigMode == 0 and getMovingFrame('containerIcon')==1"
+		area 6 16 100 100
+		bam lua "loot.containerIcon"
+		ScaleToClip
+		useOverlayTint "getContainerItemProperty(0,'icon') ==nil"
+		overlayTint 180 180 180
 	}
 	label 
 	{
 		enabled "containerBigMode == 0"
 		on E action
 		"
+			Infinity_PlaySound('GAM_09')
 			worldScreen:TakeAllFromContainer()
 		"
 	}
@@ -15030,33 +15355,42 @@ menu
 		area 0 0 1020 130
 		mosaic gmpwmsg1
 	}
-	text
+	button
 	{
-		enabled "containerBigMode == 1"
-		name "lootBigContainerIcon"
+		enabled "containerBigMode == 1 and getMovingFrame('containerIcon')==0"
 		area 4 14 100 100
 		bam lua "loot.containerIcon"
 		ScaleToClip
 		clickable lua "getContainerItemProperty(0,'icon') ~=nil or worldScreen:ContainerScrollEnabled(-1)"
 		tooltip lua 'JFStrings.takeAll'
 		tooltip force top
+		useOverlayTint "getContainerItemProperty(0,'icon') ==nil"
+		overlayTint 180 180 180
 		action
 		"
-			FakeClick('lootBigContainerIcon')
+			getClick(Infinity_GetFrameCounter(), 'containerIcon')
 			worldScreen:TakeAllFromContainer()
 			repeat 
 			worldScreen:OnGroupScroll(-1)
 			worldScreen:OnContainerScroll(-1)
 			until (worldScreen:GroupScrollEnabled(-1) == false)
 		"
-		actionEnter ""
-		actionExit "ResetFakeClick()"
+	}
+	button
+	{
+		enabled "containerBigMode == 1 and getMovingFrame('containerIcon')==1"
+		area 6 16 100 100
+		bam lua "loot.containerIcon"
+		ScaleToClip
+		useOverlayTint "getContainerItemProperty(0,'icon') ==nil"
+		overlayTint 180 180 180
 	}
 	label 
 	{
 		enabled "containerBigMode == 1"
 		on E action
 		"
+			Infinity_PlaySound('GAM_09')
 			worldScreen:TakeAllFromContainer()
 			repeat 
 			worldScreen:OnGroupScroll(-1)
@@ -15659,9 +15993,9 @@ menu
 	{
 		area 5 0 52 52
 		bam GUIBTACT
-		frame 64
+		frame lua "getMovingFrame('LootLeftArrow')==1 and 65 or 64"
 		--enabled "worldScreen:GroundScrollEnabled(-1) or worldScreen:GroundScrollEnabled(1)"
-		enabled "getGroundItemProperty(0,'icon') ~= nil and worldScreen:GroundScrollEnabled(-1)"
+		enabled "getGroundItemProperty(0,'icon') ~= nil and worldScreen:GroundScrollEnabled(-1) or getMovingFrame('LootLeftArrow')==1"
 		action
 		"
 			worldScreen:OnGroundScroll(-1)
@@ -15674,16 +16008,17 @@ menu
 		action
 		"
 			Infinity_PlaySound('GAM_09')
-			worldScreen:OnGroundScroll(-1)
+			worldScreen:OnGroundScroll(-1)			
+			getClick(Infinity_GetFrameCounter(), 'LootLeftArrow')
 		"
 	}
 	button
 	{
 		area 733 0 52 52
 		bam GUIBTACT
-		frame 66
+		frame lua "getMovingFrame('LootRightArrow')==1 and 67 or 66"
 		--enabled "worldScreen:GroundScrollEnabled(-1) or worldScreen:GroundScrollEnabled(1)"
-		enabled "getGroundItemProperty(12,'icon') ~= nil"
+		enabled "getGroundItemProperty(12,'icon') ~= nil or getMovingFrame('LootRightArrow')==1"
 		action
 		"
 			worldScreen:OnGroundScroll(1)
@@ -15697,6 +16032,7 @@ menu
 		"
 			Infinity_PlaySound('GAM_09')
 			worldScreen:OnGroundScroll(1)
+			getClick(Infinity_GetFrameCounter(), 'LootRightArrow')
 		"
 	}
 	button
@@ -15895,6 +16231,22 @@ menu
 		actionExit "mouseOverQuicklootContainer = nil"
 	}			
 }
+`
+function getMovingFrameReformParty(object, num)
+		local val = Infinity_GetINIValue('Program Options','Maximum Frame Rate','30')/60
+		if clickedFrame +10*val > Infinity_GetFrameCounter() then --(5-10 range)
+			if clickedObject == object then
+			return 1 end
+		else
+			if worldScreen:GetPickPartyCharacterId(num) == worldScreen:GetPickPartyRemoveCharacterId() and worldScreen:IsPickPartyRemoveButtonClickable() then 
+				return 2
+			else 
+				clickedObject = nil --click done, reset
+				return 0 
+			end
+		end
+	end
+`
 menu
 {
 	name 'WORLD_PICKPARTY'
@@ -15917,60 +16269,68 @@ menu
 	label
 	{
 		area 10 39 81 108
-		--name "portrait0_reform_bg" --unlike right sidebar, this time moving background doesn't look so hot
-		frame lua"worldScreen:GetPickPartyCharacterId(0) == worldScreen:GetPickPartyRemoveCharacterId() and worldScreen:IsPickPartyRemoveButtonClickable() and 2 or 0"
+		frame lua "getMovingFrameReformParty('portrait0_reform', 0)"
 		bam GUIRSP10
 		ScaleToClip
 		enabled "worldScreen:GetPickPartyPortrait(0) ~= ''"
 	}
 	button
 	{
+		enabled "worldScreen:GetPickPartyPortrait(0) ~= '' and getMovingFrame('portrait0_reform')==0"
 		area 21 47 61 91
-		name "portrait0_reform"
 		clickable lua "worldScreen:GetPickPartyPortrait(0) ~= ''"
 		bitmap lua "worldScreen:GetPickPartyPortrait(0)"
 		action
 		"
 			worldScreen:OnPickPartyPortraitButtonClick(0)
-			FakeClick('portrait0_reform')
+			getClick(Infinity_GetFrameCounter(), 'portrait0_reform')
 		"
-		actionEnter ""
-		actionExit "ResetFakeClick()"
+	}
+	button
+	{
+		enabled "worldScreen:GetPickPartyPortrait(0) ~= '' and getMovingFrame('portrait0_reform')==1"
+		area 23 49 61 91
+		clickable lua "worldScreen:GetPickPartyPortrait(0) ~= ''"
+		bitmap lua "worldScreen:GetPickPartyPortrait(0)"
 	}
 	label
 	{
 		area 89 40 81 108
-		--name "portrait1_reform_bg"
-		frame lua"worldScreen:GetPickPartyCharacterId(1) == worldScreen:GetPickPartyRemoveCharacterId() and worldScreen:IsPickPartyRemoveButtonClickable() and 2 or 0"
+		frame lua "getMovingFrameReformParty('portrait1_reform', 1)"
 		bam GUIRSP10
 		ScaleToClip
 		enabled "worldScreen:GetPickPartyPortrait(1) ~= ''"
 	}
 	button
 	{
+		enabled "worldScreen:GetPickPartyPortrait(1) ~= '' and getMovingFrame('portrait1_reform')==0"
 		area 100 47 61 91
-		name "portrait1_reform"
 		clickable lua "worldScreen:GetPickPartyPortrait(1) ~= ''"
 		bitmap lua "worldScreen:GetPickPartyPortrait(1)"
 		action
 		"
 			worldScreen:OnPickPartyPortraitButtonClick(1)
-			FakeClick('portrait1_reform')
+			getClick(Infinity_GetFrameCounter(), 'portrait1_reform')
 		"
-		actionEnter ""
-		actionExit "ResetFakeClick()"
+	}
+	button
+	{
+		enabled "worldScreen:GetPickPartyPortrait(1) ~= '' and getMovingFrame('portrait1_reform')==1"
+		area 102 49 61 91
+		clickable lua "worldScreen:GetPickPartyPortrait(1) ~= ''"
+		bitmap lua "worldScreen:GetPickPartyPortrait(1)"
 	}
 	label
 	{
 		area 168 40 81 108
-		--name "portrait2_reform_bg"
-		frame lua"worldScreen:GetPickPartyCharacterId(2) == worldScreen:GetPickPartyRemoveCharacterId() and worldScreen:IsPickPartyRemoveButtonClickable() and 2 or 0"
+		frame lua "getMovingFrameReformParty('portrait2_reform', 2)"
 		bam GUIRSP10
 		ScaleToClip
 		enabled "worldScreen:GetPickPartyPortrait(2) ~= ''"
 	}
 	button
 	{
+		enabled "worldScreen:GetPickPartyPortrait(2) ~= '' and getMovingFrame('portrait2_reform')==0"
 		area 179 47 61 91
 		name "portrait2_reform"
 		clickable lua "worldScreen:GetPickPartyPortrait(2) ~= ''"
@@ -15978,102 +16338,123 @@ menu
 		action
 		"
 			worldScreen:OnPickPartyPortraitButtonClick(2)
-			FakeClick('portrait2_reform')
+			getClick(Infinity_GetFrameCounter(), 'portrait2_reform')
 		"
-		actionEnter ""
-		actionExit "ResetFakeClick()"
+	}
+	button
+	{
+		enabled "worldScreen:GetPickPartyPortrait(2) ~= '' and getMovingFrame('portrait2_reform')==1"
+		area 181 49 61 91
+		clickable lua "worldScreen:GetPickPartyPortrait(2) ~= ''"
+		bitmap lua "worldScreen:GetPickPartyPortrait(2)"
 	}
 	label
 	{
 		area 247 40 81 108
-		--name "portrait3_reform_bg"
-		frame lua"worldScreen:GetPickPartyCharacterId(3) == worldScreen:GetPickPartyRemoveCharacterId() and worldScreen:IsPickPartyRemoveButtonClickable() and 2 or 0"
+		frame lua "getMovingFrameReformParty('portrait3_reform', 3)"
 		bam GUIRSP10
 		ScaleToClip
 		enabled "worldScreen:GetPickPartyPortrait(3) ~= ''"
 	}
 	button
 	{
+		enabled "worldScreen:GetPickPartyPortrait(3) ~= '' and getMovingFrame('portrait3_reform')==0"
 		area 258 47 61 91
-		name "portrait3_reform"
 		clickable lua "worldScreen:GetPickPartyPortrait(3) ~= ''"
 		bitmap lua "worldScreen:GetPickPartyPortrait(3)"
 		action
 		"
 			worldScreen:OnPickPartyPortraitButtonClick(3)
-			FakeClick('portrait3_reform')
+			getClick(Infinity_GetFrameCounter(), 'portrait3_reform')
 		"
-		actionEnter ""
-		actionExit "ResetFakeClick()"
+	}
+	button
+	{
+		enabled "worldScreen:GetPickPartyPortrait(3) ~= '' and getMovingFrame('portrait3_reform')==1"
+		area 260 49 61 91
+		clickable lua "worldScreen:GetPickPartyPortrait(3) ~= ''"
+		bitmap lua "worldScreen:GetPickPartyPortrait(3)"
 	}
 	label
 	{
 		area 326 40 81 108
-		--name "portrait4_reform_bg"
-		frame lua"worldScreen:GetPickPartyCharacterId(4) == worldScreen:GetPickPartyRemoveCharacterId() and worldScreen:IsPickPartyRemoveButtonClickable() and 2 or 0"
+		frame lua "getMovingFrameReformParty('portrait4_reform', 4)"
 		bam GUIRSP10
 		ScaleToClip
 		enabled "worldScreen:GetPickPartyPortrait(4) ~= ''"
 	}
 	button
 	{
+		enabled "worldScreen:GetPickPartyPortrait(4) ~= '' and getMovingFrame('portrait4_reform')==0"
 		area 337 47 61 91
-		name "portrait4_reform"
 		clickable lua "worldScreen:GetPickPartyPortrait(4) ~= ''"
 		bitmap lua "worldScreen:GetPickPartyPortrait(4)"
 		action
 		"
 			worldScreen:OnPickPartyPortraitButtonClick(4)
-			FakeClick('portrait4_reform')
+			getClick(Infinity_GetFrameCounter(), 'portrait4_reform')
 		"
-		actionEnter ""
-		actionExit "ResetFakeClick()"
+	}
+	button
+	{
+		enabled "worldScreen:GetPickPartyPortrait(4) ~= '' and getMovingFrame('portrait4_reform')==1"
+		area 339 49 61 91
+		clickable lua "worldScreen:GetPickPartyPortrait(4) ~= ''"
+		bitmap lua "worldScreen:GetPickPartyPortrait(4)"
 	}
 	label
 	{
 		area 405 40 81 108
-		--name "portrait5_reform_bg"
-		frame lua"worldScreen:GetPickPartyCharacterId(5) == worldScreen:GetPickPartyRemoveCharacterId() and worldScreen:IsPickPartyRemoveButtonClickable() and 2 or 0"
+		frame lua "getMovingFrameReformParty('portrait5_reform', 5)"
 		bam GUIRSP10
 		ScaleToClip
 		enabled "worldScreen:GetPickPartyPortrait(5) ~= ''"
 	}
 	button
 	{
+		enabled "worldScreen:GetPickPartyPortrait(5) ~= '' and getMovingFrame('portrait5_reform')==0"
 		area 416 47 61 91
-		name "portrait5_reform"
 		clickable lua "worldScreen:GetPickPartyPortrait(5) ~= ''"
 		bitmap lua "worldScreen:GetPickPartyPortrait(5)"
 		action
 		"
 			worldScreen:OnPickPartyPortraitButtonClick(5)
-			FakeClick('portrait5_reform')
+			getClick(Infinity_GetFrameCounter(), 'portrait5_reform')
 		"
-		actionEnter ""
-		actionExit "ResetFakeClick()"
+	}
+	button
+	{
+		enabled "worldScreen:GetPickPartyPortrait(5) ~= '' and getMovingFrame('portrait5_reform')==1"
+		area 418 49 61 91
+		clickable lua "worldScreen:GetPickPartyPortrait(5) ~= ''"
+		bitmap lua "worldScreen:GetPickPartyPortrait(5)"
 	}
 	label
 	{
 		area 484 40 81 108
-		--name "portrait6_reform_bg"
-		frame lua"worldScreen:GetPickPartyCharacterId(6) == worldScreen:GetPickPartyRemoveCharacterId() and worldScreen:IsPickPartyRemoveButtonClickable() and 2 or 0"
+		frame lua "getMovingFrameReformParty('portrait6_reform', 6)"
 		bam GUIRSP10
 		ScaleToClip
 		enabled "worldScreen:GetPickPartyPortrait(6) ~= ''"
 	}
 	button
 	{
+		enabled "worldScreen:GetPickPartyPortrait(6) ~= '' and getMovingFrame('portrait6_reform')==0"
 		area 495 47 61 91
-		name "portrait6_reform"
 		clickable lua "worldScreen:GetPickPartyPortrait(6) ~= ''"
 		bitmap lua "worldScreen:GetPickPartyPortrait(6)"
 		action
 		"
 			worldScreen:OnPickPartyPortraitButtonClick(6)
-			FakeClick('portrait6_reform')
+			getClick(Infinity_GetFrameCounter(), 'portrait6_reform')
 		"
-		actionEnter ""
-		actionExit "ResetFakeClick()"
+	}
+	button
+	{
+		enabled "worldScreen:GetPickPartyPortrait(6) ~= '' and getMovingFrame('portrait6_reform')==1"
+		area 497 49 61 91
+		clickable lua "worldScreen:GetPickPartyPortrait(6) ~= ''"
+		bitmap lua "worldScreen:GetPickPartyPortrait(6)"
 	}
 	label
 	{
@@ -16652,6 +17033,7 @@ menu
 			hasPortrait5 = gameSaves.files[currentSave].hasPortrait5,
 			}
 		end
+		Infinity_FocusTextEdit('newSaveNameArea')
 	"
 	label
 	{
@@ -19099,8 +19481,9 @@ function specialistFrame(num, cellNum)
 	elseif cellNumber == cellNum and rowSelected == rowNumber  then return 1
 	elseif spellBook[chargen.currentSpellLevelChoice][spl.key].specialist then
 		if spl.enabled or spl.known then return 4
-		else return 3 end	
-	elseif spl.enabled or spl.known then return 2	
+		else return 3 end
+	elseif spl.known then return 4
+	elseif spl.enabled then return 2
 	else return 0 end
 end
 function spellLearnOrUnlearnText()
@@ -20126,6 +20509,15 @@ menu
 			}
 			label
 			{
+				enabled "rowNumber == mouseoverRow"
+				area 0 0 384 18
+				text lua "getSoundStringRef(rowNumber, chargen.customSound)"
+				text style	"normal"					
+				text shadow 1
+				text color 255 150 0 255
+			}
+			label
+			{
 				enabled "currentChargenCustomSound == rowNumber"
 				area 0 0 384 18
 				text lua "getSoundStringRef(rowNumber, chargen.customSound)"
@@ -20145,6 +20537,8 @@ menu
 			createCharScreen:OnSoundItemSelect(chargen.customSound[currentChargenCustomSound].index-1)
 		"
 		actionDbl "createCharScreen:OnPlayButtonClick()"
+		actionEnter	""
+		actionExit	"mouseoverRow = 0"
 	}
 	text
 	{
@@ -20947,14 +21341,26 @@ menu
 		}
 		column 
 		{ 
-			width 15
+			width 12
 			label
 			{
 				area 0 0 64 -1
 				text lua "t( difficulties[rowNumber].name )"
 				text style "label"
+				text point 18
 				text shadow 1
 				text align center center
+			}
+			label
+			{
+				enabled "rowNumber == mouseoverRow"
+				area 0 0 64 -1
+				text lua "t( difficulties[rowNumber].name )"
+				text style "label"
+				text point 18
+				text shadow 1
+				text align center center
+				text color 255 150 0 255
 			}
 			label
 			{
@@ -20962,6 +21368,7 @@ menu
 				area 0 0 64 -1
 				text lua "t( difficulties[rowNumber].name )"
 				text style "label"
+				text point 18
 				text shadow 1
 				text align center center
 				text color S
@@ -20972,6 +21379,7 @@ menu
 				area 0 0 64 -1
 				text lua "t( difficulties[rowNumber].name )"
 				text style "label"
+				text point 18
 				text shadow 1
 				text align center center
 				text color R
@@ -20982,6 +21390,7 @@ menu
 				area 0 0 64 -1
 				text lua "t( difficulties[rowNumber].name )"
 				text style "label"
+				text point 18
 				text shadow 1
 				text align center center
 				text color G
@@ -20989,7 +21398,7 @@ menu
 		}
 		column 
 		{ 
-			width 70
+			width 73
 			label
 			{
 				area 10 0 -1 -1
@@ -20998,6 +21407,17 @@ menu
 				text point	12
 				text shadow 1
 				text align left center
+			}
+			label
+			{
+				enabled "rowNumber == mouseoverRow"
+				area 10 0 -1 -1
+				text lua "t( difficulties[rowNumber].description )"
+				text style "normal"
+				text point	12
+				text shadow 1
+				text align left center
+				text color 255 150 0 255
 			}
 			label
 			{
@@ -21043,6 +21463,8 @@ menu
 		"		
 				Infinity_PlaySound('GAM_09')
 		"
+		actionEnter	""
+		actionExit	"mouseoverRow = 0"
 	}
 	button
 	{
@@ -21068,6 +21490,8 @@ menu
 				createCharScreen:OnMainBackButtonClick()
 			end
 		"
+		actionEnter	""
+		actionExit	"mouseoverRow = 0"
 	}
 	button
 	{
@@ -25950,10 +26374,10 @@ function getJournalEditedColours(text)
 	return text
 end
 
-function getJournalMosaic(text)
+function getJournalFrame(text)
 	str = string.find(text, "\n")
-	if str == nil then return 'JOURSEP'
-	else return 'JOURSEP2'
+	if str == nil then return 0
+	else return 1
 	end
 end
 `
@@ -26119,7 +26543,7 @@ menu
 		rowheight dynamic
 		hidehighlight
 		table "makeTable(2)"
-		area		76 88 220 42
+		area		80 88 220 42
 		action
 		"
 			CloseAll()
@@ -26130,7 +26554,7 @@ menu
 	text
 	{
 		enabled "splitPos == -1"
-		area		76 88 220 42
+		area		80 88 220 42
 		text lua "chapterText()"
 		text style "normal_parchment"
 	}
@@ -26197,15 +26621,36 @@ menu
 			width 90 
 			label
 			{
-				enabled 			"questEnabled(rowNumber)"
+				enabled 			"questEnabled(rowNumber) and ticksStarting == 0 or questEnabled(rowNumber) and rowSelected ~= rowNumber"
 				area				0 0 -1 -1
-				mosaic lua "getJournalMosaic(getQuestText(rowNumber))"
+				bam "JOURSEP"
+				frame lua  "getJournalFrame(getQuestText(rowNumber))"
+				useOverlayTint "getFinished(rowNumber)"
+				overlayTint 150 150 150
+				--fill 0 0 0 255
+			}
+			label --clicked
+			{
+				enabled 			"questEnabled(rowNumber) and ticksStarting ~= 0 and rowSelected == rowNumber"
+				area				2 2 -1 -1
+				bam "JOURSEP"
+				frame lua  "getJournalFrame(getQuestText(rowNumber))"
+				useOverlayTint "getFinished(rowNumber)"
+				overlayTint 150 150 150
 				--fill 0 0 0 255
 			}
 			label
 			{	
-				enabled				"questEnabled(rowNumber)"
+				enabled 			"questEnabled(rowNumber) and ticksStarting == 0 or questEnabled(rowNumber) and rowSelected ~= rowNumber"
 				area				8 0 -1 -1
+				text lua			"getQuestText(rowNumber)"
+				text style			"label"
+				align				left center
+			}
+			label --clicked
+			{	
+				enabled 			"questEnabled(rowNumber) and ticksStarting ~= 0 and rowSelected == rowNumber"
+				area				10 2 -1 -1
 				text lua			"getQuestText(rowNumber)"
 				text style			"label"
 				align				left center
@@ -26217,6 +26662,7 @@ menu
 				pad					0 10 0 10
 				text lua			"getObjectiveText(rowNumber)"
 				text style			"normal_parchment"
+				text color			0 0 0 255
 			}
 			label
 			{
@@ -26244,6 +26690,20 @@ menu
 				questDisplay[selectedQuest].expanded = 1
 			end
 			CheckForOpenedQuests()
+			cellNumber = nil
+			rowNumber = nil
+			ticksPassed = 0
+			ticksStarting = 0
+			"
+		actionUpdate 
+		"	
+			ticksStarting = ticksStarting + 1
+			if ticksStarting > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
 		"
 	}
 	
