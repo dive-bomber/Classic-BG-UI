@@ -1471,10 +1471,12 @@ menu
 	}
 	text
 	{
-		area 32 528 320 60
+		area 32 410 320 174
 		text lua "scriptDescription"
 		scrollbar 'GUISCRC'
 		text style	normal
+		pad 5 5 5 5
+		text shadow 1
 		enabled "showingSmartOptions == true"
 	}
 
@@ -1529,7 +1531,7 @@ menu
 				rectangle	1
 			}
 		}
-		area 26 88 326 432
+		area 26 88 326 310
 		rowheight	18
 		table		"scriptList"
 		var			"scriptList_idx"
@@ -1584,7 +1586,7 @@ menu
 				area		10 6 28 28
 				bam			ROUNDBUT
 				scaleToClip
-				frame		lua "scriptOptions[rowNumber][4]"
+				frame		lua "ticksStarting ~= 0 and rowSelected == rowNumber and cellNumber == 2 and 1 or scriptOptions[rowNumber][4]"
 			}
 		}
 
@@ -1607,6 +1609,19 @@ menu
 				Infinity_PlaySound('GAM_09')
 				handleScriptOptionChange(selScriptOpt)
 			end
+			ticksPassed = 0
+			ticksStarting = 0
+		"
+		actionUpdate 
+		"	
+			ticksStarting = ticksStarting + 1
+			if ticksStarting > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
+			rowSelected = nil
 		"
 	}
 	
@@ -2152,7 +2167,7 @@ menu
 				area		5 4 24 24
 				bam			ROUNDBUT
 				scaleToClip
-				frame		lua "toggleTitles[rowNumber][4]"
+				frame		lua "ticksStarting ~= 0 and rowSelected == rowNumber and cellNumber == 2 and 1 or toggleTitles[rowNumber][4]"
 			}
 		}
 
@@ -2183,6 +2198,19 @@ menu
 				groundItemsButtonToggle = 1
 				highlightButtonToggle = 1
 			end
+			ticksPassed = 0
+			ticksStarting = 0
+		"
+		actionUpdate 
+		"	
+			ticksStarting = ticksStarting + 1
+			if ticksStarting > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
+			rowSelected = nil
 		"
 	}	
 	text
@@ -2601,7 +2629,7 @@ menu
 				area		20 6 28 28
 				bam			ROUNDBUT
 				scaleToClip
-				frame		lua "autoPauseToggles[rowNumber][4]"
+				frame		lua "ticksStartingTwo ~= 0 and rowSelected == rowNumber and cellNumber == 2 and 1 or autoPauseToggles[rowNumber][4]"
 			}
 		}
 
@@ -2628,6 +2656,19 @@ menu
 					autoPauseToggles[selOptAP][5] = 1
 				end
 			end
+			ticksPassed = 0
+			ticksStartingTwo = 0
+		"
+		actionUpdate 
+		"	
+			ticksStartingTwo = ticksStartingTwo + 1
+			if ticksStartingTwo > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
+			rowSelected = nil
 		"
 	}
 	list
@@ -2665,7 +2706,7 @@ menu
 				area		20 6 28 28
 				bam			ROUNDBUT
 				scaleToClip
-				frame		lua "characterPauseToggles[rowNumber][4]"
+				frame		lua "ticksStarting ~= 0 and rowSelected == rowNumber and cellNumber == 2 and 1 or characterPauseToggles[rowNumber][4]"
 			}
 		}
 
@@ -2694,6 +2735,19 @@ menu
 
 				--Infinity_ChangeOption(characterPauseToggles[selOptAPC][3], characterPauseToggles[selOptAPC][5], panelID )
 			end
+			ticksPassed = 0
+			ticksStarting = 0
+		"
+		actionUpdate 
+		"	
+			ticksStarting = ticksStarting + 1
+			if ticksStarting > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
+			rowSelected = nil
 		"
 	}
 	
@@ -2901,12 +2955,11 @@ menu
 				area		5 6 24 24
 				bam			ROUNDBUT
 				scaleToClip
-				frame		lua "graphicsToggles[rowNumber][4]"
+				frame		lua "ticksStarting ~= 0 and rowSelected == rowNumber and cellNumber == 2 and 1 or graphicsToggles[rowNumber][4]"
 			}
 		}
 
-		area 108 126 310 470
-		
+		area 108 126 310 470		
 		rowheight	33
 		table		"graphicsToggles"
 		var		selectedGraphicOpt
@@ -2930,6 +2983,19 @@ menu
 				graphicsToggles[selectedGraphicOpt][6] = 1
 				--Infinity_ChangeOption(graphicsToggles[selectedGraphicOpt][3], graphicsToggles[selectedGraphicOpt][5], panelID )
 			end
+			ticksPassed = 0
+			ticksStarting = 0
+		"
+		actionUpdate 
+		"	
+			ticksStarting = ticksStarting + 1
+			if ticksStarting > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
+			rowSelected = nil
 		"
 	}
 
@@ -3100,6 +3166,9 @@ menu
 				selectSel = index
 			end
 		end
+		ticksStarting = 0
+		ticksStartingTwo = 0
+		ticksStartingThree = 0
 	"
 	
 	button
@@ -3163,7 +3232,7 @@ menu
 				area		20 6 28 28
 				bam			ROUNDBUT
 				scaleToClip
-				frame		lua "soundsToggles[rowNumber][4]"
+				frame		lua "ticksStarting ~= 0 and rowSelected == rowNumber and cellNumber == 2 and 1 or soundsToggles[rowNumber][4]"
 			}
 		}
 
@@ -3189,6 +3258,19 @@ menu
 				end
 				
 			end
+			ticksPassed = 0
+			ticksStarting = 0
+		"
+		actionUpdate 
+		"	
+			ticksStarting = ticksStarting + 1
+			if ticksStarting > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
+			rowSelected = nil
 		"
 	}
 	
@@ -3232,7 +3314,7 @@ menu
 				bam			ROUNDBUT
 				sequence 1
 				scaleToClip
-				frame		lua "command[rowNumber][4]"
+				frame		lua "ticksStartingTwo ~= 0 and rowSelected == rowNumber and 1 or command[rowNumber][4]"
 			}
 		}
 
@@ -3241,7 +3323,7 @@ menu
 		rowheight	40
 		table		"command"
 		var		commandSel
-		scrollbar	'+'
+		scrollbar	'GUISTSCR'
 		hidehighlight
 
 		action		
@@ -3257,6 +3339,19 @@ menu
 			
 			Infinity_PlaySound('GAM_09')
 			command[opt][4] = 2
+			ticksPassed = 0
+			ticksStartingTwo = 0
+		"
+		actionUpdate 
+		"	
+			ticksStartingTwo = ticksStartingTwo + 1
+			if ticksStartingTwo > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
+			rowSelected = nil
 		"
 	}
 
@@ -3299,7 +3394,7 @@ menu
 				bam			ROUNDBUT
 				sequence 1
 				scaleToClip
-				frame		lua "selectOpt[rowNumber][4]"
+				frame		lua "ticksStartingThree ~= 0 and rowSelected == rowNumber and 1 or selectOpt[rowNumber][4]"
 			}
 		}
 
@@ -3308,7 +3403,7 @@ menu
 		rowheight	46
 		table		"selectOpt"
 		var		selectSel
-		scrollbar	'GUISCRC'
+		scrollbar	'GUISTSCR'
 		hidehighlight
 		action		
 		"
@@ -3323,6 +3418,19 @@ menu
 			
 			Infinity_PlaySound('GAM_09')
 			selectOpt[opt][4] = 2
+			ticksPassed = 0
+			ticksStartingThree = 0
+		"
+		actionUpdate 
+		"	
+			ticksStartingThree = ticksStartingThree + 1
+			if ticksStartingThree > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
+			rowSelected = nil
 		"
 	}
 	
@@ -3729,7 +3837,7 @@ menu
 				area		20 6 28 28
 				bam			ROUNDBUT
 				scaleToClip
-				frame		lua "feedbackToggles[rowNumber][4]"
+				frame		lua "ticksStarting ~= 0 and rowSelected == rowNumber and cellNumber == 2 and 1 or feedbackToggles[rowNumber][4]"
 			}
 		}
 
@@ -3756,6 +3864,19 @@ menu
 					feedbackToggles[selFeedOpt][5] = 1
 				end
 			end
+			ticksPassed = 0
+			ticksStarting = 0
+		"
+		actionUpdate 
+		"	
+			ticksStarting = ticksStarting + 1
+			if ticksStarting > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
+			rowSelected = nil
 		"
 	}
 
@@ -3804,7 +3925,7 @@ menu
 				bam			ROUNDBUT
 				sequence 1
 				scaleToClip
-				frame		lua "messagesToggles[rowNumber][4]"
+				frame		lua "ticksStartingTwo ~= 0 and rowSelected == rowNumber and cellNumber == 2 and 1 or messagesToggles[rowNumber][4]"
 			}
 		}
 
@@ -3832,6 +3953,19 @@ menu
 					messagesToggles[selMessageOpt][5] = 1
 				end
 			end
+			ticksPassed = 0
+			ticksStartingTwo = 0
+		"
+		actionUpdate 
+		"	
+			ticksStartingTwo = ticksStartingTwo + 1
+			if ticksStartingTwo > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
+			rowSelected = nil
 		"
 	}
 	text
@@ -4142,7 +4276,6 @@ menu
 				area 0 0 -1 -1
 				text lua "getHotkeyName(keyCategory,rowNumber)"
 				text style	"normal"
-				text font "STONESML"
 				text shadow 1
 				align left center
 			}
@@ -4152,7 +4285,6 @@ menu
 				area 0 0 -1 -1
 				text lua "getHotkeyName(keyCategory,rowNumber)"
 				text style	"normal"
-				text font "STONESML"
 				text shadow 1
 				text color 255 150 0 255
 				align left center
@@ -4163,7 +4295,6 @@ menu
 				area 0 0 -1 -1
 				text lua "getHotkeyName(keyCategory,rowNumber)"
 				text style	"normal"
-				text font "STONESML"
 				text shadow 1
 				text color S
 				align left center
@@ -4692,8 +4823,8 @@ menu
 		else
 			itemRequestAmt = requester.requesterMax
 			requestAmt = requester.requestMax
-
 		end
+		ticksStarting = 0
 	"
 	
 	label
@@ -6027,6 +6158,7 @@ menu
 			worldScreen:TogglePauseGame(true)
 			getClick(Infinity_GetFrameCounter(), 'clock')
 		"
+		actionHold "getClick(Infinity_GetFrameCounter(), 'clock')"
 	}
 	--end clock
 	label
@@ -6131,11 +6263,12 @@ menu
 	}
 	button
 	{
-		area 11 16 65 91
+		area 12 18 64 89
 		portrait 0
 		enabled "Infinity_GetNumCharacters() > 0 and getMovingFrame('portrait0')==0"
 		glow lua "draggedPortrait and draggedPortrait ~= 0"
 		action "Infinity_OnPortraitLClick(0); getClick(Infinity_GetFrameCounter(), 'portrait0')"
+		actionHold "getClick(Infinity_GetFrameCounter(), 'portrait0')"
 		actionAlt "Infinity_OnPortraitRClick(0); getClick(Infinity_GetFrameCounter(), 'portrait0')"
 		actionDbl "Infinity_OnPortraitDblClick(0); getClick(Infinity_GetFrameCounter(), 'portrait0')"
 		actiondrag "Infinity_SwapWithPortrait(0)"
@@ -6148,7 +6281,7 @@ menu
 	}
 	button
 	{
-		area 13 18 65 91
+		area 14 20 64 89
 		portrait 0
 		enabled "Infinity_GetNumCharacters() > 0 and getMovingFrame('portrait0')==1"
 		glow lua "draggedPortrait and draggedPortrait ~= 0"
@@ -6174,11 +6307,12 @@ menu
 	}
 	button
 	{
-		area 11 117 65 91
+		area 12 119 64 89
 		portrait 1
 		enabled "Infinity_GetNumCharacters() > 1 and getMovingFrame('portrait1')==0"
 		glow lua "draggedPortrait and draggedPortrait ~= 1"
 		action "Infinity_OnPortraitLClick(1); getClick(Infinity_GetFrameCounter(), 'portrait1')"
+		actionHold "getClick(Infinity_GetFrameCounter(), 'portrait1')"
 		actionAlt "Infinity_OnPortraitRClick(1); getClick(Infinity_GetFrameCounter(), 'portrait1')"
 		actionDbl "Infinity_OnPortraitDblClick(1); getClick(Infinity_GetFrameCounter(), 'portrait1')"
 		actiondrag "Infinity_SwapWithPortrait(1)"
@@ -6191,7 +6325,7 @@ menu
 	}
 	button
 	{
-		area 13 119 65 91
+		area 14 121 64 89
 		portrait 1
 		enabled "Infinity_GetNumCharacters() > 1 and getMovingFrame('portrait1')==1"
 		glow lua "draggedPortrait and draggedPortrait ~= 1"
@@ -6217,11 +6351,12 @@ menu
 	}
 	button
 	{
-		area 11 218 65 91
+		area 12 220 64 89
 		portrait 2
 		enabled "Infinity_GetNumCharacters() > 2 and getMovingFrame('portrait2')==0"
 		glow lua "draggedPortrait and draggedPortrait ~= 2"
 		action "Infinity_OnPortraitLClick(2); getClick(Infinity_GetFrameCounter(), 'portrait2')"
+		actionHold "getClick(Infinity_GetFrameCounter(), 'portrait2')"
 		actionAlt "Infinity_OnPortraitRClick(2); getClick(Infinity_GetFrameCounter(), 'portrait2')"
 		actionDbl "Infinity_OnPortraitDblClick(2); getClick(Infinity_GetFrameCounter(), 'portrait2')"
 		actiondrag "Infinity_SwapWithPortrait(2)"
@@ -6234,7 +6369,7 @@ menu
 	}
 	button
 	{
-		area 13 220 65 91
+		area 14 222 64 89
 		portrait 2
 		enabled "Infinity_GetNumCharacters() > 2 and getMovingFrame('portrait2')==1"
 		glow lua "draggedPortrait and draggedPortrait ~= 2"
@@ -6260,11 +6395,12 @@ menu
 	}
 	button
 	{
-		area 11 319 65 91
+		area 12 321 64 89
 		portrait 3
 		enabled "Infinity_GetNumCharacters() > 3 and getMovingFrame('portrait3')==0"
 		glow lua "draggedPortrait and draggedPortrait ~= 3"
 		action "Infinity_OnPortraitLClick(3); getClick(Infinity_GetFrameCounter(), 'portrait3')"
+		actionHold "getClick(Infinity_GetFrameCounter(), 'portrait3')"
 		actionAlt "Infinity_OnPortraitRClick(3); getClick(Infinity_GetFrameCounter(), 'portrait3')"
 		actionDbl "Infinity_OnPortraitDblClick(3); getClick(Infinity_GetFrameCounter(), 'portrait3')"
 		actiondrag "Infinity_SwapWithPortrait(3)"
@@ -6277,7 +6413,7 @@ menu
 	}
 	button
 	{
-		area 13 321 65 91
+		area 14 323 64 89
 		portrait 3
 		enabled "Infinity_GetNumCharacters() > 3 and getMovingFrame('portrait3')==1"
 		glow lua "draggedPortrait and draggedPortrait ~= 3"
@@ -6303,11 +6439,12 @@ menu
 	}
 	button
 	{
-		area 11 420 65 91
+		area 12 422 64 89
 		portrait 4
 		enabled "Infinity_GetNumCharacters() > 4 and getMovingFrame('portrait4')==0"
 		glow lua "draggedPortrait and draggedPortrait ~= 4"
 		action "Infinity_OnPortraitLClick(4); getClick(Infinity_GetFrameCounter(), 'portrait4')"
+		actionHold "getClick(Infinity_GetFrameCounter(), 'portrait4')"
 		actionAlt "Infinity_OnPortraitRClick(4); getClick(Infinity_GetFrameCounter(), 'portrait4')"
 		actionDbl "Infinity_OnPortraitDblClick(4); getClick(Infinity_GetFrameCounter(), 'portrait4')"
 		actiondrag "Infinity_SwapWithPortrait(4)"
@@ -6320,7 +6457,7 @@ menu
 	}
 	button
 	{
-		area 13 422 65 91
+		area 14 424 64 89
 		portrait 4
 		enabled "Infinity_GetNumCharacters() > 4 and getMovingFrame('portrait4')==1"
 		glow lua "draggedPortrait and draggedPortrait ~= 4"
@@ -6346,11 +6483,12 @@ menu
 	}
 	button
 	{
-		area 11 521 65 91
+		area 12 523 64 89
 		portrait 5
 		enabled "Infinity_GetNumCharacters() > 5 and getMovingFrame('portrait5')==0"
 		glow lua "draggedPortrait and draggedPortrait ~= 5"
 		action "Infinity_OnPortraitLClick(5); getClick(Infinity_GetFrameCounter(), 'portrait5')"
+		actionHold "getClick(Infinity_GetFrameCounter(), 'portrait5')"
 		actionAlt "Infinity_OnPortraitRClick(5); getClick(Infinity_GetFrameCounter(), 'portrait5')"
 		actionDbl "Infinity_OnPortraitDblClick(5); getClick(Infinity_GetFrameCounter(), 'portrait5')"
 		actiondrag "Infinity_SwapWithPortrait(5)"
@@ -6363,7 +6501,7 @@ menu
 	}
 	button
 	{
-		area 13 523 65 91
+		area 14 525 64 89
 		portrait 5
 		enabled "Infinity_GetNumCharacters() > 5 and getMovingFrame('portrait5')==1"
 		glow lua "draggedPortrait and draggedPortrait ~= 5"
@@ -6596,8 +6734,8 @@ function formatString(value, score, coeff)
 	elseif score > 0 then
 		str = value .. " (+" .. score .. ")"
 	end
-	if coeff * score < 0 then return "^R" .. str .. "^-" end
-	if coeff * score > 0 then return"^0xFF33FF66" .. str .. "^-" end
+	if coeff * score < 0 then return "^0xFF000090" .. str .. "^-" end --red
+	if coeff * score > 0 then return"^0xFF2CEE60" .. str .. "^-" end --green
 	return str
 end
 function getTempStat(old, newName, name, coeff)
@@ -6898,75 +7036,59 @@ menu
 			width 100
 			label
 			{
-				area		0 0 280 30
-				mosaic		INVSEP1
-				respectClipping
+				area		0 0 238 30
+				--mosaic		INVSEP1
 				enabled		"inventoryStats[rowNumber][1] == 1 and ticksStarting == 0 or inventoryStats[rowNumber][1] == 1 and rowSelected ~= rowNumber"
 				text		lua "inventoryStats[rowNumber][2]"
-				text style  'label'
+				text style  'bold_parchment'
+				text point 14
+				text color 'L'
 				text align	center center
 				text useFontZoom 0
 			}
 			label
 			{
-				area		2 2 278 28
-				mosaic		INVSEP1
-				respectClipping
+				area		2 2 238 28
+				--mosaic		INVSEP1
 				enabled		"inventoryStats[rowNumber][1] == 1 and ticksStarting ~= 0 and rowSelected == rowNumber"
 				text		lua "inventoryStats[rowNumber][2]"
-				text style  'label'
+				text style  'bold_parchment'
+				text point 14
+				text color 'L'
 				text align	center center
 				text useFontZoom 0
+			}			
+			label
+			{
+				area		0 22 214 8
+				mosaic		INVSEP1
+				enabled "inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 1"
+				align center center
+			}			
+			label
+			{
+				area		16 22 198 13
+				mosaic		INVSEP2
+				enabled "inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0"
+				align center center
 			}
 			label
 			{
-				area		20 5 20 20
-				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and ticksStarting == 0 or inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and rowSelected ~= rowNumber"
-				bam					"PCHEV"
-				frame 2
-				ScaleToClip
-			}
-			label
-			{
-				area		22 7 18 18
-				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and ticksStarting ~= 0 and rowSelected == rowNumber"
-				bam					"PCHEV"
-				frame 2
-				ScaleToClip
-			}
-			label
-			{
-				area		240 5 20 20
-				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and ticksStarting == 0 or inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and rowSelected ~= rowNumber"
-				bam					"PCHEV"
-				frame 2
-				ScaleToClip
-			}
-			label
-			{
-				area		242 7 18 18
-				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and ticksStarting ~= 0 and rowSelected == rowNumber"
-				bam					"PCHEV"
-				frame 2
-				ScaleToClip
-			}
-			label
-			{
-				area		28 0 -1 -1
+				area		15 0 -1 -1
 				enabled		"inventoryStats[rowNumber][1] == 2 or inventoryStats[rowNumber][1] == 3"
 				text		lua "inventoryStats[rowNumber][2]"
-				text style  'normal'
-				pad 0 0 40 0
+				text style  'normal_parchment'
+				text point 11
 				text align	left center
 			}
 		}
-		area 531 216 305 306
-		enabled "savedHeight >=306"
+		area 564 228 238 272
+		enabled "savedHeight >=272"
 		rowheight	dynamic
 		hidehighlight
 		table		"buildInventoryStats()"
 		var			inventoryVar
-		scrollbar	'GUISCRC'
+		scrollbar	'GUIKNSBR'
 		scrollbar func "inventoryScroll"
 		action
 		"
@@ -7016,77 +7138,65 @@ menu
 			width 100
 			label
 			{
-				area		0 0 305 30
-				mosaic		INVSEP2
+				area		0 0 238 30
+				--mosaic		INVSEP
 				respectClipping
 				enabled		"inventoryStats[rowNumber][1] == 1 and ticksStarting == 0 or inventoryStats[rowNumber][1] == 1 and rowSelected ~= rowNumber"
 				text		lua "inventoryStats[rowNumber][2]"
-				text style  'label'
+				text style  'bold_parchment'
+				text point 14
+				text color 'L'
 				text align	center center
 				text useFontZoom 0
 			}
 			label
 			{
-				area		2 2 303 28
-				mosaic		INVSEP2
+				area		0 2 238 28
+				--mosaic		INVSEP
 				respectClipping
 				enabled		"inventoryStats[rowNumber][1] == 1 and ticksStarting ~= 0 and rowSelected == rowNumber"
-				text		lua "inventoryStats[rowNumber][2]"
-				text style  'label'
+				text	lua "inventoryStats[rowNumber][2]"
+				text style  'bold_parchment'
+				text point 14
+				text color 'L'
 				text align	center center
 				text useFontZoom 0
+			}						
+			label
+			{
+				area		0 22 214 8
+				mosaic		INVSEP1
+				enabled "inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 1"
+				align center center
+			}			
+			label
+			{
+				area		16 22 198 13
+				mosaic		INVSEP2
+				enabled "inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0"
+				align center center
 			}
 			label
 			{
-				area		20 5 20 20
-				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and ticksStarting == 0 or inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and rowSelected ~= rowNumber"
-				bam					"PCHEV"
-				frame 2
-				ScaleToClip
-			}
-			label
-			{
-				area		22 7 20 20
-				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and ticksStarting ~= 0 and rowSelected == rowNumber"
-				bam					"PCHEV"
-				frame 2
-				ScaleToClip
-			}
-			label
-			{
-				area		265 5 20 20
-				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and ticksStarting == 0 or inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and rowSelected ~= rowNumber"
-				bam					"PCHEV"
-				frame 2
-				ScaleToClip
-			}
-			label
-			{
-				area		267 7 20 20
-				enabled		"inventoryStats[rowNumber][1] == 1 and inventoryShow[inventoryStats[rowNumber][3]] == 0 and ticksStarting ~= 0 and rowSelected == rowNumber"
-				bam					"PCHEV"
-				frame 2
-				ScaleToClip
-			}
-			label
-			{
-				area		28 0 220 -1
+				area		15 0 238 -1
 				enabled		"inventoryStats[rowNumber][1] == 2 or inventoryStats[rowNumber][1] == 3"
 				text		lua "inventoryStats[rowNumber][2]"
-				text style  'normal'
+				text style  'normal_parchment'
+				text point 11
 				text align	left center
 			}
 			label
 			{
-				area		200 0 220 -1
+				area		150 0 238 -1
 				enabled		"inventoryStats[rowNumber][1] == 3"
 				text		lua "inventoryStats[rowNumber][3]"
-				text style  'normal'
+				text style  'normal_parchment'
+				text point 11
 				text align	left center
 			}
 		}
-		area 531 216 305 306
-		enabled "savedHeight < 306"
+		area 564 228 238 272
+		enabled "savedHeight < 272"
 		rowheight	dynamic
 		hidehighlight
 		table		"buildInventoryStats()"
@@ -12839,6 +12949,9 @@ function getIdx(t, i)
 	end
 	return o
 end
+function no_ones_pls(x)
+	if x >1 then return x else return nil end
+end
 `
 menu
 {
@@ -13123,9 +13236,7 @@ menu
 			end
 			storeScreen:OnSellItemButtonClick()
 		"
-		
 	}
-	
 	list
 	{
 		column 
@@ -13135,21 +13246,48 @@ menu
 			{
 				area 0 0 52 52
 				bam GUISTMSC
-				sequenceonce lua "getRandomSequence(string.byte(filter(store.storeItems)[rowNumber].label), 9)"
-				frame lua "getStoreSlotHighlight(filter(store.storeItems)[rowNumber].highlight, filter(store.storeItems)[rowNumber].valid)"
-				icon lua "filter(store.storeItems)[rowNumber].item.icon"
-				tint lua "filter(store.storeItems)[rowNumber].item.tint"
-				usages lua "filter(store.storeItems)[rowNumber].amountSelected" --how many selected
-				count lua "filter(store.storeItems)[rowNumber].item.stackSize" --How many to a stack
+				sequenceonce lua "rowNumber %9"
+				frame lua "ticksStartingTwo ~= 0 and rowSelected == rowNumber and filter(store.storeItems)[rowNumber].valid == 1 and 1 or getStoreSlotHighlight(filter(store.storeItems)[rowNumber].highlight, filter(store.storeItems)[rowNumber].valid)"
+				--tint lua "filter(store.storeItems)[rowNumber].item.tint"
 				align center center
 			}
 			label
 			{
-				area 70 0 204 54
-				text lua "filter(store.storeItems)[rowNumber].label"
+				area 5 5 42 42
+				bam GUISTMSC
+				tint lua "filter(store.storeItems)[rowNumber].item.tint"
+				opacity  0
+				align center center
+			}
+			label
+			{
+				enabled "ticksStartingTwo == 0 or rowSelected ~= rowNumber or filter(store.storeItems)[rowNumber].valid == 0"
+				area 0 0 52 52
+				icon lua "filter(store.storeItems)[rowNumber].item.icon"
+				tint lua "filter(store.storeItems)[rowNumber].item.tint"
+				usages lua "filter(store.storeItems)[rowNumber].amountSelected" --how many selected
+				count lua "no_ones_pls(filter(store.storeItems)[rowNumber].item.stackSize)" --How many to a stack
+				greyscale lua "filter(store.storeItems)[rowNumber].valid == 0 and filter(store.storeItems)[rowNumber].highlight == 0"
+				align center center
+			}
+			label
+			{
+				enabled "ticksStartingTwo ~= 0 and rowSelected == rowNumber and filter(store.storeItems)[rowNumber].valid == 1"
+				area 2 2 52 52
+				icon lua "filter(store.storeItems)[rowNumber].item.icon"
+				tint lua "filter(store.storeItems)[rowNumber].item.tint"
+				usages lua "filter(store.storeItems)[rowNumber].amountSelected" --how many selected
+				count lua "no_ones_pls(filter(store.storeItems)[rowNumber].item.stackSize)" --How many to a stack
+				align center center
+			}
+			label
+			{
+				area 65 0 204 54
+				text lua "string.gsub(filter(store.storeItems)[rowNumber].label,'%(1%)','')" --remove '(1)' from item of which count ==1 like in the original game
 				text style "normal_parchment"
 				text color 'B'
-				text align left center
+				text align left top
+				pad 0 7 0 0
 			}
 			label
 			{
@@ -13163,8 +13301,8 @@ menu
 			label
 			{
 				enabled "filter(store.storeItems)[rowNumber].valid == 0 and filter(store.storeItems)[rowNumber].highlight == 0"
-				area -2 0 375 54
-				fill 0 0 0 200
+				area 50 0 325 54
+				fill 0 0 0 155
 			}
 		}
 		area 26 182 398 256
@@ -13197,11 +13335,14 @@ menu
 					end
 				end
 			end
+			ticksPassed = 0
+			ticksStartingTwo = 0
 		"
 		actionalt
 		"
 			local idx = getIdx(store.storeItems, storeItemsVar)
 			showItemDescription(store.storeItems[idx].item, 1)
+			ticksStartingTwo = 0
 		"
 		actionDbl
 		"
@@ -13215,9 +13356,20 @@ menu
 					end
 				end
 			end
+			ticksStartingTwo = 0
+		"
+		actionUpdate 
+		"	
+			ticksStartingTwo = ticksStarting + 1
+			if ticksStartingTwo > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
 		"
 	}
-	
+		
 	label
 	{
 		area 469 156 369 26
@@ -13235,21 +13387,46 @@ menu
 			{
 				area 0 0 52 52
 				bam GUISTMSC
-				sequenceonce lua "getRandomSequence(string.byte(store.groupItems[rowNumber].label), 9)"
-				frame lua "getStoreSlotHighlight(store.groupItems[rowNumber].highlight, store.groupItems[rowNumber].valid)"
+				sequenceonce lua "rowNumber %9"
+				frame lua "ticksStarting ~= 0 and rowSelected == rowNumber and (store.groupItems[rowNumber].valid == 1 or store.groupItems[rowNumber].item.isBag == 1) and 1 or getStoreSlotHighlight(store.groupItems[rowNumber].highlight, store.groupItems[rowNumber].valid)"
+				--tint lua "store.groupItems[rowNumber].item.tint"
+				align center center
+			}
+			label
+			{
+				area 5 5 42 42
+				bam GUISTMSC
 				tint lua "store.groupItems[rowNumber].item.tint"
+				opacity  0
+				align center center
+			}
+			label
+			{
+				enabled "store.groupItems[rowNumber].valid == 0 and store.groupItems[rowNumber].item.isBag ~= 1 or ticksStarting == 0 or rowSelected ~= rowNumber "
+				area 0 0 52 52
 				icon lua "store.groupItems[rowNumber].item.icon"
-				count lua "store.groupItems[rowNumber].count"
+				count lua "no_ones_pls(store.groupItems[rowNumber].count)"
+				usages lua "store.groupItems[rowNumber].item.usages"
+				greyscale lua "store.groupItems[rowNumber].valid == 0 and store.groupItems[rowNumber].item.isBag ~= 1"
+				align center center
+			}
+			label
+			{
+				enabled "ticksStarting ~= 0 and rowSelected == rowNumber and (store.groupItems[rowNumber].valid == 1 or store.groupItems[rowNumber].item.isBag == 1)"
+				area 2 2 52 52
+				icon lua "store.groupItems[rowNumber].item.icon"
+				count lua "no_ones_pls(store.groupItems[rowNumber].count)"
 				usages lua "store.groupItems[rowNumber].item.usages"
 				align center center
 			}
 			label
 			{
-				area 70 0 204 54
-				text lua "store.groupItems[rowNumber].label"
+				area 65 0 204 54
+				text lua "string.gsub(store.groupItems[rowNumber].label,'%(1%)','')"
 				text style "normal_parchment"
 				text color 'B'
-				text align left center
+				text align left top
+				pad 0 7 0 0
 			}
 			label
 			{
@@ -13264,8 +13441,8 @@ menu
 			{
 				--#21242 We don't grey out bags, even though they're not selectable, because we can open them.
 				enabled "store.groupItems[rowNumber].valid == 0  and store.groupItems[rowNumber].item.isBag ~= 1"
-				area -2 0 375 54
-				fill 0 0 0 200
+				area 50 0 325 54
+				fill 0 0 0 155
 			}
 		}
 		area 443 182 398 256
@@ -13292,10 +13469,13 @@ menu
 					end
 				end
 			end
+			ticksPassed = 0
+			ticksStarting = 0
 		"
 		actionalt
 		"
 			showItemDescription(store.groupItems[storeGroupItemsVar].item, 1)
+			ticksStarting = 0
 		"
 		actionDbl
 		"
@@ -13314,6 +13494,18 @@ menu
 					storeScreen:SelectGroupItem(storeGroupItemsVar - 1, false)
 				end
 			end
+			ticksStarting = 0
+		"
+		actionUpdate 
+		"	
+			ticksStarting = ticksStarting + 1
+			if ticksStarting > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
+			rowSelected = nil
 		"
 	}
 
@@ -13326,21 +13518,48 @@ menu
 			{
 				area 0 0 52 52
 				bam GUISTMSC
-				sequenceonce lua "getRandomSequence(string.byte(store.groupItems[rowNumber].label), 9)"
-				frame lua "getStoreSlotHighlight(store.groupItems[rowNumber].highlight, store.groupItems[rowNumber].valid )"
+				sequenceonce lua "rowNumber %9"
+				frame lua "ticksStarting ~= 0 and rowSelected == rowNumber and store.groupItems[rowNumber].valid == 1 and 1 or getStoreSlotHighlight(store.groupItems[rowNumber].highlight, store.groupItems[rowNumber].valid )"
+				--tint lua "store.groupItems[rowNumber].item.tint"
+				align center center
+			}
+			label
+			{
+				area 5 5 42 42
+				bam GUISTMSC
+				tint lua "store.groupItems[rowNumber].item.tint"
+				opacity  0
+				align center center
+			}
+			label
+			{
+				enabled "ticksStarting == 0 or rowSelected ~= rowNumber or store.groupItems[rowNumber].valid == 0"
+				area 0 0 52 52
 				tint lua "store.groupItems[rowNumber].item.tint"
 				icon lua "store.groupItems[rowNumber].item.icon"
-				count lua "store.groupItems[rowNumber].item.count"
+				count lua "no_ones_pls(store.groupItems[rowNumber].item.count)"
+				usages lua "store.groupItems[rowNumber].count"
+				greyscale lua "store.groupItems[rowNumber].valid == 0"
+				align center center
+			}
+			label
+			{
+				enabled "ticksStarting ~= 0 and rowSelected == rowNumber and store.groupItems[rowNumber].valid == 1"
+				area 2 2 52 52
+				tint lua "store.groupItems[rowNumber].item.tint"
+				icon lua "store.groupItems[rowNumber].item.icon"
+				count lua "no_ones_pls(store.groupItems[rowNumber].item.count)"
 				usages lua "store.groupItems[rowNumber].count"
 				align center center
 			}
 			label
 			{
-				area 70 0 204 54
-				text lua "store.groupItems[rowNumber].label"
+				area 65 0 204 54
+				text lua "string.gsub(store.groupItems[rowNumber].label,'%(1%)','')"
 				text style "normal_parchment"
 				text color 'B'
-				text align left center
+				text align left top
+				pad 0 7 0 0
 			}
 			label
 			{
@@ -13354,8 +13573,8 @@ menu
 			label
 			{
 				enabled "store.groupItems[rowNumber].valid == 0"
-				area -2 0 375 54
-				fill 0 0 0 200
+				area 50 0 325 54
+				fill 0 0 0 155
 			}
 		}
 		area 443 182 396 256
@@ -13382,10 +13601,15 @@ menu
 					end
 				end
 			end
+			cellNumber = nil
+			rowNumber = nil
+			ticksPassed = 0
+			ticksStarting = 0
 		"
 		actionalt
 		"
 			showItemDescription(store.groupItems[storeGroupItemsVar].item, 1)
+			ticksStarting = 0
 		"
 		actionDbl
 		"
@@ -13399,6 +13623,18 @@ menu
 				end
 				storeScreen:SelectGroupItem(storeGroupItemsVar - 1, false)
 			end
+			ticksStarting = 0
+		"
+		actionUpdate 
+		"	
+			ticksStarting = ticksStarting + 1
+			if ticksStarting > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
+			rowSelected = nil
 		"
 	}
 	
@@ -13413,6 +13649,7 @@ menu
 		text style "button"
 		text shadow 1
 		clickable lua "storeScreen:IsBuyItemButtonClickable() and storeScreen:GetStoreCost() <= game:GetPartyGold()"
+		on return
 		action
 		"
 			storeScreen:OnBuyItemButtonClick()
@@ -13428,6 +13665,7 @@ menu
 		text style "button"
 		text shadow 1
 		clickable lua "storeScreen:IsSellItemButtonClickable()"
+		on return
 		action
 		"
 			storeScreen:OnSellItemButtonClick()
@@ -13497,6 +13735,7 @@ menu
 		text "CLOSE_CONTAINER_BUTTON"
 		text style "button"
 		text shadow 1
+		on E
 		action
 		"
 			storeScreen:OnCloseBagButtonClick()
@@ -13638,20 +13877,42 @@ menu
 				enabled "store.identifyItems[rowNumber].valid"
 				area 0 0 52 52
 				bam GUISTMSC
-				sequenceonce lua "getRandomSequence(string.byte(store.identifyItems[rowNumber].label), 9)"
-				frame lua "getStoreSlotHighlight(store.identifyItems[rowNumber].highlight, store.identifyItems[rowNumber].valid)"
-				icon lua "store.identifyItems[rowNumber].item.icon"
+				sequenceonce lua "rowNumber %9"
+				frame lua "ticksStarting ~= 0 and rowSelected == rowNumber and 1 or getStoreSlotHighlight(store.identifyItems[rowNumber].highlight, store.identifyItems[rowNumber].valid)"
+				align center center
+			}
+			label
+			{
+				enabled "store.identifyItems[rowNumber].valid"
+				area 5 5 42 42
+				bam GUISTMSC
 				tint lua "store.identifyItems[rowNumber].item.tint"
+				opacity  0
+				align center center
+			}
+			label
+			{
+				enabled "store.identifyItems[rowNumber].valid == 1 and (ticksStarting == 0 or rowSelected ~= rowNumber)"
+				area 0 0 52 52
+				icon lua "store.identifyItems[rowNumber].item.icon"
+				align center center
+			}
+			label
+			{
+				enabled "store.identifyItems[rowNumber].valid == 1 and (ticksStarting ~= 0 and rowSelected == rowNumber)"
+				area 2 2 52 52
+				icon lua "store.identifyItems[rowNumber].item.icon"
 				align center center
 			}
 			label
 			{
 				enabled "store.identifyItems[rowNumber].valid"
 				area 70 0 200 54
-				text lua "store.identifyItems[rowNumber].label"
+				text lua "string.gsub(store.identifyItems[rowNumber].label,'%(1%)','')"
 				text style "normal_parchment"
 				text color 'B'
-				text align left center
+				text align left top
+				pad 0 7 0 0
 			}
 		}
 		area 66 165 356 268
@@ -13664,6 +13925,24 @@ menu
 		"
 			local highlight = store.identifyItems[identifyItemsVar].highlight ~= 1
 			storeScreen:SelectIdentifyItem(identifyItemsVar - 1, highlight)
+			ticksPassed = 0
+			ticksStarting = 0
+		"
+		actionalt
+		"
+			showItemDescription(store.identifyItems[identifyItemsVar].item, 1)
+			ticksStarting = 0
+		"
+		actionUpdate 
+		"	
+			ticksStarting = ticksStarting + 1
+			if ticksStarting > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
+			rowSelected = nil
 		"
 	}
 	button
@@ -13950,7 +14229,7 @@ menu
 	label
 	{
 		enabled toggleRepCheatSheet
-		area 492 178 282 32
+		area 492 183 282 32
 		text lua "Infinity_FetchString(characters[currentID].proficiencies.reputation.strRef) .. ': ' ..  characters[currentID].proficiencies.reputation.current"
 		text style "label"
 		text point 14
@@ -14327,10 +14606,32 @@ menu
 			{
 				area 0 0 52 52
 				bam GUISTMSC
-				sequenceonce lua "getRandomSequence(string.byte(store.healingSpells[rowNumber].label), 9)"
-				frame lua "getStoreSlotHighlight(store.healingSpells[rowNumber].highlight, store.healingSpells[rowNumber].valid)"
-				icon lua "store.healingSpells[rowNumber].icon"
+				sequenceonce lua "rowNumber %9"
+				frame lua "ticksStarting ~= 0 and rowSelected == rowNumber and store.healingSpells[rowNumber].valid == 1 and 1 or getStoreSlotHighlight(store.healingSpells[rowNumber].highlight, store.healingSpells[rowNumber].valid)"
+				--tint lua "store.healingSpells[rowNumber].tint"
+				align center center
+			}
+			label
+			{
+				area 5 5 42 42
+				bam GUISTMSC
 				tint lua "store.healingSpells[rowNumber].tint"
+				opacity  0
+				align center center
+			}
+			label
+			{
+				enabled "ticksStarting == 0 or rowSelected ~= rowNumber or store.healingSpells[rowNumber].valid == 0"
+				area 0 0 52 52
+				icon lua "store.healingSpells[rowNumber].icon"
+				greyscale lua "store.healingSpells[rowNumber].valid == 0"
+				align center center
+			}
+			label
+			{
+				enabled "ticksStarting ~= 0 and rowSelected == rowNumber and store.healingSpells[rowNumber].valid == 1"
+				area 2 2 52 52
+				icon lua "store.healingSpells[rowNumber].icon"
 				align center center
 			}
 			label
@@ -14353,7 +14654,7 @@ menu
 			{
 				enabled "store.healingSpells[rowNumber].valid == 0"
 				area  54 0 280 54
-				fill 0 0 0 200
+				fill 0 0 0 155
 			}
 		}
 		area 66 165 356 268
@@ -14369,11 +14670,31 @@ menu
 			if(store.healingSpells[healingSpellsVar].highlight == 1) then highlight = false end
 			if(highlight == true and store.healingSpells[healingSpellsVar].valid == 0) then return end
 			storeScreen:SelectSpellItem( healingSpellsVar - 1,  highlight)
+			ticksPassed = 0
+			ticksStarting = 0
 		"
 		actionAlt
 		"
 			local spell = store.healingSpells[healingSpellsVar]
 			popupDetails(16189, spell.name, spell.description,spell.icon)
+			ticksStarting = 0
+		"
+		actionDbl
+		"
+			if storeScreen:GetSpellCost() <= game:GetPartyGold() then storeScreen:OnBuySpellButtonClick() end
+			ticksPassed = 0
+			ticksStarting = 0
+		"
+		actionUpdate 
+		"	
+			ticksStarting = ticksStarting + 1
+			if ticksStarting > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
+			rowSelected = nil
 		"
 	}
 	button
@@ -14693,6 +15014,7 @@ menu
 		highlightgroup storePanelButtonHighlightGroup
 		sequence lua "storeScreen:GetPanelButtonSequence(0)"
 		tooltip lua "getBuySellTooltip()"
+		on Q
 		action
 		"
 			setStoreMainPanel(0)
@@ -14708,6 +15030,7 @@ menu
 		highlightgroup storePanelButtonHighlightGroup
 		sequence lua "storeScreen:GetPanelButtonSequence(1)"
 		tooltip lua "Infinity_FetchString(storeScreen:GetPanelButtonToolTip(1))"
+		on W
 		action
 		"
 			setStoreMainPanel(1)
@@ -14723,6 +15046,7 @@ menu
 		highlightgroup storePanelButtonHighlightGroup
 		sequence lua "storeScreen:GetPanelButtonSequence(2)"
 		tooltip lua "Infinity_FetchString(storeScreen:GetPanelButtonToolTip(2))"
+		on E
 		action
 		"
 			setStoreMainPanel(2)
@@ -14738,6 +15062,7 @@ menu
 		highlightgroup storePanelButtonHighlightGroup
 		sequence lua "storeScreen:GetPanelButtonSequence(3)"
 		tooltip lua "Infinity_FetchString(storeScreen:GetPanelButtonToolTip(3))"
+		on R
 		action
 		"
 			setStoreMainPanel(3)
@@ -16894,7 +17219,25 @@ menu
 				bam GUIWPKPC
 				ScaleToClip
 				sequence 1
-				frame lua 	"currentCellCheck(2)"
+				frame lua 	"ticksStarting ~= 0 and rowSelected == rowNumber and cellNumber == 2 and 1 or currentCellCheck(2)"
+				--text		"SAVE_BUTTON"
+				--text style	"button"
+				--text shadow 1
+				align	center center
+			}
+			button
+			{
+				enabled "not (ticksStarting ~= 0 and rowSelected == rowNumber and cellNumber == 2)"
+				area	25 80 182 34
+				text		"SAVE_BUTTON"
+				text style	"button"
+				text shadow 1
+				align	center center
+			}
+			button
+			{
+				enabled "ticksStarting ~= 0 and rowSelected == rowNumber and cellNumber == 2"
+				area	27 82 182 34
 				text		"SAVE_BUTTON"
 				text style	"button"
 				text shadow 1
@@ -16910,8 +17253,19 @@ menu
 				Infinity_PlaySound('GAM_09')
 				Infinity_PushMenu( 'SAVE_NEWSAVE' );
 			end
+			ticksPassed = 0
+			ticksStarting = 0
 		"
-
+		actionUpdate 
+		"	
+			ticksStarting = ticksStarting + 1
+			if ticksStarting > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
+			end
+		"
 		actionDbl
 		"
 			Infinity_PlaySound('GAM_09')
@@ -17243,7 +17597,7 @@ menu
 	label
 	{
 		name 'messagesRect'
-		area 0 74 794 66
+		area 0 76 794 64
 		mosaic box5
 	}
 	label
@@ -17265,7 +17619,7 @@ menu
 			}	
 		}
 		name "worldMessageBox"
-		area 20 88 735 53
+		area 20 90 735 51
 		rowheight dynamic
 		table "combatLog"
 		hideHighlight
@@ -17277,7 +17631,7 @@ menu
 	handle
 	{
 		name 'messagesHandleY'
-		area 0 72 794 22
+		area 0 74 794 22
 		pulse lua "worldMessageBoxClickedOnce == 0"
 		actionDrag
 		"
@@ -26530,13 +26884,15 @@ menu
 				text lua "chapterText():sub(startPos, splitPos +10 )"
 				text style "parchment"
 				text point 14
+				text useFontZoom   0
 			}
 			label
 			{
 				enabled "rowNumber == 2"
 				area 0 0 -1 -1
 				text lua "chapterText():sub(splitPos + 1)"
-				text style "parchment"
+				text style "parchment"				
+				text useFontZoom   0
 			}
 		}
 		enabled "splitPos ~= -1"
@@ -26544,12 +26900,6 @@ menu
 		hidehighlight
 		table "makeTable(2)"
 		area		80 88 220 42
-		action
-		"
-			CloseAll()
-			CheckForOpenedQuests()
-		"
-		actionAlt "OpenAll()"
 	}
 	text
 	{
@@ -26564,7 +26914,7 @@ menu
 		bam 		"PARROW"
 		scaleToClip
 		sequence 	0
-		on A
+		frame lua "getMovingFrame('journalToTheLeft')==1 and 1 or 0"
 		action
 			"
 				incrChapter(-1)
@@ -26573,16 +26923,36 @@ menu
 	}
 	button
 	{
+		on A
+		action
+		"
+				incrChapter(-1)
+				Infinity_PlaySound('GAM_06')
+				getClick(Infinity_GetFrameCounter(), 'journalToTheLeft')
+		"
+	}
+	button
+	{
 		area		343 88 60 34
 		bam 		"PARROW"
 		scaleToClip
 		sequence 	1
+		frame lua "getMovingFrame('journalToTheRight')==1 and 1 or 0"
+		action
+		"
+				incrChapter(1)
+				Infinity_PlaySound('GAM_06')
+		"	
+	}
+	button
+	{
 		on D
 		action
 		"
-			incrChapter(1)
-			Infinity_PlaySound('GAM_06')
-		"	
+				incrChapter(1)
+				Infinity_PlaySound('GAM_06')
+				getClick(Infinity_GetFrameCounter(), 'journalToTheRight')
+		"
 	}
 	label
 	{
@@ -26627,6 +26997,7 @@ menu
 				frame lua  "getJournalFrame(getQuestText(rowNumber))"
 				useOverlayTint "getFinished(rowNumber)"
 				overlayTint 150 150 150
+				respectClipping
 				--fill 0 0 0 255
 			}
 			label --clicked
@@ -26637,6 +27008,7 @@ menu
 				frame lua  "getJournalFrame(getQuestText(rowNumber))"
 				useOverlayTint "getFinished(rowNumber)"
 				overlayTint 150 150 150
+				respectClipping
 				--fill 0 0 0 255
 			}
 			label
@@ -26644,7 +27016,8 @@ menu
 				enabled 			"questEnabled(rowNumber) and ticksStarting == 0 or questEnabled(rowNumber) and rowSelected ~= rowNumber"
 				area				8 0 -1 -1
 				text lua			"getQuestText(rowNumber)"
-				text style			"label"
+				text style			"normal"
+				pad 5 4 0 10
 				align				left center
 			}
 			label --clicked
@@ -26652,7 +27025,8 @@ menu
 				enabled 			"questEnabled(rowNumber) and ticksStarting ~= 0 and rowSelected == rowNumber"
 				area				10 2 -1 -1
 				text lua			"getQuestText(rowNumber)"
-				text style			"label"
+				text style			"normal"
+				pad 5 4 0 8
 				align				left center
 			}
 			label
@@ -26690,13 +27064,21 @@ menu
 				questDisplay[selectedQuest].expanded = 1
 			end
 			CheckForOpenedQuests()
-			cellNumber = nil
-			rowNumber = nil
 			ticksPassed = 0
 			ticksStarting = 0
 			"
-		actionUpdate 
-		"	
+			actionAlt 
+			"
+			if(questDisplay[selectedQuest].expanded) then 
+				CloseAll()
+			else
+				OpenAll()
+			end
+			ticksPassed = 0
+			ticksStarting = 0
+			"
+			actionUpdate 
+			"	
 			ticksStarting = ticksStarting + 1
 			if ticksStarting > 10 then
 				ticksPassed = ticksPassed + 1
@@ -26704,7 +27086,7 @@ menu
 					ticksPassed = 0
 				end
 			end
-		"
+			"
 	}
 	
 	
