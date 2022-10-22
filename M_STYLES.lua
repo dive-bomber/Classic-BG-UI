@@ -31,6 +31,15 @@ updateTable(styles, {
 		halign = 'left',
     useFontZoom = 0,
 	},
+	journal_entry =
+	{
+		color = 'B',
+		font = 'TOOLFONT',
+		point = 13,
+		valign = 'center',
+		halign = 'left',
+    useFontZoom = 0,
+	},
 })
 
 styles['gamelog']['font'] = 'POSTANTI'

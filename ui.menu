@@ -6,7 +6,7 @@ else
 	Infinity_DoFile("L_en_us")
 end
 
-iHaveSCS = false --set to 'true' if you do have SCS
+iHaveSCS = true --set to 'true' if you do have SCS
 
 characters = {}
 statusEffects = { }
@@ -14,7 +14,7 @@ currentID = 16974083
 currentPanelID = 0
 listMetaInfo = {}
 combatLog = {}
-
+		
 Infinity_SetHighlightColors(151,112,0,200, 151,112,0,100, 151,112,0,0)
 
 function scsSummonWidget()
@@ -6535,12 +6535,12 @@ menu
 {
 	name 'RIGHT_SIDEBAR_BOTTOM'
 	align right bottom
-	offset -3 0
+	offset -5 0
 	ignoreEsc
 	--Buttons form a menu aligned bottom right, with height = 197, y is offset from top of that menu.
 	button
 	{
-		area 0 50 70 51
+		area 0 53 68 49
 		enabled "not e:IsTouchUI() and worldScreen == e:GetActiveEngine()"
 		toggle highlightButtonToggle
 		tooltip lua "Infinity_FetchString(32729)"
@@ -6555,7 +6555,7 @@ menu
 	}
 	button
 	{
-		area 0 100 70 51
+		area 0 102 68 49
 		enabled "not e:IsTouchUI() and worldScreen == e:GetActiveEngine()"
 		tooltip lua "getPartyAITooltip()"
 		toggle aiButtonToggle
@@ -6570,7 +6570,7 @@ menu
 	}
 	button
 	{
-		area 0 151 70 51
+		area 0 151 68 49
 		enabled "not e:IsTouchUI() and worldScreen == e:GetActiveEngine()"
 		tooltip lua "Infinity_FetchString(10485)"
 		bam GUILS10
@@ -6589,7 +6589,7 @@ menu
 	--IsTouchUI() section
 	button
 	{
-		area 0 -5 70 51
+		area 0 53 68 49
 		enabled "e:IsTouchUI() and worldScreen == e:GetActiveEngine()"
 		toggle selectionButtonToggle
 		bam GUILS10
@@ -6603,7 +6603,7 @@ menu
 	}
 	button
 	{
-		area 0 48 70 51
+		area 0 102 68 49
 		enabled "e:IsTouchUI() and worldScreen == e:GetActiveEngine()"
 		toggle highlightButtonToggle
 		tooltip lua "Infinity_FetchString(32729)"
@@ -6618,7 +6618,7 @@ menu
 	}
 	button
 	{
-		area 0 101 35 52
+		area 0 151 33 49
 		enabled "e:IsTouchUI() and worldScreen == e:GetActiveEngine()"
 		tooltip lua "getPartyAITooltip()"
 		toggle aiButtonToggle
@@ -6633,7 +6633,7 @@ menu
 	}
 	button
 	{
-		area 36 101 35 52
+		area 34 151 33 49
 		enabled "e:IsTouchUI() and worldScreen == e:GetActiveEngine()"
 		tooltip lua "Infinity_FetchString(10485)"
 		bam GUILS10
@@ -10415,10 +10415,14 @@ function getCastableCount(idx)
 	return nb
 end
 
+function makeBamList()
+BamList = Infinity_GetFilesOfType("BAM") 
+end
+
 function getIconName(spell)
 	local icon = spell.icon
 	local iconB = icon:sub(1, -2) .. 'B'
-	for _, entry in ipairs(Infinity_GetFilesOfType("BAM")) do
+	for _, entry in ipairs(BamList) do
 		if entry[1] == iconB then
 			return iconB
 		end
@@ -10436,8 +10440,10 @@ menu
 	"
 		currentContingencyCondition = 0
 		currentContingencyTarget = 0
+		makeBamList()
 		TT_BuildTitleData(mageBookTitle(), 606, true)
 		TT_CreateTitleChars(mageBookTitle(), 'TT_CHOOSE_CONTINGENCY', 44, 'TEMPLATE_titlechar_CHOOSE_CONTINGENCY')
+		ticksStarting = 0
 	"
 	onclose	"TT_DestroyTitleChars(mageBookTitle(), 'TEMPLATE_titlechar_CHOOSE_CONTINGENCY')"
 	label
@@ -10481,7 +10487,25 @@ menu
 			{
 				area 6 5 52 52
 				bam GUISTMSC
-				sequenceonce lua "getRandomSequence(rowNumber, 9)"
+				frame lua "ticksStarting ~= 0 and currentBookSpell == rowNumber and cellNumber == 1 and 1 or 0"
+				sequenceonce lua "rowNumber % 9"
+				--icon lua "getIconName(bookSpells[rowNumber])"
+				--count lua "getCastableCount(rowNumber)"
+				align center center
+			}
+			button
+			{
+				enabled "not (ticksStarting ~= 0 and currentBookSpell == rowNumber and cellNumber == 1)"
+				area 6 5 52 52
+				icon lua "getIconName(bookSpells[rowNumber])"
+				count lua "getCastableCount(rowNumber)"
+				align center center
+			}
+			button
+			{
+				
+				enabled "ticksStarting ~= 0 and currentBookSpell == rowNumber and cellNumber == 1"
+				area 8 7 52 52
 				icon lua "getIconName(bookSpells[rowNumber])"
 				count lua "getCastableCount(rowNumber)"
 				align center center
@@ -10506,6 +10530,8 @@ menu
 		var currentBookSpell
 		action
 		"
+			ticksPassed = 0
+			ticksStarting = 0
 			contingencyDescription = mageBookStrings[contingencyResRef].tip
 			if bookSpells[currentBookSpell] then
 				if cellNumber == 1 and #bottomSpells < #bottomSpellsPlaceHolder then
@@ -10519,6 +10545,17 @@ menu
 		"
 			if bookSpells[currentBookSpell] then
 				contingencyDescription = bookSpells[currentBookSpell].description
+			end
+			ticksStarting = 0
+		"
+		actionUpdate 
+		"	
+			ticksStarting = ticksStarting + 1
+			if ticksStarting > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
 			end
 		"
 	}
@@ -10555,7 +10592,7 @@ menu
 				area 0 0 -1 -1
 				bam GUISTMSC
 				frame lua "getIconName(bottomSpells[rowNumber]) and 2 or 0"
-				sequenceonce lua "getRandomSequence(rowNumber, 9)"
+				sequenceonce lua "rowNumber % 9"
 				align center center
 			}
 		}
@@ -10572,6 +10609,22 @@ menu
 			label
 			{
 				area 0 0 -1 -1
+				bam GUISTMSC
+				frame lua "ticksStartingTwo ~= 0 and rowSelected == rowNumber and 1 or getIconName(bottomSpells[rowNumber]) and 2 or 0"
+				sequenceonce lua "rowNumber % 9"
+				align center center
+			}
+			label
+			{
+				enabled "not (ticksStartingTwo ~= 0 and rowSelected == rowNumber)"
+				area 0 0 -1 -1
+				bam lua "getIconName(bottomSpells[rowNumber])"
+				align center center
+			}
+			label
+			{
+				enabled "ticksStartingTwo ~= 0 and rowSelected == rowNumber"
+				area 2 2 -1 -1
 				bam lua "getIconName(bottomSpells[rowNumber])"
 				align center center
 			}
@@ -10583,12 +10636,24 @@ menu
 		table "bottomSpells"
 		var currentBottomSpell
 		action
-		"
+		"			
+			ticksPassed = 0
+			ticksStartingTwo = 0
 			if bottomSpells[currentBottomSpell] then
 				Infinity_PlaySound('GAM_44')
 				mageScreen:UnSequenceSpell(bottomSpells[currentBottomSpell].resref, bottomSpells[currentBottomSpell].masterResref)
 				table.remove(sequencerSpells, currentBottomSpell)
 				bottomSpells = sequencerSpells
+			end
+		"
+		actionUpdate 
+		"	
+			ticksStartingTwo = ticksStartingTwo + 1
+			if ticksStartingTwo > 10 then
+				ticksPassed = ticksPassed + 1
+				if ticksPassed > 3 then
+					ticksPassed = 0
+				end
 			end
 		"
 	}
@@ -10606,7 +10671,7 @@ menu
 			width 100
 			label
 			{
-				enabled "rowNumber ~= currentContingencyCondition and rowNumber ~= currentContingencyCondition_hover"
+				enabled "rowNumber ~= currentContingencyCondition"
 				area 0 0 -1 -1
 				text lua "Infinity_FetchString(contingencyConditions[rowNumber].strref)"
 				text style "normal"
@@ -10614,19 +10679,11 @@ menu
 			}
 			label
 			{
-				enabled "rowNumber == currentContingencyCondition and rowNumber ~= currentContingencyCondition_hover"
+				enabled "rowNumber == currentContingencyCondition "
 				area 0 0 -1 -1
 				text lua "Infinity_FetchString(contingencyConditions[rowNumber].strref)"
 				text style "normal"
 				text color S
-			}
-			label
-			{
-				enabled "rowNumber == currentContingencyCondition_hover"
-				area 0 0 -1 -1
-				text lua "Infinity_FetchString(contingencyConditions[rowNumber].strref)"
-				text style "normal"
-				text color H
 			}
 		}
 		enabled "showContingency == true"
@@ -10640,8 +10697,6 @@ menu
 		"
 			contingencyDescription = contingencyConditions[currentContingencyCondition].desc
 		"
-		actionEnter	"currentContingencyCondition_hover = mouseoverRow"
-		actionExit	"currentContingencyCondition_hover = 0"
 	}
 	label
 	{
@@ -10671,15 +10726,8 @@ menu
 				text style "normal"
 				text color S
 			}
-			label
-			{
-				enabled "rowNumber == currentContingencyTarget_hover"
-				area 0 0 -1 -1
-				text lua "Infinity_FetchString(contingencyTargets[rowNumber].strref)"
-				text style "normal"
-				text color H
-			}
 		}
+	}
 		enabled "showContingency == true"
 		area 500 182 198 232
 		rowheight 32
@@ -10691,8 +10739,6 @@ menu
 		"
 			contingencyDescription = contingencyTargets[currentContingencyTarget].desc
 		"
-		actionEnter	"currentContingencyTarget_hover = mouseoverRow"
-		actionExit	"currentContingencyTarget_hover = 0"
 	}
 	text
 	{
@@ -17019,6 +17065,7 @@ menu
 		text		"LOAD_BUTTON"
 		text style	"button"
 		text shadow 1
+		on return
 		action
 		"
 			loadScreen:LoadGame(gameSaves.files[currentSave].fileName)
@@ -17035,6 +17082,7 @@ menu
 		text		"DELETE_BUTTON"
 		text style	"button"
 		text shadow 1
+		on delete
 		action
 		"
 			popup2Button(15305, 'DELETE_BUTTON',
@@ -17334,6 +17382,7 @@ menu
 		text		"DELETE_BUTTON"
 		text style	"button"
 		text shadow 1
+		on delete
 		action
 		"
 			popup2Button(15305, 'DELETE_BUTTON',
@@ -26743,6 +26792,7 @@ menu
 	ignoreEsc
 	onopen
 	"
+		reinitQuests()
 		buildQuestDisplay()
 		chapter = math.max(0,Infinity_GetMaxChapterPage())
 		QFilter = 1
@@ -27016,7 +27066,7 @@ menu
 				enabled 			"questEnabled(rowNumber) and ticksStarting == 0 or questEnabled(rowNumber) and rowSelected ~= rowNumber"
 				area				8 0 -1 -1
 				text lua			"getQuestText(rowNumber)"
-				text style			"normal"
+				text style			"journal_entry"
 				pad 5 4 0 10
 				align				left center
 			}
@@ -27025,7 +27075,7 @@ menu
 				enabled 			"questEnabled(rowNumber) and ticksStarting ~= 0 and rowSelected == rowNumber"
 				area				10 2 -1 -1
 				text lua			"getQuestText(rowNumber)"
-				text style			"normal"
+				text style			"journal_entry"
 				pad 5 4 0 8
 				align				left center
 			}
@@ -27036,7 +27086,7 @@ menu
 				pad					0 10 0 10
 				text lua			"getObjectiveText(rowNumber)"
 				text style			"normal_parchment"
-				text color			0 0 0 255
+				text color			'L'
 			}
 			label
 			{
@@ -27058,6 +27108,8 @@ menu
 		area		44 174 396 490
 		action
 		"
+			ticksPassed = 0
+			ticksStarting = 0
 			if(questDisplay[selectedQuest].expanded) then 
 				questDisplay[selectedQuest].expanded = nil
 			else
@@ -27088,8 +27140,6 @@ menu
 			end
 			"
 	}
-	
-	
 	list --journal
 	{
 		column
