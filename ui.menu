@@ -17721,6 +17721,7 @@ menu
 	}
 	label
 	{
+		enabled "Infinity_TextEditHasFocus()==0"
 		on return
 		action
 		"
