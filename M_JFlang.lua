@@ -100,10 +100,14 @@ function findLanguage()
 			---
 			Required_Donation = "Required donation",
 			takeAll = "Take all [E]",
-			Level_String = "Level", --I realize there are in-game strings for that but it is a possibility that in certain languages these words have different order and/or need conjugated form
+			Level_String = "Level", --I realize there are in-game strings for that but it is a possibility that in certain languages these words have different order and/or need conjugated forms
 			Spells_String = "Spells",
 			Chapter_Epilogue = "Epilogue",
-			Search = "Search"
+			Search = "Search",
+			Backstab = "Backstab",
+			WildSurge = "Wild Surge",
+			NO_PAUSE_IN_INVENTORY_LABEL = "No pause in inventory",
+			NO_PAUSE_IN_INVENTORY_DESCRIPTION = "^RGame-changing.^- \n\nLike in the OG Baldur's Gate, the game unpauses itself when you open inventory screen.",
 		}
 	end
 end

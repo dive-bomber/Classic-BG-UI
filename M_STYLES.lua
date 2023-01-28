@@ -34,8 +34,8 @@ updateTable(styles, {
 	journal_entry =
 	{
 		color = 'B',
-		font = 'TOOLFONT',
-		point = 13,
+		font = 'STONESML',
+		point = 12,
 		valign = 'center',
 		halign = 'left',
     useFontZoom = 0,

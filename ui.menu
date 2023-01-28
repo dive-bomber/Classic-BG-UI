@@ -6,7 +6,7 @@ else
 	Infinity_DoFile("L_en_us")
 end
 
-iHaveSCS = true --set to 'true' if you do have SCS
+iHaveSCS = false --set to 'true' if you do have SCS
 
 characters = {}
 statusEffects = { }
@@ -167,7 +167,7 @@ function buildRecordInfos()
 	
 	table.insert(recordInfos, {1,""})
 	table.insert(recordInfos, {3,t("RESISTANCES_LABEL") .. ': '})
-	table.insert(recordInfos, {1,characters[currentID].proficiencies.resistances})
+	table.insert(recordInfos, {1,characters[currentID].proficiencies.resistances:gsub("\nMagic [FireCold][^\n]*", "")})
 
 	--table.insert(recordInfos, {1,""})
 	--table.insert(recordInfos, {3,t("PROFICIENCIES_LABEL")})
@@ -2044,6 +2044,7 @@ toggleTitles = {
 {"MAX_HP_ON_LEVEL_LABEL",				"MAX_HP_ON_LEVEL_DESCRIPTION", 		55, 0, 0},
 {"NO_DAMAGE_INCREASE_LABEL",			"NO_DAMAGE_INCREASE_DESCRIPTION", 	64, 0, 0},
 {"AUTO_USE_MAGIC_AMMO_LABEL",			"AUTO_USE_MAGIC_AMMO_DESCRIPTION", 	68, 0, 0},
+{JFStrings.NO_PAUSE_IN_INVENTORY_LABEL,	JFStrings.NO_PAUSE_IN_INVENTORY_DESCRIPTION, 	123, 0, 0}, --M_JFLang.lua
 }
 
 selectedOpt = 0
@@ -2054,6 +2055,7 @@ keyboardSLDR = 0
 mouseSLDR = 0
 difficultySLDR = 0
 
+noPauseInInventory = Infinity_GetINIValue('Game Options','No Pause In Inventory', 0)
 panelID = 8
 
 function getDifficulty(d)
@@ -2099,7 +2101,11 @@ menu
 		difficultySLDR = Infinity_GetOption(12, panelID)
 		
 		for index, var in pairs(toggleTitles) do
-			var[5] = Infinity_GetOption(var[3], panelID)
+			if var[3] == 123 then
+				var[5] = noPauseInInventory
+			else
+				var[5] = Infinity_GetOption(var[3], panelID)
+			end
 			if var[5] == 0 then
 				var[4] = 0
 			else
@@ -2110,11 +2116,12 @@ menu
 		if Infinity_CanCloudSave() == false and (toggleTitles[1][3] == 60 or toggleTitles[2][3] == 60) then
 			removeOptionFromList(toggleTitles,60)
 		end
+		
 	"
 
 	button
 	{
-+		area	0 0 875 700
+		area	0 0 875 700
 		mosaic	GUITUTB
 		action
 		"
@@ -2497,9 +2504,10 @@ menu
 			for index, var in pairs(toggleTitles) do
 				
 				Infinity_ChangeOption( var[3], var[5], panelID)
-						
 			end
-
+			noPauseInInventory = toggleTitles[12][5]
+			Infinity_SetINIValue('Game Options','No Pause In Inventory', noPauseInInventory) 
+			
 			panelID = 8
 			Infinity_PopMenu()
 		"
@@ -5849,18 +5857,18 @@ menu
 	label
 	{
 		name 'leftSidebarBackground'
-		area 0 0 80 1536
+		area 0 0 83 1536
 		mosaic GUIWLSP
 	}
 	label
 	{
 
-		area 0 1536 80 1536
+		area 0 1536 83 1536
 		mosaic GUIWLSP
 	}
 	button
 	{
-		area 5 14 70 62
+		area 5 14 68 60
 		bam GUILS10
 		frame lua "highlightSidebarButton(worldScreen) and showJournal ~= 1 and 2 or 0"
 		sequence 0
@@ -5877,7 +5885,7 @@ menu
 	}
 	button
 	{
-		area 5 76 70 62
+		area 5 76 68 60
 		bam GUILS10
 		frame lua "highlightSidebarButton(mapScreen) and showJournal ~= 1 and 2 or 0"
 		sequence 1
@@ -5894,7 +5902,7 @@ menu
 	}
 	button
 	{
-		area 5 138 70 62
+		area 5 138 68 60
 		bam GUILS10
 		frame lua "showJournal == 1 and 2 or 0"
 		sequence 2
@@ -5911,7 +5919,7 @@ menu
 	}
 	button
 	{
-		area 5 200 70 62
+		area 5 200 68 60
 		bam GUILS10
 		frame lua "highlightSidebarButton(inventoryScreen) and 2 or 0"
 		sequence 3
@@ -5928,7 +5936,7 @@ menu
 	}
 	button
 	{
-		area 5 262 70 62
+		area 5 262 68 60
 		bam GUILS10
 		sequence 4
 		ScaleToClip
@@ -5945,7 +5953,7 @@ menu
 	}
 	button
 	{
-		area 5 324 70 62
+		area 5 324 68 60
 		bam GUILS10
 		frame lua "highlightSidebarButton(mageScreen) and 2 or 0"
 		sequence 5
@@ -5962,7 +5970,7 @@ menu
 	}
 	button
 	{
-		area 5 386 70 62
+		area 5 386 68 60
 		bam GUILS10
 		frame lua "highlightSidebarButton(priestScreen) and 2 or 0"
 		sequence 6
@@ -5979,7 +5987,7 @@ menu
 	}
 	button
 	{
-		area 5 448 70 62
+		area 5 448 68 60
 		bam GUILS10
 		frame lua "highlightSidebarButton(optionsScreen) and 2 or 0"
 		sequence 7
@@ -5996,7 +6004,7 @@ menu
 	}
 	button
 	{
-		area 5 510 70 62
+		area 5 510 68 60
 		enabled "e:IsMultiplayer()"
 		bam GUILS10
 		frame lua "highlightSidebarButton(multiplayerScreen) and 2 or 0"
@@ -6249,7 +6257,7 @@ menu
 	}
 	label
 	{
-		area 0 1536 80 1536
+		area 0 1536 83 1536
 		mosaic GUIWRSP
 	}
 	label
@@ -6840,9 +6848,10 @@ function format_value(amount)
   return formatted
 end
 function colorPausedRed(str)
- local s = string.find (str, "PAUSED")
- if s == nil then return str
- else  return "^R" .. str .. "^-" end
+	local s = string.find (str, Infinity_FetchString(24355)) --"PAUSED"
+	if s == nil then return str end
+	if noPauseInInventory == 1 then str = Infinity_FetchString(19381) end --"Game is no longer paused..."
+	return "^R" .. str .. "^-"
 end
 `
 menu
@@ -6858,6 +6867,11 @@ menu
 		doubleClickEventScheduled = nil
 		TT_BuildTitleData('INVENTORY_TITLE', 362, true)
         TT_CreateTitleChars('INVENTORY_TITLE', 'TT_INVENTORY', 40, 'TEMPLATE_titlechar_INVENTORY')
+		if noPauseInInventory == 1 then 
+			wasPaused = worldScreen:CheckIfPaused()
+			worldScreen:TogglePauseGame(false)
+			table.remove(combatLog) --remove UNPAUSED
+		end
 	"
 	onClose
 	"
@@ -6865,6 +6879,10 @@ menu
 		Infinity_PopMenu('ITEM_DESCRIPTION')
 		popSidebars()
 		TT_DestroyTitleChars('INVENTORY_TITLE', 'TEMPLATE_titlechar_INVENTORY')
+		if noPauseInInventory == 1  then
+			if wasPaused then worldScreen:TogglePauseGame(true) end
+			table.remove(combatLog)
+		end
 	"
 	label
 	{
@@ -8832,6 +8850,7 @@ menu
 		if(startEngine:GetCampaign() == const.START_CAMPAIGN_BG) then
 			startEngine:OnSoAButtonClick(false)
 		end
+		makeBamList()
 	"
 	onClose "
 		local state = startEngine:GetEngineState()
@@ -10440,7 +10459,6 @@ menu
 	"
 		currentContingencyCondition = 0
 		currentContingencyTarget = 0
-		makeBamList()
 		TT_BuildTitleData(mageBookTitle(), 606, true)
 		TT_CreateTitleChars(mageBookTitle(), 'TT_CHOOSE_CONTINGENCY', 44, 'TEMPLATE_titlechar_CHOOSE_CONTINGENCY')
 		ticksStarting = 0
@@ -10727,7 +10745,6 @@ menu
 				text color S
 			}
 		}
-	}
 		enabled "showContingency == true"
 		area 500 182 198 232
 		rowheight 32
@@ -13136,6 +13153,7 @@ menu
 	}
 	edit
 	{
+		name "StoreSearchStringArea"
 		area	45 155 205 25
 		var StoreSearchString
 		--placeholder '...'
@@ -13143,6 +13161,11 @@ menu
 		text color 'B'
 		maxlines 1
 		align left center
+	}
+	label
+	{
+		on F
+		action "Infinity_FocusTextEdit('StoreSearchStringArea')"
 	}
 	button
 	{
@@ -13406,13 +13429,14 @@ menu
 		"
 		actionUpdate 
 		"	
-			ticksStartingTwo = ticksStarting + 1
+			ticksStartingTwo = ticksStartingTwo + 1
 			if ticksStartingTwo > 10 then
 				ticksPassed = ticksPassed + 1
 				if ticksPassed > 3 then
 					ticksPassed = 0
 				end
 			end
+			rowSelected = nil
 		"
 	}
 		
@@ -16016,7 +16040,7 @@ menu
 	button
 	{
 		enabled "containerBigMode == 1"
-		area 421 12 68 100
+		area 423 18 68 100
 		encumbrance
 	}
 	button
@@ -17611,18 +17635,36 @@ end
 		toolbarTop = toolbarTop - newY
 		Infinity_SetOffset('WORLD_QUICKLOOT',0, -toolbarTop)
 		
+		adjustItemGroup({"gamelogSearchStringArea", "gamelogSearchStringTextField", "gamelogSearchStringAreaX"},0,newY,0,0)
+		
 		chatboxScrollToBottom = 1
 		worldMessageBoxTop = y + newY
  end
- 
-   function markBackstab(str)
-		local x = string.find(str, "Backstab")
+ gamelogSearchString = ""
+ function formatGamelog(str)
+	str=markBackstab(str)
+	str=markWildSurge(str)
+	if (gamelogSearchString == nil or gamelogSearchString == "") then return str end --no search string, do nothing
+	if string.lower(str):find(string.gsub(string.lower(gamelogSearchString), ' ', '')) ~=nil then --to lower case, remove spaces
+		return str
+	else
+		if string.lower(gamelogSearchString):find(string.lower(' ')) ~=nil then return nil
+		else return ' ' end
+	end
+ end
+  function markBackstab(str)
+		local x = string.find(str, t(JFStrings.Backstab))
 		if x == nil then return str
 		else
 			local a = string.sub(str, 1, x-1)
 			local y = string.sub(str, x, string.len(str))
-			return a .. '^0xFFFF00FF' .. y .. '^-'
+			--return a .. '^0xFFFF3399' .. y .. '^-'
+			return a .. '^0xFF0000' .. string.format("%x", 55+(Infinity_GetFrameCounter()%11)*20) .. y .. '^-'
 		end
+ end  
+ function markWildSurge(str)
+		local surge = t(JFStrings.WildSurge)
+		return string.gsub(str, surge, '^0xFFFF00' .. string.format("%x", 55+(Infinity_GetFrameCounter()%11)*20) .. surge .. '^-')
  end
 `
 menu
@@ -17637,11 +17679,14 @@ menu
 		local x,y,w,h = Infinity_GetArea('messagesRect')
 		toolbarTop = toolbarTop + h
 		setMessagesY(worldMessageBoxTop - y)
+		gamelogSearchActive = 0
 	"
 	onClose
 	"
 		local x,y,w,h = Infinity_GetArea('messagesRect')
 		toolbarTop = toolbarTop - h
+		gamelogSearchActive = 0
+		gamelogSearchString = ''
 	"
 	label
 	{
@@ -17654,6 +17699,72 @@ menu
 		area 0 140 794 7
 		mosaic box5B
 	}
+	-----SEARCH
+	label
+	{
+		enabled "gamelogSearchActive"
+		name "gamelogSearchStringArea"
+		area	227 -10 340 32
+		bam 'GUICHLNG'
+	}
+	edit
+	{
+		enabled "gamelogSearchActive"
+		name "gamelogSearchStringTextField"
+		area	227 -10 310 32
+		var gamelogSearchString
+		pulse "gamelogSearchString == ''"
+		placeholder '...'
+		text style "gamelog"
+		maxlines 1
+		text align center center
+	}
+	label
+	{
+		on return
+		action
+		"
+		if gamelogSearchActive == 0 then 
+			 gamelogSearchActive = 1
+			 Infinity_FocusTextEdit('gamelogSearchStringTextField')
+		 else
+			gamelogSearchString = ''
+			gamelogSearchActive = 0
+		end
+		"
+	}
+	label
+	{
+		enabled "gamelogSearchActive"
+		on F
+		action "Infinity_FocusTextEdit('gamelogSearchStringTextField')"
+	}
+	label
+	{
+		enabled "gamelogSearchActive or gamelogSearchString ~= ''"
+		on escape
+		action
+		"
+		if gamelogSearchActive == 1 then
+			gamelogSearchString = ''
+			gamelogSearchActive = 0
+		end
+		"
+	}
+	button
+	{
+		name "gamelogSearchStringAreaX"
+		area 537 -4 18 28
+		enabled "gamelogSearchString ~= '' and gamelogSearchActive"
+		text "X"
+		text style "gamelog"
+		text color "R"
+		action
+		"
+			gamelogSearchString = ''
+		"
+	}
+	-----SEARCH END
 	list
 	{
 		column
@@ -17662,9 +17773,8 @@ menu
 			label
 			{
 				area 0 0 -1 -1
-				text lua "markBackstab(combatLog[rowNumber])"
+				text lua "formatGamelog(combatLog[rowNumber])"
 				text style "gamelog"
-				text shadow 1
 			}	
 		}
 		name "worldMessageBox"
@@ -26448,6 +26558,12 @@ function buildQuestDisplay()
 					objective.objective = 1
 					objective.parent = curQuestIdx
 					
+					--fix for missing data in bg1 and bg2.
+					--if we have an objective title unique from the quest, use it. otherwise use the timestamp from my first(only) entry.
+					if(objective.text == Infinity_FetchString(quest.text) or objective.text == nil) then
+						objective.text = objective.entries[1].timeStamp
+					end
+					
 					if(objective.stateType ~= const.ENTRY_TYPE_INFO) then
 						--info entries should not go into quests
 						table.insert(questDisplay, objective)
@@ -28601,7 +28717,7 @@ menu
 	label
 	{
 
-		area 0 1536 80 1536
+		area 0 1536 83 1536
 		mosaic GUIWLSP
 	}
 	button
