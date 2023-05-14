@@ -1,0 +1,10 @@
+BACKUP ~weidu_external/backup/classic-bg-ui~
+
+AUTHOR ~Author Name (author's email address)~
+
+AUTO_EVAL_STRINGS
+
+VERSION ~1.61~
+
+BEGIN ~Classic BG1 UI~ DESIGNATED 100
+    COPY ~%MOD_FOLDER%/override~ ~override~
