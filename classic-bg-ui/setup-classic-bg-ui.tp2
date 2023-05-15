@@ -7,4 +7,5 @@ AUTO_EVAL_STRINGS
 VERSION ~1.61~
 
 BEGIN ~Classic BG1 UI~ DESIGNATED 100
+REQUIRE_PREDICATE GAME_IS ~bgee~ ~This component is not available for your game.~
     COPY ~%MOD_FOLDER%/override~ ~override~
