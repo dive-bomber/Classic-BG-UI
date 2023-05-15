@@ -190,7 +190,6 @@ REQUIRE_PREDICATE GAME_IS ~bgee~ ~This component is not available for your game.
          ~%MOD_FOLDER%/override/BPEND.PNG~ ~override~
          ~%MOD_FOLDER%/override/GUICGWDE.PNG~ ~override~
          ~%MOD_FOLDER%/override/MOS4024.PVRZ~ ~override~
-         ~%MOD_FOLDER%/override/ui.menu~ ~override~
          ~%MOD_FOLDER%/override/GUIMGB.PNG~ ~override~
          ~%MOD_FOLDER%/override/GUICHP1A.PNG~ ~override~
          ~%MOD_FOLDER%/override/guipop46.PNG~ ~override~
@@ -312,3 +311,9 @@ REQUIRE_PREDICATE GAME_IS ~bgee~ ~This component is not available for your game.
          ~%MOD_FOLDER%/override/STONSLOT.BAM~ ~override~
          ~%MOD_FOLDER%/override/MOS4011.PVRZ~ ~override~
          ~%MOD_FOLDER%/override/M_JFlang.lua~ ~override~
+    ACTION_IF MOD_IS_INSTALLED ~stratagems/setup-stratagems.tp2~ ~5900~ THEN BEGIN
+        COPY ~%MOD_FOLDER%/override/ui.menu~ ~override~
+            REPLACE_TEXTUALLY ~iHaveSCS = false~ ~iHaveSCS = true~
+    END ELSE BEGIN
+        COPY ~%MOD_FOLDER%/override/ui.menu~ ~override~
+    END
